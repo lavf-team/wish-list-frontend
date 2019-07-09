@@ -1,0 +1,14 @@
+@import '../../styles/constants';
+
+.friend {
+  display: flex;
+
+  &__info {
+    margin-left: $global-spacing-medium;
+    font-size: $global-font-size-medium-big;
+  }
+
+  &__name {
+    margin-bottom: $global-spacing-medium;
+  }
+}

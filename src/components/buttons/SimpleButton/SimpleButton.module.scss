@@ -1,0 +1,31 @@
+@import '../../../styles/constants';
+
+.simple-button {
+  display: inline-block;
+  align-items: center;
+  border-radius: 20px;
+  cursor: pointer;
+
+  &_medium {
+    padding:  $global-spacing-tiny $global-spacing-medium;
+  }
+
+  &_large {
+    height: 40px;
+  }
+
+  &_blue {
+    background: linear-gradient(79deg, $global-linear-top-blue-color, $global-linear-bot-blue-color);
+    color: #FFFFFF;
+  }
+
+  &_light {
+    background: linear-gradient(73deg, $global-linear-top-white-color, $global-linear-bot-white-color);
+    color: #000000;
+  }
+
+  &__text {
+    letter-spacing: 0;
+    font-size: $global-font-size-tiny;
+  }
+}
