@@ -1,29 +1,27 @@
 import React from 'react';
-import logo from '../img/logo.svg';
 import styles from './App.module.scss';
-import classNames from '../libs/classNames';
+import FriendsPage from './FriendsPage';
+import { Pages } from './config.ts';
+import defaultUser from '../img/defaultUser.jpg';
+const classNames = require('classnames/bind');
 
-const cn = classNames(styles);
+const cn = classNames.bind(styles);
 
-function App() {
-  return (
-    <div className={cn('App')}>
-      <header className={cn('App-header')}>
-        <img src={logo} className={cn('App-logo')} alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className={cn('App-link')}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+    state = {
+        curPage: Pages.FRIENDS,
+        user: {
+            nickname: 'Антон Чащин',
+            avatar: defaultUser
+        }
+    };
+
+    render() {
+        const { curPage, user } = this.state;
+        return (
+            <div className={cn('app')}>
+                {curPage === Pages.FRIENDS && <FriendsPage user={user}/>}
+            </div>
+        );
+    }
 }
-
-export default App;

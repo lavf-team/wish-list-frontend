@@ -1,0 +1,43 @@
+@import '../../styles/mixins';
+@import '../../styles/constants';
+
+.friends-page {
+  &__header {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &__nickname {
+    display: inline-block;
+    margin-left: $global-spacing-small;
+
+    @include link-text;
+  }
+
+  &__loader {
+    @include absoluteCenter;
+  }
+
+  &__back-button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    @include link-text;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    margin: $global-spacing-medium auto;
+
+    @include title-text;
+  }
+
+  &__input {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}

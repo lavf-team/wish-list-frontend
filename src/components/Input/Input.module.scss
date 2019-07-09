@@ -1,0 +1,33 @@
+@import '../../styles/constants';
+
+.input {
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  border: 1px solid $global-gray-color;
+  border-radius: $global-border-radius-medium;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__field {
+    width: 100%;
+    height: 100%;
+    line-height: $global-input-height;
+    padding: 0 $global-spacing-medium;
+    font-size: $global-font-size-medium;
+    color: #000000;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__placeholder {
+    position: absolute;
+    top: 50%;
+    left: $global-spacing-medium;
+    transform: translateY(-50%);
+    color: $global-gray-color;
+    font-size: $global-font-size-medium;
+    z-index: 1;
+  }
+}

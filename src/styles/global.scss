@@ -1,0 +1,36 @@
+@import '../styles/constants';
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: $global-font-size-medium;
+}
+
+a {
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+#root {
+  height: 100%;
+}

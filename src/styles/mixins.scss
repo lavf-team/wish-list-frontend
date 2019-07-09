@@ -1,0 +1,18 @@
+@import "constants";
+
+@mixin link-text() {
+  color: $global-blue-color;
+  font-size: $global-font-size-medium;
+}
+
+@mixin title-text() {
+  color: #000000;
+  font-size: $global-font-size-big;
+}
+
+@mixin absoluteCenter() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
