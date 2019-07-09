@@ -1,17 +1,20 @@
 import React from 'react';
 import logo from '../img/logo.svg';
-import './App.scss';
+import styles from './App.module.scss';
+import classNames from '../libs/classNames';
+
+const cn = classNames(styles);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className={cn('App')}>
+      <header className={cn('App-header')}>
+        <img src={logo} className={cn('App-logo')} alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
-          className="App-link"
+          className={cn('App-link')}
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
