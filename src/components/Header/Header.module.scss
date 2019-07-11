@@ -1,0 +1,24 @@
+@import '../../styles/mixins';
+
+.header {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &__nickname {
+    display: inline-block;
+    margin-left: $global-spacing-small;
+
+    @include linkText;
+  }
+
+  &__back-link {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    @include linkText;
+  }
+}
+

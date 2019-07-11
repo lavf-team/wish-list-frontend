@@ -11,7 +11,8 @@ export default class App extends React.Component {
     state = {
         curPage: Pages.FRIENDS,
         user: {
-            nickname: 'Антон Чащин',
+            name: 'Антон',
+            surname: 'Чащин',
             avatar: defaultUser
         }
     };

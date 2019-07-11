@@ -1,0 +1,20 @@
+@import '../../styles/constants';
+@import '../../styles/_include-media';
+
+.tip {
+
+ &__emoji {
+ display: block;
+  text-align: center;
+  font-size: $global-font-size-large;
+ }
+
+ &__text {
+  text-align: center;
+  font-size: $global-font-size-medium-big;
+
+  @include media('<=phone') {
+   font-size: $global-font-size-medium;
+  }
+ }
+}

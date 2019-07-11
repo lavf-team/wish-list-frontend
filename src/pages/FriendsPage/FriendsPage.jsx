@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from './FriendsPage.module.scss';
-import Avatar from "../../components/Avatar";
 import Input from "../../components/Input";
 import Loader from "../../components/Loader";
 import defaultUser from '../../img/defaultUser.jpg';
 import Friend from "../../components/Friend/Friend";
-import SimpleButton from "../../components/buttons/SimpleButton/SimpleButton";
+import SimpleButton from '../../components/buttons/SimpleButton';
 import { buttonStyles } from '../../components/buttons/SimpleButton/config.ts';
+import Header from '../../components/Header';
+import Tip from '../../components/Tip';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -16,27 +17,29 @@ export default class FriendsPage extends React.Component {
     state = {
         input: {
             type: 'text',
-            placeholder: 'Начни вводить имя своего друга',
+            placeholder: window.getIsMobile() ?
+                'Введите имя друга' :
+                'Начни вводить имя своего друга',
             value: '',
         },
         isLoad: false,
         friends: [
-            {
-            name: 'Сергей Чернобровкин',
-            avatar: defaultUser,
-            },
-            {
-                name: 'Сергей Чернобровкин',
-                avatar: defaultUser,
-            },
-            {
-                name: 'Сергей Чернобровкин',
-                avatar: defaultUser,
-            },
-            {
-                name: 'Сергей Чернобровкин',
-                avatar: defaultUser,
-            }
+            // {
+            // name: 'Сергей Чернобровкин',
+            // avatar: defaultUser,
+            // },
+            // {
+            //     name: 'Сергей Чернобровкин',
+            //     avatar: defaultUser,
+            // },
+            // {
+            //     name: 'Сергей Чернобровкин',
+            //     avatar: defaultUser,
+            // },
+            // {
+            //     name: 'Сергей Чернобровкин',
+            //     avatar: defaultUser,
+            // }
         ],
         hasMore: true,
     };
@@ -60,11 +63,7 @@ export default class FriendsPage extends React.Component {
         } = this.state;
         return (
             <div className={cn('friends-page')}>
-                <div className={cn('friends-page__header')}>
-                    <Avatar avatar={user.avatar}/>
-                    <a className={cn('friends-page__nickname')}>{user.nickname}</a>
-                    <a className={cn('friends-page__back-button')}>Вернуться к поиску</a>
-                </div>
+                <Header user={user} />
                 <div className={cn('friends-page__title')}>Мои друзья 😜</div>
                 <Input
                     placeholder={placeholder}
@@ -90,7 +89,10 @@ export default class FriendsPage extends React.Component {
                                 />
                             </div>)}
                     </div>
-                ) : null}
+                ) : (<Tip
+                    className={cn('friends-page__tip')}
+                    text={'Кажется, у тебя нет друзей'}
+                />)}
             </div>
         );
     }

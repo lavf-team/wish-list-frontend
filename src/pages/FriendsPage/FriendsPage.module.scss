@@ -1,32 +1,10 @@
 @import '../../styles/mixins';
 @import '../../styles/constants';
+@import '../../styles/_include-media';
 
 .friends-page {
-
-  &__header {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  &__nickname {
-    display: inline-block;
-    margin-left: $global-spacing-small;
-
-    @include link-text;
-  }
-
   &__loader {
     @include absoluteCenter;
-  }
-
-  &__back-button {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-
-    @include link-text;
   }
 
   &__title {
@@ -34,7 +12,11 @@
     justify-content: center;
     margin: $global-spacing-medium auto;
 
-    @include title-text;
+    @include titleText;
+
+    @include media('<=phone') {
+      @include mobileTitleText;
+    }
   }
 
   &__input {
@@ -55,5 +37,9 @@
     display: flex;
     justify-content: center;
     margin-top: $global-spacing-large;
+  }
+
+  &__tip {
+    @include absoluteCenter;
   }
 }
