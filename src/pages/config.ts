@@ -1,4 +1,5 @@
  export enum Pages {
   FRIENDS = 'FRIENDS',
-   MYPAGE = 'MYPAGE'
+   MYPAGE = 'MYPAGE',
+     OTHERUSERPAGE='OtherUserPage',
 }

@@ -9,11 +9,10 @@ const cn = classNames.bind(styles);
 
 export default class User extends React.Component {
     render() {
-        const { avatar, name, surname, className } = this.props;
-        const userClassName = `${className} ${cn('user')}`;
+        const { avatar, name, surname, className, text1, text2 } = this.props;
 
         return (
-            <div className={userClassName}>
+            <div className={cn('user')}>
                 <Avatar avatar={avatar} size={'big'}/>
                 <div className={cn('user__info')}>
                     <div className={cn('user__fullname')}>
@@ -21,8 +20,8 @@ export default class User extends React.Component {
                     </div>
 
                     <div className={cn('user__wish')}>
-                        <button className={cn('user__give')}>Хочу подарить</button>
-                        <button className={cn('user__receive')}>Хочу получить</button>
+                        <button className={cn('user__give')}>{text1}</button>
+                        <button className={cn('user__receive')}>{text2}</button>
                     </div>
 
 
