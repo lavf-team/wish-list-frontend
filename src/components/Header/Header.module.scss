@@ -6,19 +6,39 @@
   position: relative;
 
   &__nickname {
-    display: inline-block;
+    //display: inline-block;
     margin-left: $global-spacing-small;
 
     @include linkText;
   }
 
-  &__back-link {
+  &_right {
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  &__back-link {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 
     @include linkText;
+  }
+
+  &__my-friends {
+    display: inline-block;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: $global-spacing-big;
+
+    @include linkText;
+  }
+
+  &__avatars-block {
+    display: inline-block;
+    right: 0;
   }
 }
 

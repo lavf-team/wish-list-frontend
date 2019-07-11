@@ -12,7 +12,7 @@ const cn = classNames.bind(styles);
 
 export default class App extends React.Component {
     state = {
-        curPage: Pages.OTHERUSERPAGE,
+        curPage: Pages.MYPAGE,
         user: {
             name: 'Антон',
             surname: 'Чащин',

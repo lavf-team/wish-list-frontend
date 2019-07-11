@@ -12,7 +12,7 @@ export default class MyPage extends React.Component {
         const { user } = this.props;
         return (
             <div>
-                <Header user={user} />
+                <Header page='MYPAGE' user={user} />
                 <User
                     name={user.name}
                     surname={user.surname}
