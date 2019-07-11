@@ -1,13 +1,18 @@
 @import "constants";
 
-@mixin link-text() {
+@mixin linkText() {
   color: $global-blue-color;
   font-size: $global-font-size-medium;
 }
 
-@mixin title-text() {
+@mixin titleText() {
   color: #000000;
   font-size: $global-font-size-big;
+}
+
+@mixin mobileTitleText() {
+  color: #000000;
+  font-size: $global-font-size-medium-large;
 }
 
 @mixin absoluteCenter() {

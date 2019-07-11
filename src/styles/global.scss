@@ -34,3 +34,10 @@ input {
 #root {
   height: 100%;
 }
+
+button {
+  outline: none;
+  background: transparent;
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+}
