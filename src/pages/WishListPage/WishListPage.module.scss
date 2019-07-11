@@ -1,0 +1,44 @@
+@import '../../styles/mixins';
+@import '../../styles/constants';
+@import '../../styles/_include-media';
+
+.wish-list {
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    margin: $global-spacing-medium auto;
+
+    @include titleText;
+
+    @include media('<=phone') {
+      @include mobileTitleText;
+    }
+  }
+
+  &__input {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  &__content {
+    margin-top: $global-spacing-large;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__popular-text {
+    font-size: $global-font-size-medium-large;
+    text-align: center;
+  }
+
+  &__list {
+    margin-top: $global-spacing-large;
+
+  }
+
+  &__wish {
+    margin: 5px;
+  }
+}

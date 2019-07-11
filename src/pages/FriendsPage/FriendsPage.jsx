@@ -8,6 +8,7 @@ import SimpleButton from '../../components/buttons/SimpleButton';
 import { buttonStyles } from '../../components/buttons/SimpleButton/config.ts';
 import Header from '../../components/Header';
 import Tip from '../../components/Tip';
+import { Pages } from '../config';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -63,7 +64,7 @@ export default class FriendsPage extends React.Component {
         } = this.state;
         return (
             <div className={cn('friends-page')}>
-                <Header user={user} />
+                <Header page={Pages.WISH_LIST} user={user} />
                 <div className={cn('friends-page__title')}>Мои друзья 😜</div>
                 <Input
                     placeholder={placeholder}

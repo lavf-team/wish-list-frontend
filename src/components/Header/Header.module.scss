@@ -2,9 +2,15 @@
 
 .header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   position: relative;
 
+  &__user-profile {
+    display: flex;
+    align-items: center;
+  }
+  
   &__nickname {
     display: inline-block;
     margin-left: $global-spacing-small;
@@ -13,11 +19,6 @@
   }
 
   &__back-link {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-
     @include linkText;
   }
 }

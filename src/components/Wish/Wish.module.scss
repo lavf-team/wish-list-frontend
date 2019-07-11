@@ -1,0 +1,13 @@
+@import '../../styles/include-media';
+
+.wish {
+  padding: 5px;
+  height: 400px;
+  background: #6700ff;
+
+  width: 200px;
+
+  @include media('<=phone') {
+    width: 33%;
+  }
+}
