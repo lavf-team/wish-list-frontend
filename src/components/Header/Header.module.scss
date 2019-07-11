@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  color: blue;
+  padding: 20px;
+
+  &_right {
+    margin-right: 20px;
+    margin-left: auto;
+  }
+}
