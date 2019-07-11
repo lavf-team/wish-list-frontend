@@ -1,3 +1,4 @@
  export enum Pages {
-  FRIENDS = 'FRIENDS'
+  FRIENDS = 'FRIENDS',
+   MYPAGE = 'MYPAGE'
 }

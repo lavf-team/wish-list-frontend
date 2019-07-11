@@ -1,0 +1,31 @@
+@import '../../styles/constants';
+
+.user {
+  display: flex;
+  margin-top: $global-spacing-medium;
+  margin-bottom: $global-spacing-medium;
+
+  &__info {
+    margin-left: $global-spacing-medium;
+    font-size: $global-font-size-medium-big;
+  }
+
+  &__fullname {
+    display: flex;
+    justify-content: space-between;
+    font-size: $global-font-size-big;
+  }
+
+  &__wish {
+    margin-bottom: $global-spacing-small;
+  }
+
+  &__give {
+    font-size: $global-font-size-medium;
+    margin-right: $global-spacing-medium;
+  }
+
+  &__receive {
+    font-size: $global-font-size-medium;
+  }
+}

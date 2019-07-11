@@ -1,15 +1,17 @@
 import React from 'react';
 import styles from './App.module.scss';
 import FriendsPage from './FriendsPage';
+import MyPage from './MyPage';
 import { Pages } from './config.ts';
 import defaultUser from '../img/defaultUser.jpg';
+import Friend from "../components/Friend";
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
 export default class App extends React.Component {
     state = {
-        curPage: Pages.FRIENDS,
+        curPage: Pages.MYPAGE,
         user: {
             name: 'Антон',
             surname: 'Чащин',
@@ -22,6 +24,7 @@ export default class App extends React.Component {
         return (
             <div className={cn('app')}>
                 {curPage === Pages.FRIENDS && <FriendsPage user={user}/>}
+                {curPage === Pages.MYPAGE && <MyPage user={user}/>}
             </div>
         );
     }
