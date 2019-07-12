@@ -2,6 +2,7 @@ import React from 'react';
 import Avatar from '../Avatar';
 import styles from './Header.module.scss';
 import { Pages } from '../../pages/config.ts';
+import { Link } from 'react-router-dom';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -23,15 +24,15 @@ export default class Header extends React.Component {
                         <a className={cn('header__nickname')}>{isMobile ? name : `${name} ${surname}`}</a>
                     </div>)}
                 {(page !== Pages.WISH_LIST) && (
-                    <a className={cn('header__back-link')}>
+                    <Link to='/wish-list' className={cn('header__back-link')}>
                         { isMobile ? 'Поиск' : 'Вернуться к поиску'}
-                    </a>
+                    </Link>
                 )}
                 {(page !== Pages.FRIENDS) &&
                 (<div className={cn('header__friends')}>
-                    <a className={cn('header__friends-title')}>
+                    <Link to='/friends' className={cn('header__friends-title')}>
                         {isMobile ? 'Друзья' : 'Мои друзья'}
-                    </a>
+                    </Link>
                     {!isMobile && avatars.length ? (
                         <div className={cn('header__friends-avatars')}>
                             {avatars.map((avatar, i) => (

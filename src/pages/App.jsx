@@ -4,13 +4,13 @@ import FriendsPage from './FriendsPage';
 import { Pages } from './config.ts';
 import defaultUser from '../img/defaultUser.jpg';
 import WishListPage from "./WishListPage/WishListPage";
+import {BrowserRouter, Route} from 'react-router-dom';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
 export default class App extends React.Component {
     state = {
-        curPage: Pages.WISH_LIST,
         user: {
             name: 'Антон',
             surname: 'Чащин',
@@ -19,12 +19,19 @@ export default class App extends React.Component {
     };
 
     render() {
-        const { curPage, user } = this.state;
+        const { user } = this.state;
         return (
-            <div className={cn('app')}>
-                {curPage === Pages.FRIENDS && <FriendsPage user={user}/>}
-                {curPage === Pages.WISH_LIST && <WishListPage user={user}/>}
-            </div>
+            <BrowserRouter>
+                <div className={cn('app')}>
+                    <Route path='/friends'
+                           render={(props) => <FriendsPage {...props} user={user}/>}
+                    />
+                    <Route
+                        path='/wish-list'
+                        render={(props) => <WishListPage {...props} user={user}/>}
+                    />
+                </div>
+            </BrowserRouter>
         );
     }
 }

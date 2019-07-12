@@ -62,6 +62,7 @@ export default class FriendsPage extends React.Component {
             friends,
             hasMore,
         } = this.state;
+        console.log(this.props);
         return (
             <div className={cn('friends-page')}>
                 <Header page={Pages.FRIENDS} user={user} />
@@ -75,8 +76,9 @@ export default class FriendsPage extends React.Component {
                 />
                 {(!isLoad && !!friends.length) ? (
                     <div className={cn('friends-page__friends')}>
-                        {friends.map(({name, avatar}) =>
+                        {friends.map(({name, avatar}, i) =>
                             (<Friend
+                                key={i}
                                 name={name}
                                 avatar={avatar}
                                 className={cn('friends-page__friend')}
