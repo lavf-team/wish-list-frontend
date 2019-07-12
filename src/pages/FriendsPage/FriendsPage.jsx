@@ -62,7 +62,8 @@ export default class FriendsPage extends React.Component {
             friends,
             hasMore,
         } = this.state;
-        console.log(this.props);
+
+
         return (
             <div className={cn('friends-page')}>
                 <Header page={Pages.FRIENDS} user={user} />

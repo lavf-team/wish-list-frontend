@@ -1,36 +1,42 @@
 import React from 'react';
 import Avatar from '../Avatar';
 import styles from './Header.module.scss';
-import { Pages } from '../../pages/config.ts';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import matchUrl, { Pages } from '../../utils/matchUrl';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     render() {
         const {
             user : { name, surname, avatar },
-            page,
             avatars = [],
+            match : { url },
         } = this.props;
         const isMobile = window.getIsMobile();
+        const page = matchUrl(url);
 
         return (
             <div className={cn('header')}>
-                {(page !== Pages.PROFILE) && (
+                {(page !== Pages.PROFILE.title) && (
                     <div className={cn('header__user-profile')}>
                         <Avatar avatar={avatar}/>
                         <a className={cn('header__nickname')}>{isMobile ? name : `${name} ${surname}`}</a>
                     </div>)}
-                {(page !== Pages.WISH_LIST) && (
-                    <Link to='/wish-list' className={cn('header__back-link')}>
+                {(page !== Pages.WISH_LIST.title) && (
+                    <Link
+                        to={{
+                            pathname: '/wish-list',
+                            state: {page: Pages.WISH_LIST}
+                        }}
+                          className={cn('header__back-link')}>
                         { isMobile ? 'Поиск' : 'Вернуться к поиску'}
                     </Link>
                 )}
-                {(page !== Pages.FRIENDS) &&
+                {(page !== Pages.FRIENDS.title) &&
                 (<div className={cn('header__friends')}>
-                    <Link to='/friends' className={cn('header__friends-title')}>
+                    <Link to='/friends' state={'opa'} className={cn('header__friends-title')}>
                         {isMobile ? 'Друзья' : 'Мои друзья'}
                     </Link>
                     {!isMobile && avatars.length ? (
@@ -50,3 +56,5 @@ export default class Header extends React.Component {
         );
     }
 }
+
+export default withRouter(Header);

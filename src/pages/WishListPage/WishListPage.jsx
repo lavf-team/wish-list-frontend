@@ -90,6 +90,7 @@ export default class WishListPage extends React.Component {
             avatars
         } = this.state;
 
+
         return (
             <div className={cn('wish-list')}>
                 <Header
