@@ -25,22 +25,22 @@ export default class FriendsPage extends React.Component {
         },
         isLoad: false,
         friends: [
-            // {
-            // name: 'Сергей Чернобровкин',
-            // avatar: defaultUser,
-            // },
-            // {
-            //     name: 'Сергей Чернобровкин',
-            //     avatar: defaultUser,
-            // },
-            // {
-            //     name: 'Сергей Чернобровкин',
-            //     avatar: defaultUser,
-            // },
-            // {
-            //     name: 'Сергей Чернобровкин',
-            //     avatar: defaultUser,
-            // }
+            {
+            name: 'Сергей Чернобровкин',
+            avatar: defaultUser,
+            },
+            {
+                name: 'Сергей Чернобровкин',
+                avatar: defaultUser,
+            },
+            {
+                name: 'Сергей Чернобровкин',
+                avatar: defaultUser,
+            },
+            {
+                name: 'Сергей Чернобровкин',
+                avatar: defaultUser,
+            }
         ],
         hasMore: true,
     };
@@ -64,7 +64,7 @@ export default class FriendsPage extends React.Component {
         } = this.state;
         return (
             <div className={cn('friends-page')}>
-                <Header page={Pages.WISH_LIST} user={user} />
+                <Header page={Pages.FRIENDS} user={user} />
                 <div className={cn('friends-page__title')}>Мои друзья 😜</div>
                 <Input
                     placeholder={placeholder}
@@ -73,7 +73,6 @@ export default class FriendsPage extends React.Component {
                     className={cn('friends-page__input')}
                     onChange={this.handleChangeValue}
                 />
-                {isLoad && (<Loader className={cn('friends-page__loader')} />)}
                 {(!isLoad && !!friends.length) ? (
                     <div className={cn('friends-page__friends')}>
                         {friends.map(({name, avatar}) =>
@@ -90,10 +89,14 @@ export default class FriendsPage extends React.Component {
                                 />
                             </div>)}
                     </div>
-                ) : (<Tip
-                    className={cn('friends-page__tip')}
-                    text={'Кажется, у тебя нет друзей'}
-                />)}
+                ) : isLoad ?
+                    (<div className={cn('friends-page__loader-container')}>
+                        <Loader />
+                    </div>) :
+                    (<Tip
+                        className={cn('friends-page__tip')}
+                        text={'Кажется, у тебя нет друзей'}
+                    />)}
             </div>
         );
     }

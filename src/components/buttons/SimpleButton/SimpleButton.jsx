@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './SimpleButton.module.scss';
-import { buttonStyles } from './config.ts';
+import { buttonStyles, buttonSizes } from './config.ts';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -8,7 +8,7 @@ const cn = classNames.bind(styles);
 export default class SimpleButton extends React.Component {
     render() {
         const {
-            size = 'medium',
+            size = buttonSizes.MEDIUM,
             text = '',
             style = buttonStyles.BLUE,
             className = '',

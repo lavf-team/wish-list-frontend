@@ -1,6 +1,8 @@
 @import '../../styles/mixins';
 
 .header {
+  $local-spacing: 20px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,6 +22,29 @@
 
   &__back-link {
     @include linkText;
+  }
+
+  &__friends {
+    display: flex;
+    align-items: center;
+  }
+
+  &__friends-title {
+    @include linkText;
+  }
+
+  &__friends-avatars {
+    margin-left: $global-spacing-small;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  &__friend-avatar {
+    margin-right: -$local-spacing;
+
+    &:first-child {
+      margin-right: 0;
+    }
   }
 }
 

@@ -1,8 +1,7 @@
-@import '../../styles/mixins';
-@import '../../styles/constants';
-@import '../../styles/_include-media';
+@import '../../styles/styles';
 
 .wish-list {
+  $local-spacing: calc((752px - 3 * 200px) / 4);
 
   &__title {
     display: flex;
@@ -35,10 +34,15 @@
 
   &__list {
     margin-top: $global-spacing-large;
-
   }
 
   &__wish {
-    margin: 5px;
+    margin: 0 0 $local-spacing $local-spacing;
+  }
+
+  &__loader-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
   }
 }

@@ -8,7 +8,11 @@ const cn = classNames.bind(styles);
 
 export default class Header extends React.Component {
     render() {
-        const { user : { name, surname, avatar }, page} = this.props;
+        const {
+            user : { name, surname, avatar },
+            page,
+            avatars = [],
+        } = this.props;
         const isMobile = window.getIsMobile();
 
         return (
@@ -16,14 +20,31 @@ export default class Header extends React.Component {
                 {(page !== Pages.PROFILE) && (
                     <div className={cn('header__user-profile')}>
                         <Avatar avatar={avatar}/>
-                        <button className={cn('header__nickname')}>{isMobile ? name : `${name} ${surname}`}</button>
+                        <a className={cn('header__nickname')}>{isMobile ? name : `${name} ${surname}`}</a>
                     </div>)}
                 {(page !== Pages.WISH_LIST) && (
-                    <button className={cn('header__back-link')}>
+                    <a className={cn('header__back-link')}>
                         { isMobile ? 'Поиск' : 'Вернуться к поиску'}
-                    </button>
+                    </a>
                 )}
-                {(page !== Pages.FRIENDS) && <div>Мои друзья</div>}
+                {(page !== Pages.FRIENDS) &&
+                (<div className={cn('header__friends')}>
+                    <a className={cn('header__friends-title')}>
+                        {isMobile ? 'Друзья' : 'Мои друзья'}
+                    </a>
+                    {!isMobile && avatars.length ? (
+                        <div className={cn('header__friends-avatars')}>
+                            {avatars.map((avatar, i) => (
+                                <Avatar
+                                    key={i}
+                                    avatar={avatar}
+                                    className={cn('header__friend-avatar')}
+                                />
+                            ))}
+                        </div>
+                    ) : null}
+                </div>)
+                }
             </div>
         );
     }

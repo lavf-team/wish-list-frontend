@@ -1,13 +1,21 @@
-@import '../../styles/include-media';
+@import '../../styles/styles';
 
 .wish {
-  padding: 5px;
-  height: 400px;
-  background: #6700ff;
-
   width: 200px;
 
-  @include media('<=phone') {
-    width: 33%;
+  &__title {
+    font-size: $global-font-size-medium;
+    margin: $global-spacing-small 0 $global-spacing-extra-tiny;
+  }
+
+  &__prize {
+    font-size: $global-font-size-tiny;
+    margin-bottom: $global-spacing-extra-tiny;
+  }
+
+  &__description {
+    color: $global-gray-font-color;
+    font-size: $global-font-size-extra-tiny;
+    margin-bottom: $global-spacing-small;
   }
 }

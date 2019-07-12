@@ -3,6 +3,7 @@ import styles from './Friend.module.scss';
 import Avatar from "../Avatar/Avatar";
 import SimpleButton from "../buttons/SimpleButton";
 import { buttonStyles } from '../buttons/SimpleButton/config.ts';
+import { avatarSize } from '../Avatar/config.ts';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -14,7 +15,7 @@ export default class Friend extends React.Component {
 
         return (
             <div className={friendClassName}>
-                <Avatar avatar={avatar} size={'medium'}/>
+                <Avatar avatar={avatar} size={avatarSize.MEDIUM}/>
                 <div className={cn('friend__info')}>
                     <div className={cn('friend__name')}>{name}</div>
                     <SimpleButton
