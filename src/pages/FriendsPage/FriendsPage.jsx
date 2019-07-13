@@ -5,10 +5,10 @@ import Loader from "../../components/Loader";
 import defaultUser from '../../img/defaultUser.jpg';
 import Friend from "../../components/Friend/Friend";
 import SimpleButton from '../../components/buttons/SimpleButton';
-import { buttonStyles } from '../../components/buttons/SimpleButton/config.ts';
+import { buttonStyles } from '../../components/buttons/config.ts';
 import Header from '../../components/Header';
 import Tip from '../../components/Tip';
-import { Pages } from '../config';
+import RoundButton from "../../components/buttons/RoundButton/RoundButton";
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -62,19 +62,24 @@ export default class FriendsPage extends React.Component {
             friends,
             hasMore,
         } = this.state;
-
+        const isMobile = window.getIsMobile();
 
         return (
             <div className={cn('friends-page')}>
-                <Header user={user} />
-                <div className={cn('friends-page__title')}>Мои друзья 😜</div>
-                <Input
-                    placeholder={placeholder}
-                    type={type}
-                    value={value}
-                    className={cn('friends-page__input')}
-                    onChange={this.handleChangeValue}
+                <Header
+                    user={user}
+                    className={cn('friends-page__header')}
                 />
+                <div className={cn('friends-page__title')}>Мои друзья 😜</div>
+                <div className={cn('friends-page__input-container')}>
+                    <Input
+                        placeholder={placeholder}
+                        type={type}
+                        value={value}
+                        className={cn('friends-page__input')}
+                        onChange={this.handleChangeValue}
+                    />
+                </div>
                 {(!isLoad && !!friends.length) ? (
                     <div className={cn('friends-page__friends')}>
                         {friends.map(({name, avatar}, i) =>
@@ -86,10 +91,15 @@ export default class FriendsPage extends React.Component {
                             />))}
                         {hasMore && (
                             <div className={cn('friends-page__btn-container')}>
-                                <SimpleButton
-                                    text={'Показать еще'}
-                                    style={buttonStyles.LIGHT}
-                                />
+                                {isMobile ? (
+                                    <RoundButton
+                                        text={'Загрузить еще'}
+                                    />) :
+                                    (<SimpleButton
+                                        text={'Показать еще'}
+                                        style={buttonStyles.LIGHT}
+                                    />)
+                                }
                             </div>)}
                     </div>
                 ) : isLoad ?

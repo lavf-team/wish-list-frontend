@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './App.module.scss';
 import FriendsPage from './FriendsPage';
-import { Pages } from './config.ts';
 import defaultUser from '../img/defaultUser.jpg';
 import WishListPage from "./WishListPage/WishListPage";
 import {BrowserRouter, Route} from 'react-router-dom';

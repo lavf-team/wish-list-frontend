@@ -2,7 +2,6 @@ import React from 'react';
 import Masonry from 'react-masonry-component';
 import styles from './WishListPage.module.scss';
 import Header from '../../components/Header';
-import { Pages } from '../config.ts';
 import Input from '../../components/Input';
 import Wish from '../../components/Wish';
 import defaultWish1 from '../../img/defaultWish1.jpg';

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './SimpleButton.module.scss';
-import { buttonStyles, buttonSizes } from './config.ts';
+import { buttonStyles, buttonSizes } from '../config.ts';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);

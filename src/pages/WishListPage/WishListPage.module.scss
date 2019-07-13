@@ -65,7 +65,7 @@
     margin: 0 0 $local-spacing $local-spacing;
 
     @include media('<=phone') {
-      margin: 0 0 0 $local-spacing;
+      margin: 0 0 0 $global-spacing-medium;
     }
   }
 

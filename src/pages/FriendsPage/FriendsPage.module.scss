@@ -3,7 +3,9 @@
 @import '../../styles/_include-media';
 
 .friends-page {
-  padding: $global-spacing-medium;
+  &__header {
+    padding: $global-spacing-medium $global-spacing-medium 0;
+  }
 
   &__loader-container {
     display: flex;
@@ -23,18 +25,41 @@
     }
   }
 
+  &__input-container {
+    padding: 0 $global-spacing-medium;
+    display: flex;
+    justify-content: center;
+  }
+
   &__input {
     max-width: 500px;
-    margin: 0 auto;
   }
 
   &__friends {
     max-width: 400px;
-    margin: 0 auto;
+    margin: $global-spacing-big auto 0;
+
+    @include media('<=phone') {
+      display: flex;
+      flex-direction: row;
+      overflow-y: auto;
+    }
   }
 
   &__friend {
     margin-top: $global-spacing-big;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    @include media('<=phone') {
+      margin: 0 $global-spacing-medium 0 0;
+
+      &:first-child {
+        margin-left: $global-spacing-medium;
+      }
+    }
   }
 
   &__btn-container {
