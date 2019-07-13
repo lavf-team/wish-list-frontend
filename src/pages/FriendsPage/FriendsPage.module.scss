@@ -3,6 +3,8 @@
 @import '../../styles/_include-media';
 
 .friends-page {
+  padding: $global-spacing-medium;
+
   &__loader-container {
     display: flex;
     justify-content: center;

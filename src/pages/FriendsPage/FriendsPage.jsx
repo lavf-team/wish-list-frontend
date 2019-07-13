@@ -66,7 +66,7 @@ export default class FriendsPage extends React.Component {
 
         return (
             <div className={cn('friends-page')}>
-                <Header page={Pages.FRIENDS} user={user} />
+                <Header user={user} />
                 <div className={cn('friends-page__title')}>Мои друзья 😜</div>
                 <Input
                     placeholder={placeholder}

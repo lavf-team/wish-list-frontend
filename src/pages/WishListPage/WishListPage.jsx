@@ -13,10 +13,6 @@ const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
-const masonryOptions = {
-    transitionDuration: 0
-};
-
 export default class WishListPage extends React.Component {
     state = {
         input: {
@@ -89,40 +85,54 @@ export default class WishListPage extends React.Component {
             wishList,
             avatars
         } = this.state;
-
+        const isMobile = window.getIsMobile();
 
         return (
             <div className={cn('wish-list')}>
                 <Header
-                    page={Pages.WISH_LIST}
+                    className={cn('wish-list__header')}
                     user={user}
                     avatars={avatars}
                 />
                 <div className={cn('wish-list__title')}>Wishlist 😍</div>
-                <Input
-                    placeholder={placeholder}
-                    type={type}
-                    value={value}
-                    className={cn('wish-list__input')}
-                    onChange={this.handleChangeValue}
-                />
+                <div className={cn('wish-list__input-container')}>
+                    <Input
+                        placeholder={placeholder}
+                        type={type}
+                        value={value}
+                        className={cn('wish-list__input')}
+                        onChange={this.handleChangeValue}
+                    />
+                </div>
                 {!isSearch ? (
                     <div className={cn('wish-list__content')}>
-                        <div className={cn('wish-list__popular-text')}>
-                            Популярное 🤩
-                        </div>
-                        <Masonry
-                            className={cn('wish-list__list')}
-                            options={masonryOptions}
-                        >
-                            {wishList.map((curWish, i) => (
-                                <Wish
-                                    className={cn('wish-list__wish')}
-                                    info={curWish}
-                                    key={i}
-                                />
-                            ))}
-                        </Masonry>
+                        {!isMobile ?
+                            (<>
+                                <div className={cn('wish-list__popular-text')}>
+                                    Популярное 🤩
+                                </div>
+                                <Masonry
+                                    className={cn('wish-list__list')}
+                                >
+                                    {wishList.map((curWish, i) => (
+                                        <Wish
+                                            className={cn('wish-list__wish')}
+                                            info={curWish}
+                                            key={i}
+                                        />
+                                    ))}
+                                    </Masonry>
+                                </>) :
+                            (<div className={cn('wish-list__list')} >
+                                {wishList.map((curWish, i) => (
+                                    <Wish
+                                        className={cn('wish-list__wish')}
+                                        info={curWish}
+                                        key={i}
+                                    />
+                                ))}
+                            </div>)
+                        }
                     </div>
                 ) : null}
                 {isLoad &&

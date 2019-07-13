@@ -13,12 +13,14 @@ class Header extends React.Component {
             user : { name, surname, avatar },
             avatars = [],
             match : { url },
+            className,
         } = this.props;
         const isMobile = window.getIsMobile();
         const page = matchUrl(url);
+        const headerClassName = `${className} ${cn('header')}`;
 
         return (
-            <div className={cn('header')}>
+            <div className={headerClassName}>
                 {(page !== Pages.PROFILE.title) && (
                     <div className={cn('header__user-profile')}>
                         <Avatar avatar={avatar}/>
