@@ -1,0 +1,17 @@
+@import '../../styles/constants';
+.text-emoji {
+  display: inline-block;
+  text-align: center;
+  margin-right: $global-spacing-small;
+
+  &__font {;
+    font-size: $global-font-size-medium;
+    margin-right: 8px;
+  }
+
+  &__pic {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: middle;
+  }
+}

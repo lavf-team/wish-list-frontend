@@ -31,7 +31,7 @@ export default class App extends React.Component {
             <div className={cn('app')}>
                 {curPage === Pages.FRIENDS && <FriendsPage user={user}/>}
                 {curPage === Pages.MYPAGE && <MyPage user={user}/>}
-                {curPage === Pages.OTHERUSERPAGE && <OtherUserPage curUser={user}
+                {curPage === Pages.OTHERUSER && <OtherUserPage curUser={user}
                                                                    friend={friend} />}
             </div>
         );

@@ -7,25 +7,17 @@
 
   &__info {
     margin-left: $global-spacing-medium;
-    font-size: $global-font-size-medium-big;
   }
 
   &__fullname {
     display: flex;
     justify-content: space-between;
     font-size: $global-font-size-big;
+    margin-bottom:  $global-spacing-tiny;
   }
 
   &__wish {
     margin-bottom: $global-spacing-small;
   }
 
-  &__give {
-    font-size: $global-font-size-medium;
-    margin-right: $global-spacing-medium;
-  }
-
-  &__receive {
-    font-size: $global-font-size-medium;
-  }
 }
