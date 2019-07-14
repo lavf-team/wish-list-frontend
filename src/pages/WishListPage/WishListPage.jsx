@@ -8,6 +8,7 @@ import defaultWish1 from '../../img/defaultWish1.jpg';
 import defaultWish2 from '../../img/defaultWish2.jpg';
 import defaultUser from '../../img/defaultUser.jpg';
 import Loader from "../../components/Loader/Loader";
+import {wishSize} from "../../components/Wish/config";
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -117,6 +118,7 @@ export default class WishListPage extends React.Component {
                                         <Wish
                                             className={cn('wish-list__wish')}
                                             info={curWish}
+                                            size={wishSize.FULL}
                                             key={i}
                                         />
                                     ))}
@@ -127,6 +129,7 @@ export default class WishListPage extends React.Component {
                                     <Wish
                                         className={cn('wish-list__wish')}
                                         info={curWish}
+                                        size={wishSize.FIXED}
                                         key={i}
                                     />
                                 ))}

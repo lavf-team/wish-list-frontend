@@ -3,7 +3,7 @@
 .wish {
   width: 200px;
 
-  @include media('<=phone') {
+  &_fixed {
     height: 350px;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
     object-fit: contain;
     object-position: center;
 
-    @include media('<=phone') {
+    &_fixed {
       width: 200px;
       height: 200px;
     }
