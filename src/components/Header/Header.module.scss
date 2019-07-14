@@ -1,10 +1,18 @@
 @import '../../styles/mixins';
 
 .header {
+  $local-spacing: 20px;
+
   display: flex;
+  justify-content: space-between;
   align-items: center;
   position: relative;
 
+  &__user-profile {
+    display: flex;
+    align-items: center;
+  }
+  
   &__nickname {
     //display: inline-block;
     margin-left: $global-spacing-small;
@@ -12,33 +20,31 @@
     @include linkText;
   }
 
-  &_right {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
   &__back-link {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-
     @include linkText;
   }
 
-  &__my-friends {
-    display: inline-block;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-right: $global-spacing-big;
+  &__friends {
+    display: flex;
+    align-items: center;
+  }
 
+  &__friends-title {
     @include linkText;
   }
 
-  &__avatars-block {
-    display: inline-block;
-    right: 0;
+  &__friends-avatars {
+    margin-left: $global-spacing-small;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  &__friend-avatar {
+    margin-right: -$local-spacing;
+
+    &:first-child {
+      margin-right: 0;
+    }
   }
 }
 

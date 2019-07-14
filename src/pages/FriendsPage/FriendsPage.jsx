@@ -5,9 +5,10 @@ import Loader from "../../components/Loader";
 import defaultUser from '../../img/defaultUser.jpg';
 import Friend from "../../components/Friend/Friend";
 import SimpleButton from '../../components/buttons/SimpleButton';
-import { buttonStyles } from '../../components/buttons/SimpleButton/config.ts';
+import { buttonStyles } from '../../components/buttons/config.ts';
 import Header from '../../components/Header';
 import Tip from '../../components/Tip';
+import RoundButton from "../../components/buttons/RoundButton/RoundButton";
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -24,22 +25,22 @@ export default class FriendsPage extends React.Component {
         },
         isLoad: false,
         friends: [
-            // {
-            // name: 'Сергей Чернобровкин',
-            // avatar: defaultUser,
-            // },
-            // {
-            //     name: 'Сергей Чернобровкин',
-            //     avatar: defaultUser,
-            // },
-            // {
-            //     name: 'Сергей Чернобровкин',
-            //     avatar: defaultUser,
-            // },
-            // {
-            //     name: 'Сергей Чернобровкин',
-            //     avatar: defaultUser,
-            // }
+            {
+            name: 'Сергей Чернобровкин',
+            avatar: defaultUser,
+            },
+            {
+                name: 'Сергей Чернобровкин',
+                avatar: defaultUser,
+            },
+            {
+                name: 'Сергей Чернобровкин',
+                avatar: defaultUser,
+            },
+            {
+                name: 'Сергей Чернобровкин',
+                avatar: defaultUser,
+            }
         ],
         hasMore: true,
     };
@@ -61,38 +62,54 @@ export default class FriendsPage extends React.Component {
             friends,
             hasMore,
         } = this.state;
+        const isMobile = window.getIsMobile();
+
         return (
             <div className={cn('friends-page')}>
-                <Header page='FRIENDS' user={user} />
-                <div className={cn('friends-page__title')}>Мои друзья 😜</div>
-                <Input
-                    placeholder={placeholder}
-                    type={type}
-                    value={value}
-                    className={cn('friends-page__input')}
-                    onChange={this.handleChangeValue}
+                <Header
+                    user={user}
+                    className={cn('friends-page__header')}
                 />
-                {isLoad && (<Loader className={cn('friends-page__loader')} />)}
+                <div className={cn('friends-page__title')}>Мои друзья 😜</div>
+                <div className={cn('friends-page__input-container')}>
+                    <Input
+                        placeholder={placeholder}
+                        type={type}
+                        value={value}
+                        className={cn('friends-page__input')}
+                        onChange={this.handleChangeValue}
+                    />
+                </div>
                 {(!isLoad && !!friends.length) ? (
                     <div className={cn('friends-page__friends')}>
-                        {friends.map(({name, avatar}) =>
+                        {friends.map(({name, avatar}, i) =>
                             (<Friend
+                                key={i}
                                 name={name}
                                 avatar={avatar}
                                 className={cn('friends-page__friend')}
                             />))}
                         {hasMore && (
                             <div className={cn('friends-page__btn-container')}>
-                                <SimpleButton
-                                    text={'Показать еще'}
-                                    style={buttonStyles.LIGHT}
-                                />
+                                {isMobile ? (
+                                    <RoundButton
+                                        text={'Загрузить еще'}
+                                    />) :
+                                    (<SimpleButton
+                                        text={'Показать еще'}
+                                        style={buttonStyles.LIGHT}
+                                    />)
+                                }
                             </div>)}
                     </div>
-                ) : (<Tip
-                    className={cn('friends-page__tip')}
-                    text={'Кажется, у тебя нет друзей'}
-                />)}
+                ) : isLoad ?
+                    (<div className={cn('friends-page__loader-container')}>
+                        <Loader />
+                    </div>) :
+                    (<Tip
+                        className={cn('friends-page__tip')}
+                        text={'Кажется, у тебя нет друзей'}
+                    />)}
             </div>
         );
     }

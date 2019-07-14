@@ -1,17 +1,22 @@
 @import '../../../styles/constants';
 
 .simple-button {
+  $local-spacing-medium: 22px;
+
+
   display: inline-block;
   align-items: center;
   border-radius: 20px;
   cursor: pointer;
 
   &_medium {
-    padding:  $global-spacing-tiny $global-spacing-medium;
+    font-size: $global-font-size-medium-button;
+    padding:  $global-spacing-tiny $global-spacing-small;
   }
 
   &_large {
-    height: 40px;
+    font-size: $global-font-size-large-button;
+    padding:  $global-spacing-tiny $local-spacing-medium;
   }
 
   &_blue {
@@ -26,6 +31,5 @@
 
   &__text {
     letter-spacing: 0;
-    font-size: $global-font-size-tiny;
   }
 }

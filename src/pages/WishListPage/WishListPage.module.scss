@@ -1,0 +1,77 @@
+@import '../../styles/styles';
+
+.wish-list {
+  $local-spacing: calc((752px - 3 * 200px) / 4);
+
+  &__header {
+    padding: $global-spacing-medium $global-spacing-medium 0;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    margin: $global-spacing-medium auto;
+
+    @include titleText;
+
+    @include media('<=phone') {
+      @include mobileTitleText;
+    }
+
+    @include media('<=iphone5') {
+      margin: $global-spacing-small auto;
+    }
+  }
+
+  &__input-container {
+    padding: 0 $global-spacing-medium;
+    text-align: center;
+  }
+
+  &__input {
+    display: inline-block;
+    max-width: 500px;
+  }
+
+  &__content {
+    margin-top: $global-spacing-large;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include media('<=iphone5') {
+      margin-top: $global-spacing-small;
+    }
+  }
+
+  &__popular-text {
+    font-size: $global-font-size-medium-large;
+    text-align: center;
+  }
+
+  &__list {
+    margin-top: $global-spacing-large;
+
+    @include media('<=phone') {
+      margin-top: 0;
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      z-index: 2;
+    }
+  }
+
+  &__wish {
+    margin: 0 0 $local-spacing $local-spacing;
+
+    @include media('<=phone') {
+      margin: 0 0 0 $global-spacing-medium;
+    }
+  }
+
+  &__loader-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+  }
+}

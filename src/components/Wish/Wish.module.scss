@@ -1,0 +1,51 @@
+@import '../../styles/styles';
+
+.wish {
+  width: 200px;
+
+  &_fixed {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__img {
+    object-fit: contain;
+    object-position: center;
+
+    &_fixed {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+
+  &__title {
+    font-size: $global-font-size-medium;
+    margin: $global-spacing-small 0 $global-spacing-extra-tiny;
+
+    @include media('<=phone') {
+      margin: 0;
+    }
+  }
+
+  &__prize {
+    font-size: $global-font-size-tiny;
+    margin-bottom: $global-spacing-extra-tiny;
+
+    @include media('<=phone') {
+      margin: 0;
+    }
+  }
+
+  &__description {
+    color: $global-gray-font-color;
+    font-size: $global-font-size-extra-tiny;
+    margin-bottom: $global-spacing-small;
+
+    @include media('<=phone') {
+      margin: 0;
+    }
+  }
+}

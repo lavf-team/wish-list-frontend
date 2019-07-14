@@ -1,52 +1,62 @@
 import React from 'react';
 import Avatar from '../Avatar';
 import styles from './Header.module.scss';
-import {switchCase} from "@babel/types";
+import { Link, withRouter } from 'react-router-dom';
+import matchUrl, { Pages } from '../../utils/matchUrl';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     render() {
-        const { page, user : { name, surname, avatar }} = this.props;
+        const {
+            user : { name, surname, avatar },
+            avatars = [],
+            match : { url },
+            className,
+        } = this.props;
         const isMobile = window.getIsMobile();
+        const page = matchUrl(url);
+        const headerClassName = `${className} ${cn('header')}`;
 
-        switch(page) {
-            case 'FRIENDS': {
-                return (
-                    <div className={cn('header')}>
+        return (
+            <div className={headerClassName}>
+                {(page !== Pages.PROFILE.title) && (
+                    <div className={cn('header__user-profile')}>
                         <Avatar avatar={avatar}/>
-                        <button className={cn('header__nickname')}>{isMobile ? name : `${name} ${surname}`}</button>
-                        <button className={`${cn('header__back-link')} ${cn('header_right')}`}>
-                            { isMobile ? 'Поиск' : 'Вернуться к поиску'}
-                        </button>
-                    </div>
-                );
-            }
-            case 'MYPAGE':
-            {
-                return (
-                    <div className={cn('header')}>
-                        <button className={cn('header__back-link')}>
-                            { isMobile ? 'Поиск' : 'Вернуться к поиску'}
-                        </button>
-
-                        <div className={cn('header_right')}>
-                            <button className={`${cn('header__my-friends')} `}>Мои друзья</button>
-                            <div className={cn('header__avatars-block')}>
-                                <Avatar avatar={avatar} overlay='overlay'/>
-                                <Avatar avatar={avatar} overlay='overlay'/>
-                                <Avatar avatar={avatar} overlay='overlay'/>
-                            </div>
+                        <a className={cn('header__nickname')}>{isMobile ? name : `${name} ${surname}`}</a>
+                    </div>)}
+                {(page !== Pages.WISH_LIST.title) && (
+                    <Link
+                        to={{
+                            pathname: '/wish-list',
+                            state: {page: Pages.WISH_LIST}
+                        }}
+                          className={cn('header__back-link')}>
+                        { isMobile ? 'Поиск' : 'Вернуться к поиску'}
+                    </Link>
+                )}
+                {(page !== Pages.FRIENDS.title) &&
+                (<div className={cn('header__friends')}>
+                    <Link to='/friends' state={'opa'} className={cn('header__friends-title')}>
+                        {isMobile ? 'Друзья' : 'Мои друзья'}
+                    </Link>
+                    {!isMobile && avatars.length ? (
+                        <div className={cn('header__friends-avatars')}>
+                            {avatars.map((avatar, i) => (
+                                <Avatar
+                                    key={i}
+                                    avatar={avatar}
+                                    className={cn('header__friend-avatar')}
+                                />
+                            ))}
                         </div>
-                    </div>
-                );
-            }
-            default: {
-                return(<div></div>);
-            }
-
-        }
-
+                    ) : null}
+                </div>)
+                }
+            </div>
+        );
     }
 }
+
+export default withRouter(Header);
