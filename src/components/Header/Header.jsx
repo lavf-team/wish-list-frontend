@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from '../Avatar';
 import styles from './Header.module.scss';
 import { Link, withRouter } from 'react-router-dom';
-import matchUrl, { Pages } from '../../utils/matchUrl';
+import matchUrl, { route } from '../../utils/matchUrl';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -21,24 +21,26 @@ class Header extends React.Component {
 
         return (
             <div className={headerClassName}>
-                {(page !== Pages.PROFILE.title) && (
+                {(page !== route.PROFILE.title) && (
                     <div className={cn('header__user-profile')}>
                         <Avatar avatar={avatar}/>
-                        <a className={cn('header__nickname')}>{isMobile ? name : `${name} ${surname}`}</a>
+                        <Link
+                            to={route.PROFILE.url}
+                            className={cn('header__nickname')}>{isMobile ? name : `${name} ${surname}`}</Link>
                     </div>)}
-                {(page !== Pages.WISH_LIST.title) && (
+                {(page !== route.WISH_LIST.title) && (
                     <Link
-                        to={{
-                            pathname: '/wish-list',
-                            state: {page: Pages.WISH_LIST}
-                        }}
-                          className={cn('header__back-link')}>
+                        to={route.WISH_LIST.url}
+                        className={cn('header__back-link')}>
                         { isMobile ? 'Поиск' : 'Вернуться к поиску'}
                     </Link>
                 )}
-                {(page !== Pages.FRIENDS.title) &&
+                {(page !== route.FRIENDS.title) &&
                 (<div className={cn('header__friends')}>
-                    <Link to='/friends' state={'opa'} className={cn('header__friends-title')}>
+                    <Link
+                        to={route.FRIENDS.url}
+                        className={cn('header__friends-title')}
+                    >
                         {isMobile ? 'Друзья' : 'Мои друзья'}
                     </Link>
                     {!isMobile && avatars.length ? (

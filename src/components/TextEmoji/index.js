@@ -1,3 +1,2 @@
-import TextEmoji from './TextEmoji';
+export { default } from './TextEmoji';
 
-export default TextEmoji;

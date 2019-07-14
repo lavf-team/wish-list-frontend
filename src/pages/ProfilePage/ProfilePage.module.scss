@@ -1,0 +1,19 @@
+@import '../../styles/styles';
+
+.profile-page {
+    &__header {
+        padding: $global-spacing-medium $global-spacing-medium 0;
+    }
+
+    &__user-card {
+        padding: $global-spacing-medium;
+    }
+
+    &__list {
+        margin-top: $global-spacing-large;
+
+        @include media('<=phone') {
+            margin-top: 0;
+        }
+    }
+}

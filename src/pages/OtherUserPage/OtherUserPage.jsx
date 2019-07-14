@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import styles from './OtherUserPage.module.scss';
-import User from '../../components/User';
+import UserCard from '../../components/UserCard';
 import img1 from '../..//img/drooling.png';
 import img2 from '../..//img/glasses.png';
 const classNames = require('classnames/bind');
@@ -15,7 +15,7 @@ export default class MyPage extends React.Component {
         return (
             <div>
                 <Header user={curUser} />
-                <User
+                <UserCard
                     name={friend.name}
                     surname={friend.surname}
                     avatar={friend.avatar}

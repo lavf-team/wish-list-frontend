@@ -1,15 +1,23 @@
-@import '../../styles/constants';
+@import '../../styles/styles';
 .text-emoji {
+  $local-font-size: 15px;
   display: inline-block;
   text-align: center;
-  margin-right: $global-spacing-small;
 
-  &__font {;
-    font-size: $global-font-size-medium;
-    margin-right: 8px;
+  &__text {
+    font-size: $local-font-size;
+    margin-right: $global-spacing-tiny;
+    color: #000000;
+    cursor: default;
+
+    &_active {
+      @include linkText;
+      font-size: $local-font-size;
+      cursor: pointer;
+    }
   }
 
-  &__pic {
+  &__img {
     width: 1.2em;
     height: 1.2em;
     vertical-align: middle;

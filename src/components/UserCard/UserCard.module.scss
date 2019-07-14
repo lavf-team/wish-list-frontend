@@ -1,0 +1,58 @@
+@import '../../styles/styles';
+
+.user-card {
+  display: flex;
+
+  &__info {
+    margin-left: $global-spacing-medium;
+
+    @include media('<=phone') {
+      position: relative;
+      margin-left: $global-spacing-small;
+    }
+  }
+
+  &__fullname {
+    display: flex;
+    justify-content: space-between;
+    font-size: $global-font-size-big;
+    margin-bottom:  $global-spacing-tiny;
+
+    @include media('<=phone') {
+      font-size: $global-font-size-medium-big;
+    }
+  }
+
+  &__wish {
+    margin-bottom: $global-spacing-small;
+  }
+
+  &__text-emoji {
+    margin: 0 $global-spacing-small 0 0;
+
+    @include media('<=phone') {
+      margin: 0 0 $global-spacing-extra-tiny 0;
+    }
+  }
+
+  &__share-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(79deg, $global-linear-top-blue-color, $global-linear-bot-blue-color);
+    position: absolute;
+    top: 2px;
+    right: 0;
+
+    &:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background: url('./img/shareIcon.svg') no-repeat center;
+
+      @include absoluteCenter;
+      left: 48%;
+    }
+  }
+}

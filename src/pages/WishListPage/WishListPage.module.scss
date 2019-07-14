@@ -1,6 +1,6 @@
 @import '../../styles/styles';
 
-.wish-list {
+.wish-list-page {
   $local-spacing: calc((752px - 3 * 200px) / 4);
 
   &__header {
@@ -54,19 +54,11 @@
 
     @include media('<=phone') {
       margin-top: 0;
-      display: flex;
-      flex-direction: row;
-      overflow-x: auto;
-      z-index: 2;
     }
   }
 
   &__wish {
     margin: 0 0 $local-spacing $local-spacing;
-
-    @include media('<=phone') {
-      margin: 0 0 0 $global-spacing-medium;
-    }
   }
 
   &__loader-container {
