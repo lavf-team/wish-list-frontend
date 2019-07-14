@@ -3,7 +3,7 @@ import styles from './App.module.scss';
 import FriendsPage from './FriendsPage';
 import defaultUser from '../img/defaultUser.jpg';
 import WishListPage from "./WishListPage/WishListPage";
-import {BrowserRouter, Route} from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -29,6 +29,7 @@ export default class App extends React.Component {
                         path='/wish-list'
                         render={(props) => <WishListPage {...props} user={user}/>}
                     />
+                    <Redirect to='/wish-list'/>
                 </div>
             </BrowserRouter>
         );
