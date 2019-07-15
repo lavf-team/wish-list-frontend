@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './App.module.scss';
 import FriendsPage from './FriendsPage';
+import FriendPage from './FriendPage';
 import defaultUser from '../img/defaultUser.jpg';
 import WishListPage from "./WishListPage/WishListPage";
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
@@ -35,7 +36,10 @@ export default class App extends React.Component {
             <BrowserRouter>
                 <div className={cn('app')}>
                     <Route path={route.FRIENDS.url}
-                           render={(props) => <FriendsPage {...props} user={user}/>}
+                           render={(props) =>
+                               <FriendsPage {...props}
+                                            user={user}
+                           />}
                     />
                     <Route
                         path={route.WISH_LIST.url}
@@ -53,7 +57,15 @@ export default class App extends React.Component {
                                 avatars={avatars}
                                 user={user}/>}
                     />
-                    <Redirect to='/wish-list'/>
+                    <Route
+                        path={route.FRIEND.url}
+                        render={(props) =>
+                            <FriendPage
+                                {...props}
+                                avatars={avatars}
+                                user={user}/>}
+                    />
+                    <Redirect to={route.WISH_LIST.url}/>
                 </div>
             </BrowserRouter>
         );

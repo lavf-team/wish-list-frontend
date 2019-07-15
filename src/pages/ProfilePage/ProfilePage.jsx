@@ -116,7 +116,6 @@ export default class ProfilePage extends React.Component {
             inActive = secondTitle;
             active = firstTitle
         }
-        console.log(active, inActive);
 
         this.setState({
             links: {

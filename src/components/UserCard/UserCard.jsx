@@ -20,7 +20,8 @@ export default class UserCard extends React.Component {
                             text: firstText,
                             img: firstImg,
                             isActive: isFirstLinkActive,
-                            to: firstPath
+                            to: firstPath,
+                            state,
                         },
                 secondLink:
                         {
@@ -52,7 +53,10 @@ export default class UserCard extends React.Component {
                             text={firstText}
                             emoji={firstImg}
                             isActive={isFirstLinkActive}
-                            to={firstPath}
+                            to={{
+                                pathname: firstPath,
+                                state: state
+                            }}
                             title={firstTitle}
                             onClick={onClick}
                         />
@@ -60,7 +64,10 @@ export default class UserCard extends React.Component {
                             text={secondText}
                             emoji={secondImg}
                             isActive={isSecondLinkActive}
-                            to={secondPath}
+                            to={{
+                                pathname: secondPath,
+                                state: state
+                            }}
                             title={secondTitle}
                             onClick={onClick}
                         />

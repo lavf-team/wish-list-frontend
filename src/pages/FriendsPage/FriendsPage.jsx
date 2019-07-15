@@ -9,6 +9,8 @@ import { buttonStyles } from '../../components/buttons/config.ts';
 import Header from '../../components/Header';
 import Tip from '../../components/Tip';
 import RoundButton from "../../components/buttons/RoundButton/RoundButton";
+import defaultWish1 from "../../img/defaultWish1.jpg";
+import defaultWish2 from "../../img/defaultWish2.jpg";
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -26,20 +28,260 @@ export default class FriendsPage extends React.Component {
         isLoad: false,
         friends: [
             {
-            name: 'Сергей Чернобровкин',
-            avatar: defaultUser,
+                id: 1,
+                name: 'Сергей',
+                surname: 'Первый',
+                avatar: defaultUser,
+                wishes: [
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish2,
+                        title: 'iPhone XR 256GB',
+                        prize: '70 000 ₽',
+                        description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                ],
+                gifts: [
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish2,
+                        title: 'iPhone XR 256GB',
+                        prize: '70 000 ₽',
+                        description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                ],
             },
             {
-                name: 'Сергей Чернобровкин',
+                id: 2,
+                name: 'Сергей',
+                surname: 'Второй',
                 avatar: defaultUser,
+                wishes: [
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish2,
+                        title: 'iPhone XR 256GB',
+                        prize: '70 000 ₽',
+                        description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                ],
+                gifts: [
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish2,
+                        title: 'iPhone XR 256GB',
+                        prize: '70 000 ₽',
+                        description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                ],
             },
             {
-                name: 'Сергей Чернобровкин',
+                id: 3,
+                name: 'Сергей',
+                surname: 'Третий',
                 avatar: defaultUser,
+                wishes: [
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish2,
+                        title: 'iPhone XR 256GB',
+                        prize: '70 000 ₽',
+                        description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                ],
+                gifts: [
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish2,
+                        title: 'iPhone XR 256GB',
+                        prize: '70 000 ₽',
+                        description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                ],
             },
             {
-                name: 'Сергей Чернобровкин',
+                id: 4,
+                name: 'Сергей',
+                surname: 'Четвертый',
                 avatar: defaultUser,
+                wishes: [
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish2,
+                        title: 'iPhone XR 256GB',
+                        prize: '70 000 ₽',
+                        description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                ],
+                gifts: [
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish2,
+                        title: 'iPhone XR 256GB',
+                        prize: '70 000 ₽',
+                        description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                    {
+                        img: defaultWish1,
+                        title: 'MacBook Pro 2018 256GB',
+                        prize: '120 000 ₽',
+                        description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
+                    },
+                ],
             }
         ],
         hasMore: true,
@@ -82,11 +324,10 @@ export default class FriendsPage extends React.Component {
                 </div>
                 {(!isLoad && !!friends.length) ? (
                     <div className={cn('friends-page__friends')}>
-                        {friends.map(({name, avatar}, i) =>
+                        {friends.map((friend, i) =>
                             (<Friend
                                 key={i}
-                                name={name}
-                                avatar={avatar}
+                                friend={friend}
                                 className={cn('friends-page__friend')}
                             />))}
                         {hasMore && (
