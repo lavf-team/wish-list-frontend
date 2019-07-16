@@ -58,11 +58,27 @@ export default class Friend extends React.Component {
                     </div>) :
                     (<>
                         <div className={cn('friend__name')}>{name + ' ' + surname}</div>
+                        <Link
+                            to={
+                                {
+                                    pathname: route.FRIENDS_WISHES.create(id),
+                                    state: {
+                                        id,
+                                        avatar,
+                                        name,
+                                        surname,
+                                        gifts,
+                                        wishes
+                                    }
+                                }
+                            }
+                        >
                         <SimpleButton
                             text={'Узнать что подарить'}
                             style={buttonStyles.BLUE}
                             className={cn('friend__button')}
                         />
+                        </Link>
                     </>)
                 }
             </div>

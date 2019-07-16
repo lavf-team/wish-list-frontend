@@ -333,9 +333,12 @@ export default class FriendsPage extends React.Component {
                         {hasMore && (
                             <div className={cn('friends-page__btn-container')}>
                                 {isMobile ? (
-                                    <RoundButton
-                                        text={'Загрузить еще'}
-                                    />) :
+                                    <div className={cn('friends-page__round-container')}>
+                                        <RoundButton
+                                            text={'Загрузить еще'}
+                                        />
+                                    </div>
+                                    ) :
                                     (<SimpleButton
                                         text={'Показать еще'}
                                         style={buttonStyles.LIGHT}

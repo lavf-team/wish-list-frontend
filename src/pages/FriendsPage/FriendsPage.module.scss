@@ -68,6 +68,10 @@
     margin-top: $global-spacing-large;
   }
 
+  &__round-container {
+    padding-right: $global-spacing-medium;
+  }
+
   &__tip {
     @include absoluteCenter;
   }

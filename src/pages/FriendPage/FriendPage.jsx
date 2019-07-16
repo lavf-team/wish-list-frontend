@@ -65,8 +65,6 @@ export default class FriendPage extends React.Component {
     };
 
     render() {
-        console.log('FRIEND PAGE', this.props);
-        //
         const {
             user,
             avatars,
@@ -116,7 +114,6 @@ export default class FriendPage extends React.Component {
                         />
                     }
                 />
-                {/*<Redirect to={route.FRIENDS_WISHES.create(this.props.match.params.id)} />*/}
             </div>
 
         );
