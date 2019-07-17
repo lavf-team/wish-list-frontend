@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Friend.module.scss';
 import Avatar from '../Avatar';
@@ -10,21 +11,16 @@ const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
-export default class Friend extends React.Component {
+class Friend extends React.Component {
     render() {
         const {
-            friend: {
-                avatar,
-                name,
-                id,
-                surname,
-                wishes,
-                gifts,
-            },
+            friendId,
+            friends,
             className,
         } = this.props;
         const friendClassName = `${className} ${cn('friend')}`;
         const isMobile = window.getIsMobile();
+        const { name, surname, avatar } = friends[friendId];
 
         return (
             <div className={friendClassName}>
@@ -37,15 +33,7 @@ export default class Friend extends React.Component {
                             <Link
                                 to={
                                     {
-                                        pathname: route.FRIENDS_WISHES.create(id),
-                                        state: {
-                                            id,
-                                            avatar,
-                                            name,
-                                            surname,
-                                            gifts,
-                                            wishes
-                                        }
+                                        pathname: route.FRIENDS_WISHES.create(friendId),
                                     }
                                 }
                                 >
@@ -61,15 +49,7 @@ export default class Friend extends React.Component {
                         <Link
                             to={
                                 {
-                                    pathname: route.FRIENDS_WISHES.create(id),
-                                    state: {
-                                        id,
-                                        avatar,
-                                        name,
-                                        surname,
-                                        gifts,
-                                        wishes
-                                    }
+                                    pathname: route.FRIENDS_WISHES.create(friendId),
                                 }
                             }
                         >
@@ -85,3 +65,9 @@ export default class Friend extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    friends: state.friends,
+});
+
+export default connect(mapStateToProps)(Friend);

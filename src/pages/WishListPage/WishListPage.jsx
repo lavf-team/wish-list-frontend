@@ -69,7 +69,6 @@ export default class WishListPage extends React.Component {
     };
 
     render() {
-        const { user, avatars } = this.props;
         const {
             input : { type, placeholder, value },
             isSearch,
@@ -82,8 +81,6 @@ export default class WishListPage extends React.Component {
             <div className={cn('wish-list-page')}>
                 <Header
                     className={cn('wish-list-page__header')}
-                    user={user}
-                    avatars={avatars}
                 />
                 <div className={cn('wish-list-page__title')}>Wishlist 😍</div>
                 <div className={cn('wish-list-page__input-container')}>

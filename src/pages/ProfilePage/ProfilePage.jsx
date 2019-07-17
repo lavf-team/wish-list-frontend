@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../../components/Header';
 import styles from './ProfilePage.module.scss';
@@ -15,7 +16,7 @@ const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
-export default class ProfilePage extends React.Component {
+class ProfilePage extends React.Component {
     state = {
         links: {
             firstLink : {
@@ -132,14 +133,12 @@ export default class ProfilePage extends React.Component {
     };
 
     render() {
-        const { user, avatars } = this.props;
+        const { user } = this.props;
         const { links, myWishes, myGifts } = this.state;
 
         return (
             <div className={cn('profile-page')}>
                 <Header
-                    avatars={avatars}
-                    user={user}
                     className={cn('profile-page__header')}
                 />
                 <UserCard
@@ -173,5 +172,10 @@ export default class ProfilePage extends React.Component {
 
         );
     }
-
 }
+
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps)(ProfilePage);

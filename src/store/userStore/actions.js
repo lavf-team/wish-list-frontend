@@ -1,0 +1,25 @@
+import connect from '@vkontakte/vkui-connect-promise';
+import {normalizeUser} from "./normalizers";
+
+export const INIT_USER = 'INIT_USER';
+export const INIT_USER_SUCCESS = 'INIT_USER_SUCCESS';
+export const INIT_USER_ERROR = 'INIT_USER_ERROR';
+
+const VK_GET_USER = 'VKWebAppGetUserInfo';
+
+export const actionInitUserSuccess = (payload) => ({
+    type: INIT_USER_SUCCESS,
+    payload,
+});
+
+export const actionInitUserError = (payload) => ({
+    type: INIT_USER_ERROR,
+    payload,
+});
+
+export const actionInitUser = () => (dispatch) => {
+    connect.send(VK_GET_USER, {})
+        .then(data => normalizeUser(data))
+        .then(user => dispatch(actionInitUserSuccess(user)))
+        .catch(error => dispatch(actionInitUserError(error)));
+};

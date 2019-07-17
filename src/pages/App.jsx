@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styles from './App.module.scss';
 import FriendsPage from './FriendsPage';
 import FriendPage from './FriendPage';
@@ -7,22 +8,15 @@ import WishListPage from "./WishListPage/WishListPage";
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import ProfilePage from './ProfilePage';
 import { route } from '../utils/matchUrl';
+import {actionInitUser} from "../store/userStore/actions";
+import {actionVkInitApp, actionInitToken} from "../store/vkStore/actions";
+import { actionInitFriends } from "../store/friendsStore/actions";
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
-export default class App extends React.Component {
+class App extends React.Component {
     state = {
-        user: {
-            name: 'Антон',
-            surname: 'Чащин',
-            avatar: defaultUser
-        },
-        friend: {
-            name: 'Сергей',
-            surname: 'Чернобровкин',
-            avatar: defaultUser
-        },
         avatars: [
             defaultUser,
             defaultUser,
@@ -30,40 +24,41 @@ export default class App extends React.Component {
         ]
     };
 
+    componentDidMount() {
+        this.props.initVkApp();
+        this.props.initUser();
+        this.props.initToken();
+        this.props.initFriends();
+    }
+
     render() {
-        const { user, avatars } = this.state;
         return (
             <BrowserRouter>
                 <div className={cn('app')}>
                     <Route path={route.FRIENDS.url}
                            render={(props) =>
-                               <FriendsPage {...props}
-                                            user={user}
-                           />}
+                               <FriendsPage {...props} />}
                     />
                     <Route
                         path={route.WISH_LIST.url}
                         render={(props) =>
                             <WishListPage
                                 {...props}
-                                avatars={avatars}
-                                user={user}/>}
+                            />}
                     />
                     <Route
                         path={route.PROFILE.url}
                         render={(props) =>
                             <ProfilePage
                                 {...props}
-                                avatars={avatars}
-                                user={user}/>}
+                            />}
                     />
                     <Route
                         path={route.FRIEND.url}
                         render={(props) =>
                             <FriendPage
                                 {...props}
-                                avatars={avatars}
-                                user={user}/>}
+                            />}
                     />
                     <Redirect to={route.WISH_LIST.url}/>
                 </div>
@@ -71,3 +66,16 @@ export default class App extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    initUser: () => dispatch(actionInitUser()),
+    initVkApp: () => dispatch(actionVkInitApp()),
+    initToken: () => dispatch(actionInitToken()),
+    initFriends: () => dispatch(actionInitFriends()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

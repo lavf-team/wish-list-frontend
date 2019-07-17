@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import Header from '../../components/Header';
 import styles from './FriendPage.module.scss';
 import UserCard from '../../components/UserCard';
@@ -11,7 +12,7 @@ const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
 
-export default class FriendPage extends React.Component {
+class FriendPage extends React.Component {
     state = {
         links: {
             firstLink : {
@@ -65,32 +66,18 @@ export default class FriendPage extends React.Component {
     };
 
     render() {
-        const {
-            user,
-            avatars,
-            location:
-                { state:
-                    {
-                        avatar,
-                        name,
-                        surname,
-                        gifts,
-                        wishes
-                    }
-                }
-        } = this.props;
         const { links } = this.state;
+        const { friends } = this.props;
+        const user = friends[this.props.match.params.id];
 
         return (
             <div className={cn('friend-page')}>
                 <Header
-                    avatars={avatars}
-                    user={user}
                     className={cn('friend-page__header')}
                 />
                 <UserCard
                     className={cn('friend-page__user-card')}
-                    user={{avatar, name, surname}}
+                    user={user}
                     links={links}
                     onClick={this.handleClick}
                 />
@@ -100,7 +87,6 @@ export default class FriendPage extends React.Component {
                         <WishList
                             {...props}
                             className={cn('friend-page__list')}
-                            list={wishes}
                         />
                     }
                 />
@@ -110,7 +96,6 @@ export default class FriendPage extends React.Component {
                         <WishList
                             {...props}
                             className={cn('friend-page__list')}
-                            list={gifts}
                         />
                     }
                 />
@@ -118,5 +103,10 @@ export default class FriendPage extends React.Component {
 
         );
     }
-
 }
+
+const mapStateToProps = state => ({
+    friends: state.friends,
+});
+
+export default connect(mapStateToProps)(FriendPage);
