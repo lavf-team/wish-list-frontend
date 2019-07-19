@@ -6,14 +6,12 @@ import {
 import thunk from 'redux-thunk';
 import user from './userStore/reducers';
 import friends from './friendsStore/reducers';
-import vk from './vkStore/reducers';
-import friendsIds from './friendsIdsStore/reducers';
+import meta from './metaStore/reducers';
 
 const reducers = combineReducers({
     user,
     friends,
-    vk,
-    friendsIds,
+    meta,
 });
 
 const store = createStore(

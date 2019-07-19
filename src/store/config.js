@@ -8,4 +8,4 @@ exports.VK_METHOD_INIT_APP = 'VKWebAppInit';
 exports.VK_METHOD_GET_TOKEN = 'VKWebAppGetAuthToken';
 exports.VK_CALL_API = 'VKWebAppCallAPIMethod';
 exports.API_VERSION = '5.101';
-exports.APP_ID = 7060965;
+exports.APP_ID = 7061026;

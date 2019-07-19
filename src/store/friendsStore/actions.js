@@ -6,7 +6,6 @@ import {
     API_VERSION,
     VK_CALL_API
 } from '../config.ts';
-import {actionInitFriendsIdsSuccess} from "../friendsIdsStore/actions";
 
 export const INIT_FRIENDS = 'INIT_FRIENDS';
 export const INIT_FRIENDS_SUCCESS = 'INIT_FRIENDS_SUCCESS';
@@ -25,7 +24,7 @@ export const actionInitFriendsError = (payload) => ({
 export const actionInitFriends = () => (dispatch) => {
     console.log(INIT_FRIENDS);
 
-    const FIELDS = ['photo_100'];
+    const FIELDS = ['photo_200_orig'];
     const numberOfUsers = 5;
 
     connect.send(VK_CALL_API, {
@@ -38,9 +37,6 @@ export const actionInitFriends = () => (dispatch) => {
                 fields: FIELDS.join(','),
             }})
         .then(data => normalizeFriends(data))
-        .then(({ids, friends}) => {
-            dispatch(actionInitFriendsSuccess(friends));
-            dispatch(actionInitFriendsIdsSuccess(ids));
-        })
-        .then(error => dispatch(actionInitFriendsError(error)))
+        .then((data) => dispatch(actionInitFriendsSuccess(data)))
+        .catch(error => dispatch(actionInitFriendsError(error)))
 };

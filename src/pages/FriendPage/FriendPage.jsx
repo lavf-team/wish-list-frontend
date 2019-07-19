@@ -106,7 +106,7 @@ class FriendPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    friends: state.friends,
+    friends: state.friends.objects,
 });
 
 export default connect(mapStateToProps)(FriendPage);

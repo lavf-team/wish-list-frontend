@@ -1,20 +1,22 @@
 import {
     INIT_USER_SUCCESS,
-    INIT_USER_ERROR,
-    } from './actions';
+} from './actions';
 
 const initialStore = {
     id: null,
     name: '',
     surname: '',
-    avatar: null
+    avatar: null,
+    isLoading: true,
 };
 
 const userReducer = (state = initialStore, { type, payload }) =>  {
     switch (type) {
         case INIT_USER_SUCCESS:
             return {
-                ...payload
+                ...state,
+                ...payload,
+                isLoading: false,
             };
         default:
             return state;

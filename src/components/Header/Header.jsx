@@ -5,6 +5,7 @@ import styles from './Header.module.scss';
 import { Link, withRouter } from 'react-router-dom';
 import matchUrl, { route } from '../../utils/matchUrl';
 import {actionInitFriends} from "../../store/friendsStore/actions";
+import {actionInitUser} from "../../store/userStore/actions";
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -13,7 +14,8 @@ class Header extends React.Component {
     getAvatars = () => {
         const {
             friendsIds,
-            friends, } = this.props;
+            friends,
+        } = this.props;
         const avatars = [];
 
         for (let i = 0; i < 3; ++i) {
@@ -24,25 +26,28 @@ class Header extends React.Component {
 
     componentDidMount() {
         this.props.initFriends();
+        this.props.initUser();
     }
 
     render() {
         const {
-            user : { name, surname, avatar },
+            user : { name, surname, avatar, isLoading },
             match : { url },
             className,
             friendsIds,
+            isLoadingFriends,
         } = this.props;
         const isMobile = window.getIsMobile();
         const page = matchUrl(url);
         const headerClassName = `${className} ${cn('header')}`;
         const avatars = !!friendsIds.length ? this.getAvatars() : [];
+        console.log('isLoadingFriends', isLoadingFriends);
 
         return (
             <div className={headerClassName}>
                 {(page !== route.PROFILE.title) && (
                     <div className={cn('header__user-profile')}>
-                        <Avatar avatar={avatar}/>
+                        <Avatar isLoading={isLoading} avatar={avatar} />
                         <Link
                             to={route.PROFILE.url}
                             className={cn('header__nickname')}>{isMobile ? name: `${name} ${surname}`}</Link>
@@ -68,6 +73,7 @@ class Header extends React.Component {
                                 <Avatar
                                     key={i}
                                     avatar={avatar}
+                                    isLoading={isLoadingFriends}
                                     className={cn('header__friend-avatar')}
                                 />
                             ))}
@@ -82,12 +88,14 @@ class Header extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    friendsIds: state.friendsIds,
-    friends: state.friends,
+    friendsIds: state.friends.friendsIds,
+    friends: state.friends.objects,
+    isLoadingFriends: state.friends.isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
     initFriends: () => dispatch(actionInitFriends()),
+    initUser: () => dispatch(actionInitUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

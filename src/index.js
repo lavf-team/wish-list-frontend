@@ -6,6 +6,8 @@ import './styles/global.scss';
 import './utils/checkIsMobile';
 import store from './store';
 
+console.log(store);
+
 ReactDOM.render(
     <Provider store={store}>
         <App />

@@ -66,11 +66,12 @@
     display: flex;
     justify-content: center;
     margin-top: $global-spacing-large;
+
+    @include media('<=phone') {
+      padding: 0 $global-spacing-medium 0 0;
+    }
   }
 
-  &__round-container {
-    padding-right: $global-spacing-medium;
-  }
 
   &__tip {
     @include absoluteCenter;

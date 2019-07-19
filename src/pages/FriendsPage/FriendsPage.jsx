@@ -42,7 +42,7 @@ class FriendsPage extends React.Component {
             isLoad,
             hasMore,
         } = this.state;
-        const isMobile = window.getIsMobile;
+        const isMobile = window.getIsMobile();
         const { friendsIds } = this.props;
 
         return (
@@ -71,16 +71,14 @@ class FriendsPage extends React.Component {
                         {hasMore && (
                             <div className={cn('friends-page__btn-container')}>
                                 {isMobile ? (
-                                    <div className={cn('friends-page__round-container')}>
-                                        <RoundButton
-                                            text={'Загрузить еще'}
+                                    <RoundButton
+                                        text={'Загрузить еще'}
+                                    />) : (
+                                        <SimpleButton
+                                            text={'Показать еще'}
+                                            style={buttonStyles.LIGHT}
                                         />
-                                    </div>
-                                    ) :
-                                    (<SimpleButton
-                                        text={'Показать еще'}
-                                        style={buttonStyles.LIGHT}
-                                    />)
+                                       )
                                 }
                             </div>)}
                     </div>
@@ -98,7 +96,7 @@ class FriendsPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    friendsIds: state.friendsIds
+    friendsIds: state.friends.friendsIds
 });
 
 export default connect(mapStateToProps)(FriendsPage)
