@@ -24,11 +24,6 @@ class Header extends React.Component {
         return avatars;
     };
 
-    componentDidMount() {
-        this.props.initFriends();
-        this.props.initUser();
-    }
-
     render() {
         const {
             user : { name, surname, avatar, isLoading },
@@ -41,7 +36,6 @@ class Header extends React.Component {
         const page = matchUrl(url);
         const headerClassName = `${className} ${cn('header')}`;
         const avatars = !!friendsIds.length ? this.getAvatars() : [];
-        console.log('isLoadingFriends', isLoadingFriends);
 
         return (
             <div className={headerClassName}>
@@ -49,7 +43,7 @@ class Header extends React.Component {
                     <div className={cn('header__user-profile')}>
                         <Avatar isLoading={isLoading} avatar={avatar} />
                         <Link
-                            to={route.PROFILE.url}
+                            to={route.MY_WISHES.url}
                             className={cn('header__nickname')}>{isMobile ? name: `${name} ${surname}`}</Link>
                     </div>)}
                 {(page !== route.WISH_LIST.title) && (
@@ -93,9 +87,4 @@ const mapStateToProps = state => ({
     isLoadingFriends: state.friends.isLoading,
 });
 
-const mapDispatchToProps = dispatch => ({
-    initFriends: () => dispatch(actionInitFriends()),
-    initUser: () => dispatch(actionInitUser()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+export default connect(mapStateToProps)(withRouter(Header));

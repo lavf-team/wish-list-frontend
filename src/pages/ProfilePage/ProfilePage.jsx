@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Header from '../../components/Header';
 import styles from './ProfilePage.module.scss';
 import UserCard from '../../components/UserCard';
 import img1 from '../../img/relieved.png';
 import img2 from '../../img/glasses.png';
-import defaultWish1 from '../../img/defaultWish1.jpg';
-import defaultWish2 from '../../img/defaultWish2.jpg';
 import WishList from '../../components/WishList';
 import { route } from "../../utils/matchUrl";
 
@@ -21,83 +19,25 @@ class ProfilePage extends React.Component {
         links: {
             firstLink : {
                 title: 'firstLink',
-                text: 'Хочу получить',
+                text: !this.props.match.params.id ?
+                    'Хочу получить':
+                    'Хочет получить',
                 img: img1,
                 isActive: false,
-                to: route.MY_WISHES.url,
+                to: !this.props.match.params.id ?
+                    route.MY_WISHES.url :
+                    route.FRIENDS_WISHES.create(this.props.match.params.id),
             },
             secondLink : {
                 title: 'secondLink',
                 text: 'Хочу подарить',
                 img: img2,
                 isActive: true,
-                to: route.MY_GIFTS.url,
+                to: !this.props.match.params.id ?
+                    route.MY_GIFTS.url :
+                    route.FRIENDS_GIFTS.create(this.props.match.params.id),
             }
         },
-        myWishes: [
-            {
-                img: defaultWish1,
-                title: 'MacBook Pro 2018 256GB',
-                prize: '120 000 ₽',
-                description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
-            },
-            {
-                img: defaultWish2,
-                title: 'iPhone XR 256GB',
-                prize: '70 000 ₽',
-                description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
-            },
-            {
-                img: defaultWish1,
-                title: 'MacBook Pro 2018 256GB',
-                prize: '120 000 ₽',
-                description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
-            },
-            {
-                img: defaultWish1,
-                title: 'MacBook Pro 2018 256GB',
-                prize: '120 000 ₽',
-                description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
-            },
-            {
-                img: defaultWish1,
-                title: 'MacBook Pro 2018 256GB',
-                prize: '120 000 ₽',
-                description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
-            },
-            {
-                img: defaultWish1,
-                title: 'MacBook Pro 2018 256GB',
-                prize: '120 000 ₽',
-                description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
-            }
-        ],
-        myGifts: [
-            {
-                img: defaultWish1,
-                title: 'MacBook Pro 2018 256GB',
-                prize: '120 000 ₽',
-                description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
-            },
-            {
-                img: defaultWish2,
-                title: 'iPhone XR 256GB',
-                prize: '70 000 ₽',
-                description: 'Мобильный телефон Apple iPhone XR 256GB (желтый)',
-            },
-            {
-                img: defaultWish1,
-                title: 'MacBook Pro 2018 256GB',
-                prize: '120 000 ₽',
-                description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
-            },
-            {
-                img: defaultWish1,
-                title: 'MacBook Pro 2018 256GB',
-                prize: '120 000 ₽',
-                description: 'Ноутбук Apple MacBook Pro 13.3" Core i5 2,4 ГГц, 8 ГБ, 256 ГБ SSD, Iris Plus 655, Touch Bar (серый космос)',
-            },
-        ],
     };
 
     handleClick = (title) => {
@@ -132,9 +72,25 @@ class ProfilePage extends React.Component {
         })
     };
 
+    getInfo = () => {
+        const {
+            user,
+            match: { params: {id = null} },
+            wishes,
+            gifts,
+            friends,
+        } = this.props;
+
+        return {
+            profile: !id ? user : friends[id],
+            wishes: wishes.defaultId,
+            gifts: gifts.defaultId,
+        }
+    };
+
     render() {
-        const { user } = this.props;
-        const { links, myWishes, myGifts } = this.state;
+        const { links } = this.state;
+        const { profile, wishes, gifts, } = this.getInfo();
 
         return (
             <div className={cn('profile-page')}>
@@ -143,7 +99,7 @@ class ProfilePage extends React.Component {
                 />
                 <UserCard
                     className={cn('profile-page__user-card')}
-                    user={user}
+                    user={profile}
                     links={links}
                     onClick={this.handleClick}
                 />
@@ -153,7 +109,7 @@ class ProfilePage extends React.Component {
                         <WishList
                             {...props}
                             className={cn('profile-page__list')}
-                            list={myWishes}
+                            list={wishes}
                         />
                     }
                 />
@@ -163,11 +119,30 @@ class ProfilePage extends React.Component {
                         <WishList
                             {...props}
                             className={cn('profile-page__list')}
-                            list={myGifts}
+                            list={gifts}
                         />
                     }
                 />
-                <Redirect to={route.MY_WISHES.url} />
+                <Route
+                    path={route.FRIENDS_WISHES.url}
+                    render={(props) =>
+                        <WishList
+                            {...props}
+                            className={cn('profile-page__list')}
+                            list={wishes}
+                        />
+                    }
+                />
+                <Route
+                    path={route.FRIENDS_GIFTS.url}
+                    render={(props) =>
+                        <WishList
+                            {...props}
+                            className={cn('profile-page__list')}
+                            list={gifts}
+                        />
+                    }
+                />
             </div>
 
         );
@@ -176,6 +151,9 @@ class ProfilePage extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    gifts: state.gifts,
+    wishes: state.wishes,
+    friends: state.friends.objects,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

@@ -18,6 +18,8 @@ export const actionInitUserError = (payload) => ({
 });
 
 export const actionInitUser = () => (dispatch) => {
+    console.log(INIT_USER);
+
     connect.send(VK_GET_USER, {})
         .then(data => normalizeUser(data))
         .then(user => dispatch(actionInitUserSuccess(user)))

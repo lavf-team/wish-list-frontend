@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from './App.module.scss';
 import FriendsPage from './FriendsPage';
-import FriendPage from './FriendPage';
 import WishListPage from "./WishListPage/WishListPage";
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import ProfilePage from './ProfilePage';
@@ -52,10 +51,17 @@ class App extends React.Component {
                             <Route
                                 path={route.FRIEND.url}
                                 render={(props) =>
-                                    <FriendPage
+                                    <ProfilePage
                                         {...props}
                                     />}
                             />
+                            {/*<Route
+                                path={route.FRIEND.url}
+                                render={(props) =>
+                                    <FriendPage
+                                        {...props}
+                                    />}
+                            />*/}
                             <Redirect to={route.WISH_LIST.url}/>
                         </div>
                     )}

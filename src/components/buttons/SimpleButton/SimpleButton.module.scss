@@ -3,7 +3,6 @@
 .simple-button {
   $local-spacing-medium: 22px;
 
-
   display: inline-block;
   align-items: center;
   border-radius: 20px;
@@ -22,11 +21,19 @@
   &_blue {
     background: linear-gradient(79deg, $global-linear-top-blue-color, $global-linear-bot-blue-color);
     color: #FFFFFF;
+
+    &:hover {
+      background: linear-gradient(79deg, $global-linear-bot-blue-color, $global-linear-top-blue-color);
+    }
   }
 
   &_light {
     background: linear-gradient(73deg, $global-linear-top-white-color, $global-linear-bot-white-color);
     color: #000000;
+
+    &:hover {
+      background: linear-gradient(79deg, $global-linear-bot-white-color, $global-linear-top-white-color);
+    }
   }
 
   &__text {

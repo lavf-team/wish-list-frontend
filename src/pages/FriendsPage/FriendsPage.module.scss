@@ -65,7 +65,7 @@
   &__btn-container {
     display: flex;
     justify-content: center;
-    margin-top: $global-spacing-large;
+    padding: $global-spacing-big 0 ;
 
     @include media('<=phone') {
       padding: 0 $global-spacing-medium 0 0;

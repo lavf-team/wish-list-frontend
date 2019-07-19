@@ -6,6 +6,8 @@ import {
     APP_ID,
     Token
 } from '../config.ts';
+import {actionInitUser} from "../userStore/actions";
+import {actionInitFriends} from "../friendsStore/actions";
 
 
 export const VK_INIT_APP = 'VK_INIT_APP';
@@ -40,7 +42,9 @@ export const actionInitToken = () => (dispatch) => {
         .then(data => normalizeToken(data))
         .then(token => {
             window[Token] = token;
-            dispatch(actionInitTokenSuccess())
+            dispatch(actionInitTokenSuccess());
+            dispatch(actionInitUser());
+            dispatch(actionInitFriends());
         })
         .catch(error => console.log(INIT_TOKEN_ERROR, error))
 };
