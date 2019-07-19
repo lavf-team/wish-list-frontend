@@ -9,3 +9,4 @@ exports.VK_METHOD_GET_TOKEN = 'VKWebAppGetAuthToken';
 exports.VK_CALL_API = 'VKWebAppCallAPIMethod';
 exports.API_VERSION = '5.101';
 exports.APP_ID = 7061026;
+exports.LOADED_FRIENDS_NUMBER = 5;

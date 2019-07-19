@@ -1,10 +1,11 @@
 import connect from '@vkontakte/vkui-connect-promise';
-import { normalizeFriends } from './normalizers';
+import { normalizeData } from './normalizers';
 import {
     Token,
     VK_API_METHODS,
     API_VERSION,
-    VK_CALL_API
+    VK_CALL_API,
+    LOADED_FRIENDS_NUMBER
 } from '../config.ts';
 
 export const INIT_FRIENDS = 'INIT_FRIENDS';
@@ -21,11 +22,11 @@ export const actionInitFriendsError = (payload) => ({
     payload,
 });
 
-export const actionInitFriends = () => (dispatch) => {
+export const actionInitFriends = (offset = 0,
+                                  numberOfUsers = LOADED_FRIENDS_NUMBER) => (dispatch) => {
     console.log(INIT_FRIENDS);
 
     const FIELDS = ['photo_200_orig'];
-    const numberOfUsers = 5;
 
     connect.send(VK_CALL_API, {
         'method': VK_API_METHODS.FRIENDS_GET,
@@ -34,9 +35,10 @@ export const actionInitFriends = () => (dispatch) => {
                 'v': API_VERSION,
                 'access_token': window[Token],
                 count: numberOfUsers,
+                offset,
                 fields: FIELDS.join(','),
             }})
-        .then(data => normalizeFriends(data))
+        .then(data => normalizeData(data))
         .then((data) => dispatch(actionInitFriendsSuccess(data)))
         .catch(error => dispatch(actionInitFriendsError(error)))
 };

@@ -3,6 +3,9 @@ import { INIT_FRIENDS_SUCCESS, INIT_FRIENDS_ERROR } from './actions';
 const initialState = {
     objects: {},
     friendsIds: [],
+    offset: 0,
+    allFriendsNumber: 0,
+    hasMore: true,
     isLoading: true,
 };
 
@@ -16,6 +19,9 @@ const friendsReducer = (state = initialState, {payload, type}) => {
                     ...payload.friends,
                 },
                 friendsIds: [...state.friendsIds, ...payload.ids],
+                offset: state.offset + payload.ids.length,
+                hasMore: (state.offset + payload.ids.length) < payload.count,
+                allFriendsNumber: payload.count,
                 isLoading: false
             };
         case INIT_FRIENDS_ERROR:

@@ -11,3 +11,5 @@ export const VK_CALL_API = 'VKWebAppCallAPIMethod';
 export const API_VERSION = '5.101';
 
 export const APP_ID = 7061026;
+
+export const LOADED_FRIENDS_NUMBER = 5;

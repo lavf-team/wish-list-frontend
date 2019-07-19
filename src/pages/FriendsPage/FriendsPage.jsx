@@ -9,6 +9,8 @@ import { buttonStyles } from '../../components/buttons/config.ts';
 import Header from '../../components/Header';
 import Tip from '../../components/Tip';
 import RoundButton from "../../components/buttons/RoundButton/RoundButton";
+import {actionInitFriends} from "../../store/friendsStore/actions";
+import {LOADED_FRIENDS_NUMBER} from "../../store/config";
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -24,7 +26,6 @@ class FriendsPage extends React.Component {
             value: '',
         },
         isLoad: false,
-        hasMore: true,
     };
 
     handleChangeValue = (value) => {
@@ -36,14 +37,22 @@ class FriendsPage extends React.Component {
         })
     };
 
+    handleClick = () => {
+        const { offset, allFriendsNumber } = this.props;
+        const friendsNumber = (allFriendsNumber - offset) < LOADED_FRIENDS_NUMBER ?
+            (allFriendsNumber - offset) : LOADED_FRIENDS_NUMBER;
+
+        this.props.loadFriends(offset, friendsNumber);
+    };
+
     render() {
         const {
             input : { placeholder, type, value },
             isLoad,
-            hasMore,
         } = this.state;
         const isMobile = window.getIsMobile();
-        const { friendsIds } = this.props;
+        const { friendsIds, hasMore, count } = this.props;
+        console.log(this.props);
 
         return (
             <div className={cn('friends-page')}>
@@ -72,9 +81,11 @@ class FriendsPage extends React.Component {
                             <div className={cn('friends-page__btn-container')}>
                                 {isMobile ? (
                                     <RoundButton
+                                        onClick={this.handleClick}
                                         text={'Загрузить еще'}
                                     />) : (
                                         <SimpleButton
+                                            onClick={this.handleClick}
                                             text={'Показать еще'}
                                             style={buttonStyles.LIGHT}
                                         />
@@ -96,7 +107,14 @@ class FriendsPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    friendsIds: state.friends.friendsIds
+    friendsIds: state.friends.friendsIds,
+    hasMore: state.friends.hasMore,
+    offset: state.friends.offset,
+    allFriendsNumber: state.friends.allFriendsNumber,
 });
 
-export default connect(mapStateToProps)(FriendsPage)
+const mapDispatchToProps = dispatch => ({
+    loadFriends: (offset, count) => dispatch(actionInitFriends(offset, count)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendsPage)

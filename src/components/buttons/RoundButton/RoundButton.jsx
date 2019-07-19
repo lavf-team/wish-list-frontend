@@ -7,12 +7,17 @@ const cn = classNames.bind(styles);
 
 export default class RoundButton extends React.Component {
     render() {
-        const { text = '', className = '', style = buttonStyles.LIGHT } = this.props;
+        const {
+            text = '',
+            className = '',
+            style = buttonStyles.LIGHT,
+            onClick = () => {},
+        } = this.props;
         const buttonClassName = `${className}
                 ${cn('round-button', `round-button_${style}`)}`;
 
         return (
-            <div className={buttonClassName}>
+            <div onClick={onClick} className={buttonClassName}>
                 {text}
             </div>
         );

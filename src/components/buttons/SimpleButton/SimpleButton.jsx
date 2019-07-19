@@ -12,6 +12,7 @@ export default class SimpleButton extends React.Component {
             text = '',
             style = buttonStyles.BLUE,
             className = '',
+            onClick = () => {},
         } = this.props;
 
         const buttonClassName = `${className}
@@ -22,7 +23,7 @@ export default class SimpleButton extends React.Component {
         )}`;
 
         return (
-            <div className={buttonClassName}>
+            <div onClick={onClick} className={buttonClassName}>
                 <div className={cn('simple-button__text')}>{text}</div>
             </div>
         );

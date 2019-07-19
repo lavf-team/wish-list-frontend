@@ -62,7 +62,7 @@ $media-expressions: (
 
 
 ///
-/// Defines a number to be added or subtracted from each unit when declaring breakpoints with exclusive intervals
+/// Defines a allFriendsNumber to be added or subtracted from each unit when declaring breakpoints with exclusive intervals
 ///
 /// @example scss - Interval for pixels is defined as `1` by default
 ///  @include media('>128px') {}
@@ -399,14 +399,14 @@ $im-no-media-expressions: ('screen', 'portrait', 'landscape') !default;
 }
 
 ////
-/// String to number converter
+/// String to allFriendsNumber converter
 /// @author Hugo Giraudel
 /// @access private
 ////
 
 
 ///
-/// Casts a string into a number
+/// Casts a string into a allFriendsNumber
 ///
 /// @param {String | Number} $value - Value to be parsed
 ///
