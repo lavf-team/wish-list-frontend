@@ -1,5 +1,5 @@
-import defaultWish1 from "../../img/defaultWish1.jpg";
-import defaultWish2 from "../../img/defaultWish2.jpg";
+import defaultWish1 from 'img/defaultWish1.jpg';
+import defaultWish2 from 'img/defaultWish2.jpg';
 
 const initialState = {
     defaultId: [

@@ -2,13 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from './App.module.scss';
 import FriendsPage from './FriendsPage';
-import WishListPage from "./WishListPage/WishListPage";
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import WishListPage from './WishListPage';
+import {
+    BrowserRouter,
+    Route,
+    Redirect
+} from 'react-router-dom';
 import ProfilePage from './ProfilePage';
-import { route } from '../utils/matchUrl';
-import {actionInitToken, actionVkInitApp} from "../store/metaStore/actions";
-import Loader from "../components/Loader/Loader";
-import {loaderSizes} from "../components/Loader/config";
+import { route } from 'utils/matchUrl';
+import { actionInitToken, actionVkInitApp } from 'store/metaStore/actions';
+import Loader from 'components/Loader';
+import { loaderSizes } from 'components/Loader/config';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -55,13 +59,6 @@ class App extends React.Component {
                                         {...props}
                                     />}
                             />
-                            {/*<Route
-                                path={route.FRIEND.url}
-                                render={(props) =>
-                                    <FriendPage
-                                        {...props}
-                                    />}
-                            />*/}
                             <Redirect to={route.WISH_LIST.url}/>
                         </div>
                     )}

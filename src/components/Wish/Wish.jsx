@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Wish.module.scss';
-import SimpleButton from "../buttons/SimpleButton/SimpleButton";
-import { buttonSizes } from '../buttons/config.ts';
+import SimpleButton from 'components/buttons/SimpleButton';
+import { buttonSizes } from 'components/buttons/config.ts';
 import { wishSize } from './config.ts';
 const classNames = require('classnames/bind');
 

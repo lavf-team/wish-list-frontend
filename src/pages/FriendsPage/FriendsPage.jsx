@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styles from './FriendsPage.module.scss';
-import Input from "../../components/Input";
-import Loader from "../../components/Loader";
-import Friend from "../../components/Friend/Friend";
-import SimpleButton from '../../components/buttons/SimpleButton';
-import { buttonStyles } from '../../components/buttons/config.ts';
-import Header from '../../components/Header';
-import Tip from '../../components/Tip';
-import RoundButton from "../../components/buttons/RoundButton/RoundButton";
-import {actionInitFriends} from "../../store/friendsStore/actions";
-import {LOADED_FRIENDS_NUMBER} from "../../store/config";
+import Input from 'components/Input';
+import Loader from 'components/Loader';
+import Friend from 'components/Friend';
+import SimpleButton from 'components/buttons/SimpleButton';
+import { buttonStyles } from 'components/buttons/config.ts';
+import Header from 'components/Header';
+import Tip from 'components/Tip';
+import RoundButton from 'components/buttons/RoundButton';
+import { actionInitFriends } from 'store/friendsStore/actions';
+import { LOADED_FRIENDS_NUMBER } from 'store/config';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
@@ -51,7 +51,7 @@ class FriendsPage extends React.Component {
             isLoad,
         } = this.state;
         const isMobile = window.getIsMobile();
-        const { friendsIds, hasMore, count } = this.props;
+        const { friendsIds, hasMore } = this.props;
         console.log(this.props);
 
         return (

@@ -1,13 +1,13 @@
 import connect from '@vkontakte/vkui-connect-promise';
-import { normalizeToken } from "./normalizers";
+import { normalizeToken } from './normalizers';
 import {
     VK_METHOD_GET_TOKEN,
     VK_METHOD_INIT_APP,
     APP_ID,
     Token
-} from '../config.ts';
-import {actionInitUser} from "../userStore/actions";
-import {actionInitFriends} from "../friendsStore/actions";
+} from 'store/config.ts';
+import {actionInitUser} from 'store/userStore/actions';
+import {actionInitFriends} from 'store/friendsStore/actions';
 
 
 export const VK_INIT_APP = 'VK_INIT_APP';

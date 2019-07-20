@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Avatar from '../Avatar';
+import Avatar from 'components/Avatar';
 import styles from './Header.module.scss';
 import { Link, withRouter } from 'react-router-dom';
-import matchUrl, { route } from '../../utils/matchUrl';
-import {actionInitFriends} from "../../store/friendsStore/actions";
-import {actionInitUser} from "../../store/userStore/actions";
+import matchUrl, { route } from 'utils/matchUrl';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);

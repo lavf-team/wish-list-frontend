@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './UserCard.module.scss';
-import Avatar from '../Avatar/Avatar';
-import TextEmoji from '../TextEmoji';
-import SimpleButton from "../buttons/SimpleButton";
-import { buttonStyles } from '../buttons/config.ts';
-import {avatarSize} from "../Avatar/config";
+import Avatar from 'components/Avatar';
+import TextEmoji from 'components/TextEmoji';
+import SimpleButton from 'components/buttons/SimpleButton';
+import { buttonStyles } from 'components/buttons/config.ts';
+import { avatarSize } from 'components/Avatar/config';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);

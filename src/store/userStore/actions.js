@@ -1,5 +1,5 @@
 import connect from '@vkontakte/vkui-connect-promise';
-import {normalizeUser} from "./normalizers";
+import { normalizeUser } from './normalizers';
 
 export const INIT_USER = 'INIT_USER';
 export const INIT_USER_SUCCESS = 'INIT_USER_SUCCESS';

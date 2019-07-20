@@ -6,7 +6,7 @@ import {
     API_VERSION,
     VK_CALL_API,
     LOADED_FRIENDS_NUMBER
-} from '../config.ts';
+} from 'store/config.ts';
 
 export const INIT_FRIENDS = 'INIT_FRIENDS';
 export const INIT_FRIENDS_SUCCESS = 'INIT_FRIENDS_SUCCESS';

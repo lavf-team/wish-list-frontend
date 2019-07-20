@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './RoundButton.module.scss';
-import { buttonStyles } from '../config.ts';
+import { buttonStyles } from 'components/buttons/config.ts';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);

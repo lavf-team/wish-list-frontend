@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Loader.module.scss';
 import loader from './img/loader.svg';
-import {loaderSizes} from "./config";
+import { loaderSizes } from './config';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);

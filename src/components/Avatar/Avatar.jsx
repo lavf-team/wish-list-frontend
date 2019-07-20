@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Avatar.module.scss';
 import { avatarSize } from './config.ts';
-import Loader from "../Loader/Loader";
+import Loader from 'components/Loader';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);

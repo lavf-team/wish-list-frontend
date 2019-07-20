@@ -1,4 +1,4 @@
-@import '../../styles/mixins';
+@import '~styles/styles';
 
 .header {
   $local-spacing: 20px;
@@ -14,7 +14,6 @@
   }
   
   &__nickname {
-    //display: inline-block;
     margin-left: $global-spacing-small;
 
     @include linkText;

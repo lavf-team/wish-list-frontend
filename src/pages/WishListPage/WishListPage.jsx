@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './WishListPage.module.scss';
-import Header from '../../components/Header';
-import Input from '../../components/Input';
-import defaultWish1 from '../../img/defaultWish1.jpg';
-import defaultWish2 from '../../img/defaultWish2.jpg';
-import Loader from "../../components/Loader/Loader";
-import WishList from "../../components/WishList/WishList";
+import Header from 'components/Header';
+import Input from 'components/Input';
+import defaultWish1 from 'img/defaultWish1.jpg';
+import defaultWish2 from 'img/defaultWish2.jpg';
+import Loader from 'components/Loader';
+import WishList from 'components/WishList';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);

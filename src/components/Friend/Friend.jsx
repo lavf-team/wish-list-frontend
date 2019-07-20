@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Friend.module.scss';
-import Avatar from '../Avatar';
-import SimpleButton from "../buttons/SimpleButton";
-import { buttonStyles } from '../buttons/config.ts';
-import { avatarSize } from '../Avatar/config.ts';
-import { route } from '../../utils/matchUrl';
+import Avatar from 'components/Avatar';
+import SimpleButton from 'components/buttons/SimpleButton';
+import { buttonStyles } from 'components/buttons/config.ts';
+import { avatarSize } from 'components/Avatar/config.ts';
+import { route } from 'utils/matchUrl';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);

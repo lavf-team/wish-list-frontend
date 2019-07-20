@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import Header from '../../components/Header';
+import Header from 'components/Header';
 import styles from './ProfilePage.module.scss';
-import UserCard from '../../components/UserCard';
-import img1 from '../../img/relieved.png';
-import img2 from '../../img/glasses.png';
-import WishList from '../../components/WishList';
-import { route } from "../../utils/matchUrl";
+import UserCard from 'components/UserCard';
+import img1 from 'img/relieved.png';
+import img2 from 'img/glasses.png';
+import WishList from 'components/WishList';
+import { route } from 'utils/matchUrl';
 
 
 const classNames = require('classnames/bind');

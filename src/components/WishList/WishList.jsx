@@ -1,12 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Masonry from 'react-masonry-component';
-import Wish from "../Wish/Wish";
-import { wishSize } from '../Wish/config';
+import Wish from 'components/Wish';
+import { wishSize } from 'components/Wish/config';
 import styles from './WishList.module.scss';
-import matchUrl, { route } from '../../utils/matchUrl';
-import defaultWish1 from "../../img/defaultWish1.jpg";
-import defaultWish2 from "../../img/defaultWish2.jpg";
+import matchUrl, { route } from 'utils/matchUrl';
 const classNames = require('classnames/bind');
 
 const cn = classNames.bind(styles);
