@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
+    "no-var-requires": false,
+    "interface-name": [false],
+    "jsx-no-multiline-js": false,
+    "no-shadowed-variable": false,
+    "jsx-no-lambda": false,
+    "member-access": false,
+    "member-ordering": false,
+    "prefer-array-literal": false,
+    "array-type": false,
+    "ban-types": false,
+    "no-empty": false,
+    "prettier": [true, {
+      "jsxBracketSameLine": false,
+      "bracketSpacing": true,
+      "singleQuote": true,
+      "trailingComma": true
+    }],
+    "max-line-length": [true, 120],
+    "max-classes-per-file": false,
+    "no-increment-decrement": false,
+    "import-name": false
+  }
+}
