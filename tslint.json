@@ -1,35 +1,62 @@
 {
   "extends": [
-    "tslint:recommended",
+    "tslint:latest",
+    "tslint-config-airbnb",
+    "tslint-config-prettier",
     "tslint-react",
-    "tslint-config-prettier"
-  ],
-  "rulesDirectory": [
     "tslint-plugin-prettier"
   ],
   "rules": {
-    "no-implicit-dependencies": false,
+    "array-type": [true, "generic"],
+    "prefer-array-literal": false,
+    "import-name": false,
+    "no-namespace": false,
     "no-submodule-imports": false,
-    "no-var-requires": false,
-    "interface-name": [false],
+    "no-boolean-literal-compare": true,
     "jsx-no-multiline-js": false,
-    "no-shadowed-variable": false,
     "jsx-no-lambda": false,
     "member-access": false,
-    "member-ordering": false,
-    "prefer-array-literal": false,
-    "array-type": false,
-    "ban-types": false,
-    "no-empty": false,
+    "object-literal-sort-keys": false,
+    "jsx-wrap-multiline": false,
+    "no-increment-decrement": false,
+    "no-implicit-dependencies": [true, [
+      "components",
+      "config",
+      "img",
+      "store",
+      "styles",
+      "utils",
+      "pages"
+    ]],
     "prettier": [true, {
       "jsxBracketSameLine": false,
       "bracketSpacing": true,
       "singleQuote": true,
-      "trailingComma": true
+      "trailingComma": "es5"
     }],
-    "max-line-length": [true, 120],
-    "max-classes-per-file": false,
-    "no-increment-decrement": false,
-    "import-name": false
+    "ordered-imports": [true, {
+      "grouped-imports": true,
+      "groups": [
+        {
+          "match": "^(components|config|img|store|styles|utils|pages)",
+          "order": 20
+        },
+        {
+          "match": "^[A-Za-z]",
+          "order": 10
+        },
+        {
+          "name": "parent_dir",
+          "match": "^[.][.]",
+          "order": 50
+        },
+        {
+          "name": "current dir",
+          "match": "^[.]",
+          "order": 40
+        },
+        { "match": null, "order": 30 }
+      ]
+    }]
   }
 }
