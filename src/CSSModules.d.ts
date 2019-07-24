@@ -13,6 +13,11 @@ declare module '*.jpg' {
   export default content;
 }
 
+declare module '*.png' {
+  const content: any;
+  export default content;
+}
+
 declare namespace JSX {
   // tslint:disable-next-line:interface-name
   export interface IntrinsicAttributes {

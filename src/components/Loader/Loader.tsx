@@ -12,7 +12,7 @@ interface IProps {
 export default class Loader extends React.Component<IProps> {
   static defaultProps = {
     className: null,
-    size: loaderSizes.MEDIUM
+    size: loaderSizes.MEDIUM,
   };
 
   public render() {

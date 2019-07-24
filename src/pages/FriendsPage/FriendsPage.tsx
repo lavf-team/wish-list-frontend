@@ -9,30 +9,45 @@ import Header from 'components/Header';
 import Input from 'components/Input';
 import Loader from 'components/Loader';
 import Tip from 'components/Tip';
+import { IInput } from 'config/interfaces';
 import { LOADED_FRIENDS_NUMBER } from 'store/config';
 import { actionInitFriends } from 'store/friendsStore/actions';
 import { getIsMobile } from 'utils/checkIsMobile';
 
 import './FriendsPage.module.scss';
 
-class FriendsPage extends React.Component<any> {
+interface IProps {
+  friendsIds: Array<number>;
+  hasMore: boolean;
+  offset: number;
+  allFriendsNumber: number;
+
+  loadFriends: (offset: number, friendsNumber: number) => void;
+}
+
+interface IState {
+  input: IInput;
+  isLoad: boolean;
+}
+
+class FriendsPage extends React.Component<IProps, IState> {
   state = {
     input: {
       type: 'text',
       placeholder: getIsMobile()
         ? 'Введите имя друга'
         : 'Начни вводить имя своего друга',
-      value: ''
+      value: '',
     },
-    isLoad: false
+    isLoad: false,
   };
 
   handleChangeValue = value => {
     this.setState({
       input: {
         ...this.state.input,
-        value
-      }
+        value,
+      },
     });
   };
 
@@ -49,7 +64,7 @@ class FriendsPage extends React.Component<any> {
   render() {
     const {
       input: { placeholder, type, value },
-      isLoad
+      isLoad,
     } = this.state;
     const isMobile = getIsMobile();
     const { friendsIds, hasMore } = this.props;
@@ -112,11 +127,11 @@ const mapStateToProps = state => ({
   friendsIds: state.friends.friendsIds,
   hasMore: state.friends.hasMore,
   offset: state.friends.offset,
-  allFriendsNumber: state.friends.allFriendsNumber
+  allFriendsNumber: state.friends.allFriendsNumber,
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadFriends: (offset, count) => dispatch(actionInitFriends(offset, count))
+  loadFriends: (offset, count) => dispatch(actionInitFriends(offset, count)),
 });
 
 export default connect(

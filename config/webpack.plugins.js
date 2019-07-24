@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const defaultHTMLTemplateOptions = {
   chunks: ['main'],
   filename: 'index.html',
-  title: 'Partygoer',
+  title: 'Wish List',
 };
 
 module.exports = ({

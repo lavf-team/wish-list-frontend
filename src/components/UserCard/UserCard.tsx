@@ -5,11 +5,21 @@ import { avatarSize } from 'components/Avatar/config';
 import { buttonStyles } from 'components/buttons/config';
 import SimpleButton from 'components/buttons/SimpleButton';
 import TextEmoji from 'components/TextEmoji';
+import { ILink, IUser } from 'config/interfaces';
 import { getIsMobile } from 'utils/checkIsMobile';
 
 import './UserCard.module.scss';
 
-export default class UserCard extends React.Component<any> {
+interface IProps {
+  user: IUser;
+  links: {
+    [id: string]: ILink;
+  };
+  className?: string;
+  onClick: (any) => null;
+}
+
+export default class UserCard extends React.Component<IProps> {
   render() {
     const {
       user: { avatar, name, surname },
@@ -20,25 +30,24 @@ export default class UserCard extends React.Component<any> {
           img: firstImg,
           isActive: isFirstLinkActive,
           to: firstPath,
-          state
         },
         secondLink: {
           title: secondTitle,
           text: secondText,
           img: secondImg,
           isActive: isSecondLinkActive,
-          to: secondPath
-        }
+          to: secondPath,
+        },
       },
       className,
-      onClick
+      onClick,
     } = this.props;
     const isMobile = getIsMobile();
 
     return (
       <div className={className} styleName="user-card">
         <Avatar
-          avatar={avatar}
+          avatar={avatar || ''}
           size={isMobile ? avatarSize.SMALL_LARGE : avatarSize.MEDIUM_LARGE}
         />
         <div styleName="user-card__info">
@@ -49,10 +58,7 @@ export default class UserCard extends React.Component<any> {
               text={firstText}
               emoji={firstImg}
               isActive={isFirstLinkActive}
-              to={{
-                state,
-                pathname: firstPath
-              }}
+              to={firstPath}
               title={firstTitle}
               onClick={onClick}
             />
@@ -60,10 +66,7 @@ export default class UserCard extends React.Component<any> {
               text={secondText}
               emoji={secondImg}
               isActive={isSecondLinkActive}
-              to={{
-                state,
-                pathname: secondPath
-              }}
+              to={secondPath}
               title={secondTitle}
               onClick={onClick}
             />

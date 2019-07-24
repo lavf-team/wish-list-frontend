@@ -15,6 +15,7 @@
     "no-boolean-literal-compare": true,
     "jsx-no-multiline-js": false,
     "jsx-no-lambda": false,
+    "no-console": false,
     "member-access": false,
     "object-literal-sort-keys": false,
     "jsx-wrap-multiline": false,

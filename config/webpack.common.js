@@ -3,7 +3,7 @@ const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const srcPath = subPath => path.join(__dirname, '../src', subPath);
-const publicDir = path.join(__dirname, '..', '/public');
+const publicDir = path.join(__dirname, '..', '/dist');
 
 module.exports = isProd => ({
   entry: './src/index.tsx',

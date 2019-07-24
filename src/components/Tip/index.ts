@@ -1,1 +1,1 @@
-export { default } from './Tip'
+export { default } from './Tip';

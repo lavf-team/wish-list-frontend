@@ -46,12 +46,12 @@ class App extends React.Component<IProps> {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.meta.isLoading
+  isLoading: state.meta.isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
   initToken: () => dispatch(actionInitToken()),
-  initVkApp: () => dispatch(actionVkInitApp())
+  initVkApp: () => dispatch(actionVkInitApp()),
 });
 
 export default connect(

@@ -5,13 +5,32 @@ import { Route } from 'react-router-dom';
 import Header from 'components/Header';
 import UserCard from 'components/UserCard';
 import WishList from 'components/WishList';
+import { ILink, IUser, IWishes } from 'config/interfaces';
 import img2 from 'img/glasses.png';
 import img1 from 'img/relieved.png';
 import { route } from 'utils/matchUrl';
 
 import './ProfilePage.module.scss';
 
-class ProfilePage extends React.Component<any> {
+interface IProps {
+  user: IUser;
+  gifts: IWishes;
+  wishes: IWishes;
+  friends: {
+    [id: string]: IUser;
+  };
+  match: {
+    params: { id: number };
+  };
+}
+
+interface IState {
+  links: {
+    [id: string]: ILink;
+  };
+}
+
+class ProfilePage extends React.Component<IProps, IState> {
   state = {
     links: {
       firstLink: {
@@ -21,7 +40,7 @@ class ProfilePage extends React.Component<any> {
         isActive: false,
         to: !this.props.match.params.id
           ? route.MY_WISHES.url
-          : route.FRIENDS_WISHES.create(this.props.match.params.id)
+          : route.FRIENDS_WISHES.create(this.props.match.params.id),
       },
       secondLink: {
         title: 'secondLink',
@@ -30,9 +49,9 @@ class ProfilePage extends React.Component<any> {
         isActive: true,
         to: !this.props.match.params.id
           ? route.MY_GIFTS.url
-          : route.FRIENDS_GIFTS.create(this.props.match.params.id)
-      }
-    }
+          : route.FRIENDS_GIFTS.create(this.props.match.params.id),
+      },
+    },
   };
 
   handleClick = title => {
@@ -41,8 +60,8 @@ class ProfilePage extends React.Component<any> {
     const {
       links: {
         firstLink: { title: firstTitle },
-        secondLink: { title: secondTitle }
-      }
+        secondLink: { title: secondTitle },
+      },
     } = this.state;
 
     if (title === firstTitle) {
@@ -57,13 +76,13 @@ class ProfilePage extends React.Component<any> {
       links: {
         [inActive]: {
           ...this.state.links[inActive],
-          isActive: false
+          isActive: false,
         },
         [active]: {
           ...this.state.links[active],
-          isActive: true
-        }
-      }
+          isActive: true,
+        },
+      },
     });
   };
 
@@ -71,17 +90,17 @@ class ProfilePage extends React.Component<any> {
     const {
       user,
       match: {
-        params: { id = null }
+        params: { id = null },
       },
       wishes,
       gifts,
-      friends
+      friends,
     } = this.props;
 
     return {
       profile: !id ? user : friends[id],
       wishes: wishes.defaultId,
-      gifts: gifts.defaultId
+      gifts: gifts.defaultId,
     };
   };
 
@@ -131,7 +150,7 @@ const mapStateToProps = state => ({
   user: state.user,
   gifts: state.gifts,
   wishes: state.wishes,
-  friends: state.friends.objects
+  friends: state.friends.objects,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

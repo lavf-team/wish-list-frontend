@@ -3,16 +3,27 @@ import React from 'react';
 
 import { buttonSizes } from 'components/buttons/config';
 import SimpleButton from 'components/buttons/SimpleButton';
+import { IWish } from 'config/interfaces';
 
 import { wishSize } from './config';
 import './Wish.module.scss';
 
-export default class Wish extends React.Component<any> {
+interface IProps {
+  className?: string;
+  info: IWish;
+  size: wishSize;
+}
+
+export default class Wish extends React.Component<IProps> {
+  static defaultProps: Partial<IProps> = {
+    size: wishSize.FIXED,
+  };
+
   render() {
     const {
       className,
       info: { img, title, prize, description },
-      size = wishSize.FIXED
+      size,
     } = this.props;
     const isFixed = size === wishSize.FIXED;
 

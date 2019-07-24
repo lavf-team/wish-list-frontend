@@ -3,18 +3,30 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import Avatar from 'components/Avatar';
+import { IUser } from 'config/interfaces';
 import { getIsMobile } from 'utils/checkIsMobile';
 import matchUrl, { route } from 'utils/matchUrl';
 
 import './Header.module.scss';
 
-class Header extends React.Component<any> {
+interface IProps {
+  user: IUser;
+  friendsIds: Array<number>;
+  friends: {
+    [id: string]: IUser;
+  };
+  isLoadingFriends: boolean;
+  className?: string;
+  match: { url: string };
+}
+
+class Header extends React.Component<IProps> {
   getAvatars = () => {
     const { friendsIds, friends } = this.props;
-    const avatars = [];
+    const avatars: Array<string> = [];
 
     for (let i = 0; i < 3; i++) {
-      avatars.push(friends[friendsIds[i]].avatar);
+      avatars.push(friends[friendsIds[i]].avatar || '');
     }
     return avatars;
   };
@@ -25,7 +37,7 @@ class Header extends React.Component<any> {
       match: { url },
       className,
       friendsIds,
-      isLoadingFriends
+      isLoadingFriends,
     } = this.props;
     const isMobile = getIsMobile();
     const page = matchUrl(url);
@@ -35,7 +47,7 @@ class Header extends React.Component<any> {
       <div className={className} styleName="header">
         {page !== route.PROFILE.title && (
           <div styleName="header__user-profile">
-            <Avatar isLoading={isLoading} avatar={avatar} />
+            <Avatar isLoading={isLoading} avatar={avatar || ''} />
             <Link to={route.MY_WISHES.url} styleName="header__nickname">
               {isMobile ? name : `${name} ${surname}`}
             </Link>
@@ -74,7 +86,7 @@ const mapStateToProps = state => ({
   user: state.user,
   friendsIds: state.friends.friendsIds,
   friends: state.friends.objects,
-  isLoadingFriends: state.friends.isLoading
+  isLoadingFriends: state.friends.isLoading,
 });
 
 export default connect(mapStateToProps)(withRouter(Header));

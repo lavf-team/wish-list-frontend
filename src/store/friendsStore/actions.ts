@@ -1,44 +1,49 @@
-import connect from '@vkontakte/vkui-connect-promise';
-import { normalizeData } from './normalizers';
 import {
-    Token,
-    VK_API_METHODS,
-    API_VERSION,
-    VK_CALL_API,
-    LOADED_FRIENDS_NUMBER
+  API_VERSION,
+  LOADED_FRIENDS_NUMBER,
+  Token,
+  VK_API_METHODS,
+  VK_CALL_API,
 } from 'store/config';
+
+import { normalizeData } from './normalizers';
+
+import connect from '@vkontakte/vkui-connect-promise';
 
 export const INIT_FRIENDS = 'INIT_FRIENDS';
 export const INIT_FRIENDS_SUCCESS = 'INIT_FRIENDS_SUCCESS';
 export const INIT_FRIENDS_ERROR = 'INIT_FRIENDS_ERROR';
 
-export const actionInitFriendsSuccess = (payload) => ({
-    type: INIT_FRIENDS_SUCCESS,
-    payload,
+export const actionInitFriendsSuccess = payload => ({
+  payload,
+  type: INIT_FRIENDS_SUCCESS,
 });
 
-export const actionInitFriendsError = (payload) => ({
-    type: INIT_FRIENDS_ERROR,
-    payload,
+export const actionInitFriendsError = payload => ({
+  payload,
+  type: INIT_FRIENDS_ERROR,
 });
 
-export const actionInitFriends = (offset = 0,
-                                  numberOfUsers = LOADED_FRIENDS_NUMBER) => (dispatch) => {
-    console.log(INIT_FRIENDS);
+export const actionInitFriends = (
+  offset = 0,
+  numberOfUsers = LOADED_FRIENDS_NUMBER
+) => dispatch => {
+  console.log(INIT_FRIENDS);
 
-    const FIELDS = ['photo_200_orig'];
+  const FIELDS = ['photo_200_orig'];
 
-    connect.send(VK_CALL_API, {
-        'method': VK_API_METHODS.FRIENDS_GET,
-        'params':
-            {
-                'v': API_VERSION,
-                'access_token': window[Token],
-                count: numberOfUsers,
-                offset,
-                fields: FIELDS.join(','),
-            }})
-        .then(data => normalizeData(data))
-        .then((data) => dispatch(actionInitFriendsSuccess(data)))
-        .catch(error => dispatch(actionInitFriendsError(error)))
+  connect
+    .send(VK_CALL_API, {
+      method: VK_API_METHODS.FRIENDS_GET,
+      params: {
+        offset,
+        v: API_VERSION,
+        access_token: window[Token],
+        count: numberOfUsers,
+        fields: FIELDS.join(','),
+      },
+    })
+    .then(data => normalizeData(data))
+    .then(data => dispatch(actionInitFriendsSuccess(data)))
+    .catch(error => dispatch(actionInitFriendsError(error)));
 };

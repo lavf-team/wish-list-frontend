@@ -34,7 +34,7 @@ class Friend extends React.Component<IProps> {
             <div styleName="friend__name">{`${name} ${surname}`}</div>
             <Link
               to={{
-                pathname: route.FRIENDS_WISHES.create(friendId)
+                pathname: route.FRIENDS_WISHES.create(friendId),
               }}
             >
               <SimpleButton
@@ -48,7 +48,7 @@ class Friend extends React.Component<IProps> {
             <div styleName="friend__name">{`${name} ${surname}`}</div>
             <Link
               to={{
-                pathname: route.FRIENDS_WISHES.create(friendId)
+                pathname: route.FRIENDS_WISHES.create(friendId),
               }}
             >
               <SimpleButton
@@ -65,7 +65,7 @@ class Friend extends React.Component<IProps> {
 }
 
 const mapStateToProps = state => ({
-  friends: state.friends.objects
+  friends: state.friends.objects,
 });
 
 export default connect(mapStateToProps)(Friend);

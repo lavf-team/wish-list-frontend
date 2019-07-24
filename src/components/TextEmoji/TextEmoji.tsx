@@ -4,11 +4,25 @@ import { Link } from 'react-router-dom';
 
 import './TextEmoji.module.scss';
 
-export default class TextEmoji extends React.Component<any> {
+interface IProps {
+  text: string;
+  emoji: any;
+  className?: string;
+  isActive?: boolean;
+  to: string;
+  title: string;
+  onClick: (title: string) => null;
+}
+
+export default class TextEmoji extends React.Component<IProps> {
+  static defaultProps: Partial<IProps> = {
+    isActive: false,
+  };
+
   onClick = () => this.props.onClick(this.props.title);
 
   render() {
-    const { text, emoji, className = '', isActive = false, to } = this.props;
+    const { text, emoji, className, isActive, to } = this.props;
 
     return (
       <div className={className} styleName="text-emoji">

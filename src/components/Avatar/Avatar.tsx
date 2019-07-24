@@ -15,7 +15,7 @@ interface IProps {
 export default class Avatar extends React.Component<IProps> {
   static defaultProps: Partial<IProps> = {
     size: avatarSize.SMALL,
-    isLoading: false
+    isLoading: false,
   };
 
   render() {
