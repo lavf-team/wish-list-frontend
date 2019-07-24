@@ -5,6 +5,35 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const srcPath = subPath => path.join(__dirname, '../src', subPath);
 const publicDir = path.join(__dirname, '..', '/dist');
 
+const getCSSLoader = (withModules = false, isProd) => [
+  {loader: MiniCssExtractPlugin.loader},
+  {
+    loader: 'css-loader',
+    options: withModules ? {
+      modules: {
+        mode: 'local',
+        localIdentName: '[local]___[hash:base64:5]'
+      },
+      sourceMap: !isProd,
+      importLoaders: 1,
+    } : {
+      sourceMap: true
+    }
+  },
+  {
+    loader: 'postcss-loader',
+    options: {
+      plugins: () => [autoprefixer]
+    }
+  },
+  {
+    loader: 'sass-loader',
+    options: {
+      includePaths: [srcPath]
+    }
+  }
+];
+
 module.exports = isProd => ({
   entry: './src/index.tsx',
   output: {
@@ -29,56 +58,11 @@ module.exports = isProd => ({
       {
         test: /.(s?css|sass)$/,
         exclude: /\.module\.(s?css|sass)$/,
-        use: [
-          {loader: MiniCssExtractPlugin.loader},
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: () => [autoprefixer]
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: [srcPath]
-            }
-          }
-        ]
+        use: getCSSLoader(false, isProd),
       },
       {
         test: /\.module\.(s?css|sass)$/,
-        use: [
-          {loader: MiniCssExtractPlugin.loader},
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                mode: 'local',
-                localIdentName: '[local]___[hash:base64:5]'
-              },
-              sourceMap: !isProd,
-              importLoaders: 1,
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: () => [autoprefixer]
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: [srcPath]
-            }
-          }
-        ]
+        use: getCSSLoader(true, isProd)
       },
       {
         test: /\.ts$/,

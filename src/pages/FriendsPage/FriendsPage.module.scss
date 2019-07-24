@@ -75,4 +75,8 @@
   &__tip {
     @include absoluteCenter;
   }
+
+  &__tongue-emoji {
+    margin-left: $global-spacing-small;
+  }
 }

@@ -6,6 +6,8 @@ import Input from 'components/Input';
 import Loader from 'components/Loader';
 import WishList from 'components/WishList';
 import { IInput, IWishes } from 'config/interfaces';
+import favoriteEmojiUrl from 'img/favoriteEmoji.svg';
+import loveEmojiUrl from 'img/loveEmoji.svg';
 import { getIsMobile } from 'utils/checkIsMobile';
 
 import './WishListPage.module.scss';
@@ -52,7 +54,10 @@ class WishListPage extends React.Component<IProps, IState> {
     return (
       <div styleName="wish-list-page">
         <Header styleName="wish-list-page__header" />
-        <div styleName="wish-list-page__title">Wishlist 😍</div>
+        <div styleName="wish-list-page__title">
+          Wishlist
+          <img styleName="wish-list-page__love-emoji" src={loveEmojiUrl} />
+        </div>
         <div styleName="wish-list-page__input-container">
           <Input
             placeholder={placeholder}
@@ -65,7 +70,13 @@ class WishListPage extends React.Component<IProps, IState> {
         {!isSearch ? (
           <div styleName="wish-list-page__content">
             {!isMobile && (
-              <div styleName="wish-list-page__popular-text">Популярное 🤩</div>
+              <div styleName="wish-list-page__popular-text">
+                Популярное
+                <img
+                  src={favoriteEmojiUrl}
+                  styleName="wish-list-page__favorite-emoji"
+                />
+              </div>
             )}
             <WishList
               styleName="wish-list-page__list"

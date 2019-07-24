@@ -17,7 +17,7 @@ export default class SimpleButton extends React.Component<IProps> {
   static defaultProps = {
     size: buttonSizes.MEDIUM,
     style: buttonStyles.BLUE,
-    onClick: () => null
+    onClick: () => null,
   };
 
   render() {

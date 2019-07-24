@@ -45,8 +45,10 @@
   }
 
   &__popular-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: $global-font-size-medium-large;
-    text-align: center;
   }
 
   &__list {
@@ -65,5 +67,15 @@
     display: flex;
     justify-content: center;
     margin-top: 100px;
+  }
+
+  &__love-emoji {
+    margin-left: $global-spacing-small;
+  }
+
+  &__favorite-emoji {
+    width: 40px;
+    height: 40px;
+    margin-left: $global-spacing-tiny;
   }
 }

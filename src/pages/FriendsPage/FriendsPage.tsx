@@ -10,6 +10,7 @@ import Input from 'components/Input';
 import Loader from 'components/Loader';
 import Tip from 'components/Tip';
 import { IInput } from 'config/interfaces';
+import tongueEmojiUrl from 'img/tongueEmoji.svg';
 import { LOADED_FRIENDS_NUMBER } from 'store/config';
 import { actionInitFriends } from 'store/friendsStore/actions';
 import { getIsMobile } from 'utils/checkIsMobile';
@@ -72,7 +73,10 @@ class FriendsPage extends React.Component<IProps, IState> {
     return (
       <>
         <Header styleName="friends-page__header" />
-        <div styleName="friends-page__title">Мои друзья 😜</div>
+        <div styleName="friends-page__title">
+          Мои друзья
+          <img styleName="friends-page__tongue-emoji" src={tongueEmojiUrl} />
+        </div>
         <div styleName="friends-page__input-container">
           <Input
             placeholder={placeholder}

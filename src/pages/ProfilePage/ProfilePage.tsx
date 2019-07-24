@@ -6,8 +6,8 @@ import Header from 'components/Header';
 import UserCard from 'components/UserCard';
 import WishList from 'components/WishList';
 import { ILink, IUser, IWishes } from 'config/interfaces';
-import img2 from 'img/glasses.png';
-import img1 from 'img/relieved.png';
+import wantedEmojiUrl from 'img/wantedEmoji.svg';
+import coolEmojiUrl from 'img/wishEmoji.svg';
 import { route } from 'utils/matchUrl';
 
 import './ProfilePage.module.scss';
@@ -36,7 +36,7 @@ class ProfilePage extends React.Component<IProps, IState> {
       firstLink: {
         title: 'firstLink',
         text: !this.props.match.params.id ? 'Хочу получить' : 'Хочет получить',
-        img: img1,
+        img: wantedEmojiUrl,
         isActive: false,
         to: !this.props.match.params.id
           ? route.MY_WISHES.url
@@ -45,7 +45,7 @@ class ProfilePage extends React.Component<IProps, IState> {
       secondLink: {
         title: 'secondLink',
         text: 'Хочу подарить',
-        img: img2,
+        img: coolEmojiUrl,
         isActive: true,
         to: !this.props.match.params.id
           ? route.MY_GIFTS.url
