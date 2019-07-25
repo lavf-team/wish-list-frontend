@@ -14,6 +14,11 @@ export const INIT_FRIENDS = 'INIT_FRIENDS';
 export const INIT_FRIENDS_SUCCESS = 'INIT_FRIENDS_SUCCESS';
 export const INIT_FRIENDS_ERROR = 'INIT_FRIENDS_ERROR';
 
+export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
+export const SEARCH_FRIENDS_INIT = 'SEARCH_FRIENDS_INIT';
+export const SEARCH_FRIENDS_SUCCESS = 'SEARCH_FRIENDS_SUCCESS';
+export const SEARCH_FRIENDS_ERROR = 'SEARCH_FRIENDS_ERROR';
+
 export const actionInitFriendsSuccess = payload => ({
   payload,
   type: INIT_FRIENDS_SUCCESS,
@@ -22,6 +27,21 @@ export const actionInitFriendsSuccess = payload => ({
 export const actionInitFriendsError = payload => ({
   payload,
   type: INIT_FRIENDS_ERROR,
+});
+
+export const actionSearchFriendsInit = () => ({
+  payload: null,
+  type: SEARCH_FRIENDS_INIT,
+});
+
+export const actionSearchFriendsSuccess = payload => ({
+  payload,
+  type: SEARCH_FRIENDS_SUCCESS,
+});
+
+export const actionSearchFriendsError = payload => ({
+  payload,
+  type: SEARCH_FRIENDS_ERROR,
 });
 
 export const actionInitFriends = (
@@ -46,4 +66,23 @@ export const actionInitFriends = (
     .then(data => normalizeData(data))
     .then(data => dispatch(actionInitFriendsSuccess(data)))
     .catch(error => dispatch(actionInitFriendsError(error)));
+};
+
+export const actionSearchFriends = value => dispatch => {
+  console.log(SEARCH_FRIENDS);
+  const FIELDS = ['photo_200_orig'];
+
+  connect
+    .send(VK_CALL_API, {
+      method: VK_API_METHODS.FRIENDS_SEARCH,
+      params: {
+        q: value,
+        fields: FIELDS.join(','),
+        v: API_VERSION,
+        access_token: window[Token],
+      },
+    })
+    .then(data => normalizeData(data))
+    .then(data => dispatch(actionSearchFriendsSuccess(data)))
+    .catch(error => dispatch(actionSearchFriendsError(error)));
 };

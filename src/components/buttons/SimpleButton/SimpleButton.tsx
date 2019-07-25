@@ -43,7 +43,6 @@ export default class SimpleButton extends React.Component<IProps> {
       `simple-button_${size}`,
       `simple-button_${style}`
     );
-    console.log(this.props);
 
     return (
       <div onClick={onClick} styleName={buttonClassName} className={className}>

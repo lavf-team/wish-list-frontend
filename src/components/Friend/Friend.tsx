@@ -6,6 +6,7 @@ import Avatar from 'components/Avatar';
 import { avatarSize } from 'components/Avatar/config';
 import { buttonStyles } from 'components/buttons/config';
 import SimpleButton from 'components/buttons/SimpleButton';
+import { IUser } from 'config/interfaces';
 import { getIsMobile } from 'utils/checkIsMobile';
 import { route } from 'utils/matchUrl';
 
@@ -13,7 +14,9 @@ import './Friend.module.scss';
 
 interface IProps {
   friendId: number;
-  friends: any;
+  friends: {
+    [id: string]: IUser;
+  };
   className?: string;
 }
 

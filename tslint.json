@@ -17,6 +17,7 @@
     "jsx-no-lambda": false,
     "no-console": false,
     "member-access": false,
+    "ban-types": false,
     "object-literal-sort-keys": false,
     "jsx-wrap-multiline": false,
     "no-increment-decrement": false,

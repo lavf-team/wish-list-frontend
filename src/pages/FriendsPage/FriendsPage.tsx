@@ -8,27 +8,38 @@ import Friend from 'components/Friend';
 import Header from 'components/Header';
 import Input from 'components/Input';
 import Loader from 'components/Loader';
+import { loaderSizes } from 'components/Loader/config';
 import Tip from 'components/Tip';
 import { IInput } from 'config/interfaces';
 import tongueEmojiUrl from 'img/tongueEmoji.svg';
 import { LOADED_FRIENDS_NUMBER } from 'store/config';
-import { actionInitFriends } from 'store/friendsStore/actions';
+import {
+  actionInitFriends,
+  actionSearchFriends,
+  actionSearchFriendsInit,
+} from 'store/friendsStore/actions';
 import { getIsMobile } from 'utils/checkIsMobile';
+import debounce from 'utils/debounce';
 
 import './FriendsPage.module.scss';
 
 interface IProps {
   friendsIds: Array<number>;
+  searchFriendsIds: Array<number>;
   hasMore: boolean;
   offset: number;
   allFriendsNumber: number;
+  isInitLoading: boolean;
+  isSearchLoading: boolean;
 
   loadFriends: (offset: number, friendsNumber: number) => void;
+  searchFriendsInit: () => void;
+  searchFriends: (value: string) => void;
 }
 
 interface IState {
   input: IInput;
-  isLoad: boolean;
+  isSearch: boolean;
 }
 
 class FriendsPage extends React.Component<IProps, IState> {
@@ -40,8 +51,13 @@ class FriendsPage extends React.Component<IProps, IState> {
         : 'Начни вводить имя своего друга',
       value: '',
     },
-    isLoad: false,
+    isSearch: false,
   };
+
+  searchFriends = debounce(value => {
+    this.props.searchFriendsInit();
+    this.props.searchFriends(value);
+  }, 500);
 
   handleChangeValue = value => {
     this.setState({
@@ -49,7 +65,10 @@ class FriendsPage extends React.Component<IProps, IState> {
         ...this.state.input,
         value,
       },
+      isSearch: !!value,
     });
+
+    this.searchFriends(value);
   };
 
   handleClick = () => {
@@ -65,10 +84,23 @@ class FriendsPage extends React.Component<IProps, IState> {
   render() {
     const {
       input: { placeholder, type, value },
-      isLoad,
+      isSearch,
     } = this.state;
     const isMobile = getIsMobile();
-    const { friendsIds, hasMore } = this.props;
+    const {
+      friendsIds,
+      hasMore,
+      isInitLoading,
+      isSearchLoading,
+      searchFriendsIds,
+    } = this.props;
+
+    const hasLoader =
+      (!isSearch && isInitLoading) || (isSearch && isSearchLoading);
+    const hasNoFriends =
+      (!isSearch && !isInitLoading && !friendsIds.length) ||
+      (isSearch && !isSearchLoading && !searchFriendsIds.length);
+    const hasNoFriendsTitle = isSearch ? 'такого друга' : 'друзей';
 
     return (
       <>
@@ -86,7 +118,7 @@ class FriendsPage extends React.Component<IProps, IState> {
             onChange={this.handleChangeValue}
           />
         </div>
-        {!isLoad && !!friendsIds.length ? (
+        {!isSearch && !isInitLoading && !!friendsIds.length && (
           <div styleName="friends-page__friends">
             {friendsIds.map((friendId, i) => (
               <Friend
@@ -112,15 +144,29 @@ class FriendsPage extends React.Component<IProps, IState> {
               </div>
             )}
           </div>
-        ) : isLoad ? (
-          <div styleName="friends-page__loader-container">
-            <Loader />
+        )}
+        {isSearch && !isSearchLoading && !!searchFriendsIds.length && (
+          <div styleName="friends-page__friends">
+            {searchFriendsIds.map((friendId, i) => (
+              <Friend
+                key={i}
+                friendId={friendId}
+                styleName="friends-page__friend"
+                isSearch={isSearch}
+              />
+            ))}
           </div>
-        ) : (
+        )}
+        {hasNoFriends && (
           <Tip
             styleName="friends-page__tip"
-            text={'Кажется, у тебя нет друзей'}
+            text={`Кажется, у тебя нет ${hasNoFriendsTitle}`}
           />
+        )}
+        {hasLoader && (
+          <div styleName="friends-page__loader-container">
+            <Loader size={loaderSizes.LARGE} />
+          </div>
         )}
       </>
     );
@@ -132,10 +178,15 @@ const mapStateToProps = state => ({
   hasMore: state.friends.hasMore,
   offset: state.friends.offset,
   allFriendsNumber: state.friends.allFriendsNumber,
+  isInitLoading: state.friends.isLoading,
+  searchFriendsIds: state.friends.searchFriendsIds,
+  isSearchLoading: state.friends.isSearchLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
   loadFriends: (offset, count) => dispatch(actionInitFriends(offset, count)),
+  searchFriendsInit: () => dispatch(actionSearchFriendsInit()),
+  searchFriends: value => dispatch(actionSearchFriends(value)),
 });
 
 export default connect(
