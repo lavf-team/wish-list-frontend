@@ -3,6 +3,7 @@ import React from 'react';
 
 import { buttonSizes } from 'components/buttons/config';
 import SimpleButton from 'components/buttons/SimpleButton';
+import RoundEmoji from 'components/RoundEmoji/RoundEmoji';
 import { IWish } from 'config/interfaces';
 
 import { wishSize } from './config';
@@ -22,7 +23,13 @@ export default class Wish extends React.Component<IProps> {
   render() {
     const {
       className,
-      info: { img, title, prize, description },
+      info: {
+        img,
+        title,
+        prize,
+        description,
+        state: { text, style, emojiInside, emojiOutside },
+      },
       size,
     } = this.props;
     const isFixed = size === wishSize.FIXED;
@@ -39,7 +46,17 @@ export default class Wish extends React.Component<IProps> {
         <div styleName="wish__title">{title}</div>
         <div styleName="wish__prize">{prize}</div>
         <div styleName="wish__description">{description}</div>
-        <SimpleButton text={'Добавить в избранное'} size={buttonSizes.LARGE} />
+        <div styleName="wish__footer">
+          <SimpleButton
+            text={text}
+            style={style}
+            emoji={emojiInside}
+            size={emojiOutside.has ? buttonSizes.MEDIUM : buttonSizes.LARGE}
+          />
+          {emojiOutside.has && (
+            <RoundEmoji style={emojiOutside.style} img={emojiOutside.url} />
+          )}
+        </div>
       </div>
     );
   }

@@ -1,21 +1,28 @@
-@import '~styles/constants';
+@import 'styles/styles';
 
 .simple-button {
-  $local-spacing-medium: 22px;
-
-  display: inline-block;
+  display: flex;
   align-items: center;
+  justify-content: center;
   border-radius: 20px;
   cursor: pointer;
 
-  &_medium {
+  &_small {
+    width: 100px;
+    height: 30px;
     font-size: $global-font-size-medium-button;
-    padding:  $global-spacing-tiny $global-spacing-small;
+  }
+
+  &_medium {
+    width: 150px;
+    height: 40px;
+    font-size: $global-font-size-medium-button;
   }
 
   &_large {
+    width: 200px;
+    height: 40px;
     font-size: $global-font-size-large-button;
-    padding:  $global-spacing-tiny $local-spacing-medium;
   }
 
   &_blue {
@@ -36,7 +43,21 @@
     }
   }
 
+  &_gray {
+    background: $global-gray-darken-color;
+    color: #000000;
+
+    &:hover {
+      background: darken($global-gray-darken-color, 5%);
+    }
+  }
+
+
   &__text {
     letter-spacing: 0;
+  }
+
+  &__emoji {
+    margin-left: $global-spacing-tiny;
   }
 }

@@ -1,8 +1,27 @@
+import { buttonStyles } from 'components/buttons/config';
+import { RoundEmojiStyles } from 'components/RoundEmoji/config';
+
+export interface IWishState {
+  title: string;
+  text: string;
+  style: buttonStyles;
+  emojiInside: {
+    has: boolean;
+    url: any;
+  };
+  emojiOutside: {
+    has: boolean;
+    url: any;
+    style: RoundEmojiStyles | null;
+  };
+}
+
 export interface IWish {
   img: any;
   title: string;
   prize: string;
   description: string;
+  state: IWishState;
 }
 
 export interface IWishes {

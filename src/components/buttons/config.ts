@@ -5,6 +5,7 @@ export enum buttonStyles {
 }
 
 export enum buttonSizes {
+  SMALL = 'small',
   MEDIUM = 'medium',
   LARGE = 'large',
 }

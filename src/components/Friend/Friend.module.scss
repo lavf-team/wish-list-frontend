@@ -1,4 +1,4 @@
-@import '~styles/styles';
+@import 'styles/styles';
 
 .friend {
   $local-font-size-mobile: 20px;
@@ -33,7 +33,7 @@
   }
 
   &__button {
-    width: 200px;
+    font-size: $global-font-size-medium-button;
     text-align: center;
   }
 }

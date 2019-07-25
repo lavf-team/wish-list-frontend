@@ -1,10 +1,11 @@
 import { buttonStyles } from 'components/buttons/config';
 import { RoundEmojiStyles } from 'components/RoundEmoji/config';
-import coolEmojiUrl from 'img/coolEmoji.svg';
-import defaultUser from 'img/defaultuser.jpg';
+import defaultUser from 'img/defaultUser.jpg';
 import favoriteEmojiUrl from 'img/favoriteEmoji.svg';
 import giftUrl from 'img/gift.svg';
 import sadEmojiUrl from 'img/sadEmoji.svg';
+import coolEmojiUrl from 'img/wishEmoji.svg';
+import shokedEmojiUrl from 'img/shokedEmoji.svg';
 
 export enum wishSize {
   FULL = 'full',
@@ -129,8 +130,8 @@ export const wishState = {
     text: 'Уже подарят',
     style: buttonStyles.GRAY,
     emojiInside: {
-      has: false,
-      url: null,
+      has: true,
+      url: shokedEmojiUrl,
     },
     emojiOutside: {
       has: true,
@@ -143,8 +144,8 @@ export const wishState = {
     text: 'Уже подарят',
     style: buttonStyles.GRAY,
     emojiInside: {
-      has: false,
-      url: null,
+      has: true,
+      url: shokedEmojiUrl,
     },
     emojiOutside: {
       has: false,

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from 'components/Avatar';
 import { avatarSize } from 'components/Avatar/config';
-import { buttonStyles } from 'components/buttons/config';
+import { buttonSizes, buttonStyles } from 'components/buttons/config';
 import SimpleButton from 'components/buttons/SimpleButton';
 import TextEmoji from 'components/TextEmoji';
 import { ILink, IUser } from 'config/interfaces';
@@ -72,7 +72,11 @@ export default class UserCard extends React.Component<IProps> {
             />
           </div>
           {!isMobile ? (
-            <SimpleButton text={'Поделиться'} style={buttonStyles.BLUE} />
+            <SimpleButton
+              size={buttonSizes.SMALL}
+              text={'Поделиться'}
+              style={buttonStyles.BLUE}
+            />
           ) : (
             <div styleName="user-card__share-button" />
           )}

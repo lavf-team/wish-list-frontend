@@ -47,4 +47,14 @@
       margin: 0;
     }
   }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    font-size: 14px;
+  }
+
 }
