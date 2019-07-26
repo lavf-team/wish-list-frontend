@@ -80,7 +80,7 @@ class WishListPage extends React.Component<IProps, IState> {
             )}
             <WishList
               styleName="wish-list-page__list"
-              list={wishList.defaultId}
+              list={wishList}
             />
           </div>
         ) : null}
@@ -95,7 +95,7 @@ class WishListPage extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = state => ({
-  wishList: state.wishes,
+  wishList: state.wishes.catalog,
 });
 
 export default connect(mapStateToProps)(WishListPage);
