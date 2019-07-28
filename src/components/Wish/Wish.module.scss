@@ -11,6 +11,7 @@
   }
 
   &__img {
+    width: 100%;
     object-fit: contain;
     object-position: center;
 
@@ -42,6 +43,9 @@
     color: $global-gray-font-color;
     font-size: $global-font-size-extra-tiny;
     margin-bottom: $global-spacing-small;
+    max-height: 42px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     @include media('<=phone') {
       margin: 0;

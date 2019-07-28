@@ -1,19 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import AutoCompleteInput from 'components/AutoCompleteInput';
 import Header from 'components/Header';
-import Input from 'components/Input';
 import Loader from 'components/Loader';
 import WishList from 'components/WishList';
-import { IInput, IWishes } from 'config/interfaces';
+import { IInput, IWish } from 'config/interfaces';
 import favoriteEmojiUrl from 'img/favoriteEmoji.svg';
 import loveEmojiUrl from 'img/loveEmoji.svg';
+import {
+  actionGetCatalog,
+  actionGetSearchCatalog,
+} from 'store/wishesStore/actions';
 import { getIsMobile } from 'utils/checkIsMobile';
+import debounce from 'utils/debounce';
 
 import './WishListPage.module.scss';
 
 interface IProps {
-  wishList: IWishes;
+  wishList: {
+    [id: string]: IWish;
+  };
+  wishListIds: Array<number>;
+  getCatalog: () => null;
+  getSearchCatalog: (q: string) => void;
 }
 
 interface IState {
@@ -25,13 +35,14 @@ interface IState {
 class WishListPage extends React.Component<IProps, IState> {
   state = {
     input: {
-      type: 'text',
       placeholder: 'Введите название товара',
       value: '',
     },
     isLoad: false,
     isSearch: false,
   };
+
+  handleSearch = debounce(this.props.getSearchCatalog, 500);
 
   handleChangeValue = value => {
     this.setState({
@@ -40,15 +51,21 @@ class WishListPage extends React.Component<IProps, IState> {
         value,
       },
     });
+
+    this.handleSearch(value);
   };
+
+  componentDidMount() {
+    this.props.getCatalog();
+  }
 
   render() {
     const {
-      input: { type, placeholder, value },
+      input: { placeholder, value },
       isSearch,
       isLoad,
     } = this.state;
-    const { wishList } = this.props;
+    const { wishList, wishListIds } = this.props;
     const isMobile = getIsMobile();
 
     return (
@@ -59,9 +76,8 @@ class WishListPage extends React.Component<IProps, IState> {
           <img styleName="wish-list-page__love-emoji" src={loveEmojiUrl} />
         </div>
         <div styleName="wish-list-page__input-container">
-          <Input
+          <AutoCompleteInput
             placeholder={placeholder}
-            type={type}
             value={value}
             styleName="wish-list-page__input"
             onChange={this.handleChangeValue}
@@ -80,6 +96,7 @@ class WishListPage extends React.Component<IProps, IState> {
             )}
             <WishList
               styleName="wish-list-page__list"
+              listIds={wishListIds}
               list={wishList}
             />
           </div>
@@ -96,6 +113,15 @@ class WishListPage extends React.Component<IProps, IState> {
 
 const mapStateToProps = state => ({
   wishList: state.wishes.catalog,
+  wishListIds: state.wishes.catalogIds,
 });
 
-export default connect(mapStateToProps)(WishListPage);
+const mapDispatchToProps = dispatch => ({
+  getCatalog: () => dispatch(actionGetCatalog()),
+  getSearchCatalog: q => dispatch(actionGetSearchCatalog(q)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WishListPage);

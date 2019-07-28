@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import Header from 'components/Header';
 import UserCard from 'components/UserCard';
 import WishList from 'components/WishList';
-import { ILink, IUser, IWishes } from 'config/interfaces';
+import { ILink, IUser, IWish } from 'config/interfaces';
 import wantedEmojiUrl from 'img/wantedEmoji.svg';
 import coolEmojiUrl from 'img/wishEmoji.svg';
 import { route } from 'utils/matchUrl';
@@ -14,8 +14,13 @@ import './ProfilePage.module.scss';
 
 interface IProps {
   user: IUser;
-  gifts: IWishes;
-  wishes: IWishes;
+  gifts: {
+    [id: string]: IWish;
+  };
+  wishes: {
+    [id: string]: IWish;
+  };
+  wishesIds: Array<number>;
   friends: {
     [id: string]: IUser;
   };
@@ -94,19 +99,21 @@ class ProfilePage extends React.Component<IProps, IState> {
       },
       wishes,
       gifts,
+      wishesIds,
       friends,
     } = this.props;
 
     return {
+      wishes,
+      gifts,
+      wishesIds,
       profile: !id ? user : friends[id],
-      wishes: wishes.defaultId,
-      gifts: gifts.defaultId,
     };
   };
 
   render() {
     const { links } = this.state;
-    const { profile, wishes, gifts } = this.getInfo();
+    const { profile, wishes, gifts, wishesIds } = this.getInfo();
 
     return (
       <>
@@ -120,25 +127,45 @@ class ProfilePage extends React.Component<IProps, IState> {
         <Route
           path={route.MY_WISHES.url}
           render={props => (
-            <WishList {...props} styleName="profile-page__list" list={wishes} />
+            <WishList
+              {...props}
+              styleName="profile-page__list"
+              listIds={wishesIds}
+              list={wishes}
+            />
           )}
         />
         <Route
           path={route.MY_GIFTS.url}
           render={props => (
-            <WishList {...props} styleName="profile-page__list" list={gifts} />
+            <WishList
+              {...props}
+              styleName="profile-page__list"
+              listIds={wishesIds}
+              list={gifts}
+            />
           )}
         />
         <Route
           path={route.FRIENDS_WISHES.url}
           render={props => (
-            <WishList {...props} styleName="profile-page__list" list={wishes} />
+            <WishList
+              {...props}
+              styleName="profile-page__list"
+              listIds={wishesIds}
+              list={wishes}
+            />
           )}
         />
         <Route
           path={route.FRIENDS_GIFTS.url}
           render={props => (
-            <WishList {...props} styleName="profile-page__list" list={gifts} />
+            <WishList
+              {...props}
+              styleName="profile-page__list"
+              listIds={wishesIds}
+              list={gifts}
+            />
           )}
         />
       </>
@@ -148,8 +175,9 @@ class ProfilePage extends React.Component<IProps, IState> {
 
 const mapStateToProps = state => ({
   user: state.user,
-  gifts: state.gifts,
-  wishes: state.wishes.usersWishes,
+  gifts: state.wishes.catalog,
+  wishes: state.wishes.catalog,
+  wishesIds: state.wishes.catalogIds,
   friends: state.friends.objects,
 });
 

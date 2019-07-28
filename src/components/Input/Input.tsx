@@ -10,7 +10,7 @@ interface IProps {
   value?: string;
   placeholder?: string;
   className?: string;
-  onChange: (value: string) => null;
+  onChange: (value: string) => void;
 }
 
 export default class Input extends React.Component<IProps, IState> {

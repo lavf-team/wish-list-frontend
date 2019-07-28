@@ -28,7 +28,8 @@
       "store",
       "styles",
       "utils",
-      "pages"
+      "pages",
+      "libs"
     ]],
     "prettier": [true, {
       "jsxBracketSameLine": false,
@@ -40,7 +41,7 @@
       "grouped-imports": true,
       "groups": [
         {
-          "match": "^(components|config|img|store|styles|utils|pages)",
+          "match": "^(components|config|img|store|styles|utils|pages|libs)",
           "order": 20
         },
         {

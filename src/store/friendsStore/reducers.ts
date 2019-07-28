@@ -66,9 +66,6 @@ const friendsReducer: IReducer = (state = initialState, { payload, type }) => {
           ...state.objects,
           ...payload.friends,
         },
-        friendsIds: Array.from(new Set([...state.friendsIds, ...payload.ids])),
-        offset: state.offset + payload.ids.length,
-        hasMore: state.offset + payload.ids.length < state.allFriendsNumber,
         searchFriendsIds: [...payload.ids],
         searchObjects: {
           ...payload.friends,

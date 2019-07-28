@@ -51,6 +51,7 @@ module.exports = isProd => ({
       store: srcPath('store'),
       styles: srcPath('styles'),
       utils: srcPath('utils'),
+      libs: srcPath('libs'),
     }
   },
   module: {

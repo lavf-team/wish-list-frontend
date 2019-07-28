@@ -40,7 +40,7 @@ export default class Wish extends React.Component<IProps> {
         styleName={cn('wish', isFixed && `wish_${size}`)}
       >
         <img
-          src={img}
+          src={`http://${img}`}
           styleName={cn('wish__img', isFixed && `wish__img_${size}`)}
         />
         <div styleName="wish__title">{title}</div>

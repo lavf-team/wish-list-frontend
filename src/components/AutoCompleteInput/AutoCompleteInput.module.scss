@@ -1,0 +1,41 @@
+@import 'styles/styles';
+
+.auto-input {
+  position: relative;
+  z-index: 100;
+
+  &__input {
+    z-index: 1;
+  }
+
+  &__drop-down {
+    width: 100%;
+    padding: 25px 25px 15px;
+    position: absolute;
+    background-color: #FFFFFF;
+    top: 25px;
+    left: 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+
+    &-el {
+      font-size: $global-font-size-tiny-medium;
+      margin-top: $global-spacing-small;
+      text-align: left;
+      color: $global-gray-font-color;
+
+    &:focus {
+      background-color: $global-gray-color;
+      color: #FFFFFF;
+    }
+    }
+
+    &-sub-el {
+
+      &_black {
+        color: #000000;
+      }
+    }
+  }
+}

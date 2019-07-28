@@ -26,7 +26,8 @@
       "store/*": [ "store/*" ],
       "styles/*": [ "styles/*" ],
       "utils/*": [ "utils/*" ],
-      "pages/*": [ "pages/*" ]
+      "pages/*": [ "pages/*" ],
+      "libs/*": [ "libs/*" ]
     },
     "emitDecoratorMetadata": true,
     "allowUnusedLabels": false,
