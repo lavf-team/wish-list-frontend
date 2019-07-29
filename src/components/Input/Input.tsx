@@ -2,43 +2,35 @@ import React from 'react';
 
 import './Input.module.scss';
 
-interface IState {
-  active: boolean;
-}
-
 interface IProps {
   value?: string;
   placeholder?: string;
   className?: string;
   onChange: (value: string) => void;
+  onBlur?: (e) => void;
+  onFocus?: (e) => void;
+  inputRef?: (el: HTMLInputElement) => void;
 }
 
-export default class Input extends React.Component<IProps, IState> {
+export default class Input extends React.Component<IProps> {
   static defaultProps: Partial<IProps> = {
     value: '',
-  };
-
-  state = {
-    active: false,
-  };
-
-  onFocus = () => {
-    this.setState({
-      active: true,
-    });
-  };
-
-  onBlur = () => {
-    this.setState({
-      active: false,
-    });
+    onBlur: () => null,
+    onFocus: () => null,
+    inputRef: () => null,
   };
 
   onChangeValue = e => this.props.onChange(e.target.value || '');
 
   render() {
-    const { value, placeholder, className } = this.props;
-    const { active } = this.state;
+    const {
+      value,
+      placeholder,
+      className,
+      onBlur,
+      onFocus,
+      inputRef,
+    } = this.props;
 
     return (
       <div className={className} styleName="input">
@@ -47,10 +39,11 @@ export default class Input extends React.Component<IProps, IState> {
           type="text"
           value={value}
           onInput={this.onChangeValue}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          ref={inputRef}
         />
-        {!(active || (value ? value.length : 0)) && (
+        {!value!.length && (
           <div styleName="input__placeholder">{placeholder}</div>
         )}
       </div>

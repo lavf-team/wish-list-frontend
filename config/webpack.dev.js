@@ -18,6 +18,7 @@ module.exports = webpackMerge(commonConfig(isProd), {
     publicPath: '/',
     host: HOST,
     port: PORT,
+    historyApiFallback: true,
     compress: true,
     hot: true,
     overlay: {

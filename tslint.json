@@ -21,6 +21,7 @@
     "object-literal-sort-keys": false,
     "jsx-wrap-multiline": false,
     "no-increment-decrement": false,
+    "member-ordering": false,
     "no-implicit-dependencies": [true, [
       "components",
       "config",

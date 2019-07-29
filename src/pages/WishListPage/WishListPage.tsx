@@ -5,16 +5,14 @@ import AutoCompleteInput from 'components/AutoCompleteInput';
 import Header from 'components/Header';
 import Loader from 'components/Loader';
 import WishList from 'components/WishList';
+import API from 'config/API';
 import { IInput, IWish } from 'config/interfaces';
 import favoriteEmojiUrl from 'img/favoriteEmoji.svg';
 import loveEmojiUrl from 'img/loveEmoji.svg';
-import {
-  actionGetCatalog,
-  actionGetSearchCatalog,
-} from 'store/wishesStore/actions';
+import { actionGetCatalog } from 'store/wishesStore/actions';
 import { getIsMobile } from 'utils/checkIsMobile';
-import debounce from 'utils/debounce';
 
+import { normalizeSuggest } from './utils/normalizers';
 import './WishListPage.module.scss';
 
 interface IProps {
@@ -22,7 +20,7 @@ interface IProps {
     [id: string]: IWish;
   };
   wishListIds: Array<number>;
-  getCatalog: () => null;
+  getCatalog: (q?: string) => null;
   getSearchCatalog: (q: string) => void;
 }
 
@@ -42,8 +40,6 @@ class WishListPage extends React.Component<IProps, IState> {
     isSearch: false,
   };
 
-  handleSearch = debounce(this.props.getSearchCatalog, 500);
-
   handleChangeValue = value => {
     this.setState({
       input: {
@@ -51,9 +47,9 @@ class WishListPage extends React.Component<IProps, IState> {
         value,
       },
     });
-
-    this.handleSearch(value);
   };
+
+  handleSearch = query => this.props.getCatalog(query);
 
   componentDidMount() {
     this.props.getCatalog();
@@ -81,6 +77,9 @@ class WishListPage extends React.Component<IProps, IState> {
             value={value}
             styleName="wish-list-page__input"
             onChange={this.handleChangeValue}
+            onSearch={this.handleSearch}
+            normalizer={normalizeSuggest}
+            url={API.searchProducts}
           />
         </div>
         {!isSearch ? (
@@ -116,10 +115,9 @@ const mapStateToProps = state => ({
   wishListIds: state.wishes.catalogIds,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getCatalog: () => dispatch(actionGetCatalog()),
-  getSearchCatalog: q => dispatch(actionGetSearchCatalog(q)),
-});
+const mapDispatchToProps = {
+  getCatalog: actionGetCatalog,
+};
 
 export default connect(
   mapStateToProps,

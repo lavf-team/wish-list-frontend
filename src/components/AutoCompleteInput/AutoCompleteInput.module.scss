@@ -10,29 +10,37 @@
 
   &__drop-down {
     width: 100%;
-    padding: 25px 25px 15px;
+    padding: $global-spacing-big 0 $global-spacing-tiny;
     position: absolute;
     background-color: #FFFFFF;
-    top: 25px;
+    top: $global-spacing-medium;
     left: 0;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 
     &-el {
       font-size: $global-font-size-tiny-medium;
-      margin-top: $global-spacing-small;
+      padding: $global-spacing-tiny $global-spacing-medium;
       text-align: left;
       color: $global-gray-font-color;
+      cursor: pointer;
 
-    &:focus {
-      background-color: $global-gray-color;
-      color: #FFFFFF;
-    }
+      &:focus {
+        background-color: lighten($global-gray-color, 10%);
+      }
+
+      &:hover {
+        background-color: lighten($global-gray-color, 10%);
+      }
+
+      &_focused {
+        background-color: lighten($global-gray-color, 10%);
+      }
     }
 
     &-sub-el {
-
       &_black {
         color: #000000;
       }

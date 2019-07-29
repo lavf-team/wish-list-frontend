@@ -3,13 +3,11 @@ import { IReducer } from 'config/interfaces';
 import defaultWish1 from 'img/defaultWish1.jpg';
 import defaultWish2 from 'img/defaultWish2.jpg';
 
-import { GET_CATALOG_SUCCESS, GET_SEARCH_CATALOG_SUCCESS } from './actions';
+import { GET_CATALOG_SUCCESS } from './actions';
 
 const initialState = {
   catalogIds: [],
   catalog: {},
-  searchCatalogIds: [],
-  searchCatalog: {},
   // catalog: [
   //   {
   //     img: defaultWish1,
@@ -94,12 +92,6 @@ const wishesReducer: IReducer = (state = initialState, { type, payload }) => {
         ...state,
         catalogIds: payload.catalogIds,
         catalog: payload.catalog,
-      };
-    case GET_SEARCH_CATALOG_SUCCESS:
-      return {
-        ...state,
-        searchCatalogIds: payload.catalogIds,
-        searchCatalog: payload.catalog,
       };
     default:
       return state;
