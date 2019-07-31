@@ -17,6 +17,7 @@ interface IProps {
   listIds: Array<number>;
   className?: string;
   match: { url: string };
+  children: React.Component;
 }
 
 class WishList extends React.Component<IProps> {
@@ -26,6 +27,7 @@ class WishList extends React.Component<IProps> {
       listIds,
       className,
       match: { url },
+      children,
     } = this.props;
     const page = matchUrl(url);
     const isMobile = getIsMobile();
@@ -53,6 +55,7 @@ class WishList extends React.Component<IProps> {
                 key={i}
               />
             ))}
+            <div styleName="wish-list__btn">{children}</div>
           </div>
         )}
       </>

@@ -1,4 +1,4 @@
-@import '~styles/styles';
+@import 'styles/styles';
 
 .wish-list {
   $local-spacing: calc((752px - 3 * 200px) / 4);
@@ -8,6 +8,7 @@
 
   @include media('<=phone') {
     flex-wrap: nowrap;
+    align-items: center;
     overflow-x: auto;
     z-index: 2;
   }
@@ -18,5 +19,9 @@
     @include media('<=phone') {
       margin: 0 0 0 $global-spacing-medium;
     }
+  }
+
+  &__btn {
+    padding-right: $global-spacing-medium;
   }
 }

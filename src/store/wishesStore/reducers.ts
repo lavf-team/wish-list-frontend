@@ -88,7 +88,6 @@ const initialState = {
 };
 
 const wishesReducer: IReducer = (state = initialState, { type, payload }) => {
-  console.log('payload', payload);
   switch (type) {
     case GET_CATALOG_SUCCESS:
       return {

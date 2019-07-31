@@ -135,15 +135,17 @@ class WishListPage extends React.Component<IProps, IState> {
               styleName="wish-list-page__list"
               listIds={wishListIds}
               list={wishList}
-            />
+            >
+              {isMobile && (
+                <RoundButton
+                  onClick={this.handleClick}
+                  text={'Загрузить еще'}
+                />
+              )}
+            </WishList>
             {hasMore && (
               <div styleName="wish-list-page__btn-container">
-                {isMobile ? (
-                  <RoundButton
-                    onClick={this.handleClick}
-                    text={'Загрузить еще'}
-                  />
-                ) : (
+                {!isMobile && (
                   <SimpleButton
                     onClick={this.handleClick}
                     text={'Показать еще'}

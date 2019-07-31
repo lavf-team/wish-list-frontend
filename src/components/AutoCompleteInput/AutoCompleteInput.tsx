@@ -158,7 +158,7 @@ export default class AutoCompleteInput extends React.Component<IProps, IState> {
     const { suggests, isActive, focusedSuggestIndex } = this.state;
 
     const getSuggestsString = (string, index) => {
-      const startIndexValue = string.indexOf(value);
+      const startIndexValue = string.toLowerCase().indexOf(value.toLowerCase());
       const endIndexValue =
         string.substring(0, startIndexValue).length + value.length;
 
