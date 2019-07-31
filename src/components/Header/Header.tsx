@@ -9,6 +9,8 @@ import matchUrl, { route } from 'utils/matchUrl';
 
 import './Header.module.scss';
 
+const AVATARS_LIMIT = 3;
+
 interface IProps {
   user: IUser;
   friendsIds: Array<number>;
@@ -25,7 +27,10 @@ class Header extends React.Component<IProps> {
     const { friendsIds, friends } = this.props;
     const avatars: Array<string> = [];
 
-    for (let i = 0; i < 3; i++) {
+    const avatarsNumber =
+      friendsIds.length < AVATARS_LIMIT ? friendsIds.length : AVATARS_LIMIT;
+
+    for (let i = 0; i < avatarsNumber; i++) {
       avatars.push(friends[friendsIds[i]].avatar || '');
     }
     return avatars;
@@ -41,6 +46,7 @@ class Header extends React.Component<IProps> {
     } = this.props;
     const isMobile = getIsMobile();
     const page = matchUrl(url);
+
     const avatars = !!friendsIds.length ? this.getAvatars() : [];
 
     return (

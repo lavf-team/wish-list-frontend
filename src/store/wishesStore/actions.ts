@@ -9,6 +9,8 @@ export const GET_CATALOG = 'GET_CATALOG';
 export const GET_CATALOG_SUCCESS = 'GET_CATALOG_SUCCESS';
 export const GET_CATALOG_ERROR = 'GET_CATALOG_ERROR';
 
+export const PREPARE_SEARCH_CATALOG = 'PREPARATION_SEARCH_CATALOG';
+
 export const SEARCH_CATALOG = 'SEARCH_CATALOG';
 export const SEARCH_CATALOG_SUCCESS = 'SEARCH_CATALOG_SUCCESS';
 export const SEARCH_CATALOG_ERROR = 'SEARCH_CATALOG_ERROR';
@@ -55,6 +57,7 @@ export const actionGetCatalog = ({ start, limit }) => async dispatch => {
 export const actionSearchCatalog = pattern => async dispatch => {
   console.log(SEARCH_CATALOG);
 
+  dispatch(actionPrepareSearchCatalog());
   const result = await Requester.get(API.searchedProducts(), { pattern });
   if (result.response) {
     const normalizedCatalog = normalizeSearchedCatalog(result.response);
@@ -63,3 +66,8 @@ export const actionSearchCatalog = pattern => async dispatch => {
     dispatch(actionSearchCatalogError(result.error));
   }
 };
+
+export const actionPrepareSearchCatalog = () => ({
+  payload: null,
+  type: PREPARE_SEARCH_CATALOG,
+});
