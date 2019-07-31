@@ -158,7 +158,15 @@ export default class AutoCompleteInput extends React.Component<IProps, IState> {
     const { suggests, isActive, focusedSuggestIndex } = this.state;
 
     const getSuggestsString = (string, index) => {
-      const subStrings = string.split(new RegExp(`(${value})`, 'gi'));
+      const startIndexValue = string.indexOf(value);
+      const endIndexValue =
+        string.substring(0, startIndexValue).length + value.length;
+
+      const subStrings = [
+        string.substring(0, startIndexValue),
+        string.substring(startIndexValue, endIndexValue),
+        string.substring(endIndexValue),
+      ];
 
       return (
         <div

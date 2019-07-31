@@ -1,3 +1,3 @@
 export const normalizeSuggest = rawCatalog => {
-  return rawCatalog.map(el => el.product_name);
+  return rawCatalog.map(el => el.product_name.trim());
 };
