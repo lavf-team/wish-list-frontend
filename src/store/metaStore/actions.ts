@@ -37,6 +37,7 @@ export const actionVkInitApp = () => () => {
 
 export const actionInitToken = () => dispatch => {
   console.log(INIT_TOKEN);
+  console.log(window.location.href);
 
   const SCOPE = ['friends'];
 
