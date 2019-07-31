@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -19,7 +20,6 @@ import {
   actionSearchFriendsInit,
 } from 'store/friendsStore/actions';
 import { getIsMobile } from 'utils/checkIsMobile';
-import debounce from 'utils/debounce';
 
 import './FriendsPage.module.scss';
 
@@ -54,7 +54,7 @@ class FriendsPage extends React.Component<IProps, IState> {
     isSearch: false,
   };
 
-  searchFriends = debounce(value => {
+  searchFriends = _.debounce(value => {
     this.props.searchFriendsInit();
     this.props.searchFriends(value);
   }, 500);
