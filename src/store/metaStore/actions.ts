@@ -10,6 +10,8 @@ import { actionInitUser } from 'store/userStore/actions';
 import { normalizeToken } from './normalizers';
 
 import connect from '@vkontakte/vkui-connect-promise';
+import Requester from 'libs/Requester/Requester';
+import API from 'config/API';
 
 export const VK_INIT_APP = 'VK_INIT_APP';
 export const VK_INIT_APP_SUCCESS = 'VK_INIT_APP_SUCCESS';
@@ -41,11 +43,14 @@ export const actionInitToken = () => dispatch => {
   connect
     .send(VK_METHOD_GET_TOKEN, { app_id: APP_ID, scope: SCOPE.join(',') })
     .then(data => normalizeToken(data))
-    .then(token => {
+    .then(async token => {
       window[Token] = token;
       dispatch(actionInitTokenSuccess());
       dispatch(actionInitUser());
       dispatch(actionInitFriends());
+      await Requester.post(API.auth(), {
+        id: '5d3f63938597261054315605',
+      });
     })
     .catch(error => console.log(INIT_TOKEN_ERROR, error));
 };

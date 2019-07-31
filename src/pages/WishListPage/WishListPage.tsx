@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import AutoCompleteInput from 'components/AutoCompleteInput';
+import { buttonStyles } from 'components/buttons/config';
+import RoundButton from 'components/buttons/RoundButton/RoundButton';
+import SimpleButton from 'components/buttons/SimpleButton/SimpleButton';
 import Header from 'components/Header';
 import Loader from 'components/Loader';
 import WishList from 'components/WishList';
@@ -9,19 +12,28 @@ import API from 'config/API';
 import { IInput, IWish } from 'config/interfaces';
 import favoriteEmojiUrl from 'img/favoriteEmoji.svg';
 import loveEmojiUrl from 'img/loveEmoji.svg';
-import { actionGetCatalog } from 'store/wishesStore/actions';
+import {
+  actionDeleteSearchedCatalog,
+  actionGetCatalog,
+  actionSearchCatalog,
+} from 'store/wishesStore/actions';
 import { getIsMobile } from 'utils/checkIsMobile';
 
 import { normalizeSuggest } from './utils/normalizers';
 import './WishListPage.module.scss';
+
+const LIMIT_PRODUCTS = 9;
 
 interface IProps {
   wishList: {
     [id: string]: IWish;
   };
   wishListIds: Array<number>;
-  getCatalog: (q?: string) => null;
-  getSearchCatalog: (q: string) => void;
+  getCatalog: ({ start: number, limit: number }) => null;
+  getSearchedCatalog: (q: string) => void;
+  deleteSearchedCatalog: () => void;
+  total: number;
+  hasMore: boolean;
 }
 
 interface IState {
@@ -49,10 +61,36 @@ class WishListPage extends React.Component<IProps, IState> {
     });
   };
 
-  handleSearch = query => this.props.getCatalog(query);
+  getCatalogParams = () => {
+    const { wishListIds, total } = this.props;
+
+    return {
+      start: wishListIds.length,
+      limit:
+        total - wishListIds.length < LIMIT_PRODUCTS &&
+        total - wishListIds.length !== 0
+          ? total - wishListIds.length
+          : LIMIT_PRODUCTS,
+    };
+  };
+
+  handleSearch = q => {
+    if (!(q && q.trim().length)) {
+      this.props.deleteSearchedCatalog();
+      this.props.getCatalog(this.getCatalogParams());
+    } else {
+      this.props.getSearchedCatalog(q);
+    }
+  };
+
+  handleCatalog = ({ start, limit }) => this.props.getCatalog({ start, limit });
+
+  handleClick = () => {
+    this.handleCatalog(this.getCatalogParams());
+  };
 
   componentDidMount() {
-    this.props.getCatalog();
+    this.handleCatalog(this.getCatalogParams());
   }
 
   render() {
@@ -61,7 +99,7 @@ class WishListPage extends React.Component<IProps, IState> {
       isSearch,
       isLoad,
     } = this.state;
-    const { wishList, wishListIds } = this.props;
+    const { wishList, wishListIds, hasMore } = this.props;
     const isMobile = getIsMobile();
 
     return (
@@ -98,6 +136,22 @@ class WishListPage extends React.Component<IProps, IState> {
               listIds={wishListIds}
               list={wishList}
             />
+            {hasMore && (
+              <div styleName="wish-list-page__btn-container">
+                {isMobile ? (
+                  <RoundButton
+                    onClick={this.handleClick}
+                    text={'Загрузить еще'}
+                  />
+                ) : (
+                  <SimpleButton
+                    onClick={this.handleClick}
+                    text={'Показать еще'}
+                    style={buttonStyles.LIGHT}
+                  />
+                )}
+              </div>
+            )}
           </div>
         ) : null}
         {isLoad && (
@@ -108,15 +162,23 @@ class WishListPage extends React.Component<IProps, IState> {
       </div>
     );
   }
+
+  componentWillUnmount() {
+    this.props.deleteSearchedCatalog();
+  }
 }
 
 const mapStateToProps = state => ({
   wishList: state.wishes.catalog,
   wishListIds: state.wishes.catalogIds,
+  total: state.wishes.total,
+  hasMore: state.wishes.hasMore,
 });
 
 const mapDispatchToProps = {
   getCatalog: actionGetCatalog,
+  getSearchedCatalog: actionSearchCatalog,
+  deleteSearchedCatalog: actionDeleteSearchedCatalog,
 };
 
 export default connect(

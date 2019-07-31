@@ -8,7 +8,7 @@ interface IProps {
   text: string;
   className?: string;
   style?: buttonStyles;
-  onClick?: () => null;
+  onClick?: (any) => void;
 }
 
 export default class RoundButton extends React.Component<IProps> {

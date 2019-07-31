@@ -80,4 +80,15 @@
     height: 40px;
     margin-left: $global-spacing-tiny;
   }
+
+  &__btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $global-spacing-big 0 ;
+
+    @include media('<=phone') {
+      padding: 0 $global-spacing-medium 0 0;
+    }
+  }
 }

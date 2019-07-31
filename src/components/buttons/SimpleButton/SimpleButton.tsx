@@ -14,7 +14,7 @@ interface IProps {
     has: boolean;
     url: any;
   };
-  onClick?: () => void;
+  onClick?: (any) => void;
 }
 
 export default class SimpleButton extends React.Component<IProps> {

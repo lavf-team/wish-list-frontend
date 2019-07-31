@@ -47,7 +47,7 @@ export default class AutoCompleteInput extends React.Component<IProps, IState> {
     if (!this.state.isActive) {
       return;
     }
-    console.log(event);
+
     const { onSearch, value } = this.props;
     let { focusedSuggestIndex } = this.state;
     const { suggests } = this.state;
@@ -122,8 +122,16 @@ export default class AutoCompleteInput extends React.Component<IProps, IState> {
   };
 
   doSearch = async q => {
+    if (!(q && q.trim().length)) {
+      this.setState({
+        suggests: [],
+      });
+      return;
+    }
+
     const { url, normalizer } = this.props;
-    const result = await Requester.get(url(q));
+
+    const result = await Requester.get(url(), { pattern: q });
     if (result.response) {
       this.setState({
         suggests: normalizer(result.response),
