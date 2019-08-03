@@ -8,31 +8,58 @@ import WishList from 'components/WishList';
 import { ILink, IUser, IWish } from 'config/interfaces';
 import wantedEmojiUrl from 'img/wantedEmoji.svg';
 import coolEmojiUrl from 'img/wishEmoji.svg';
+import {
+  actionGetFriendGifts,
+  actionGetFriendWishes,
+} from 'store/friendsStore/actions';
+import {
+  actionGetUserGifts,
+  actionGetUserWishes,
+} from 'store/userStore/actions';
 import { route } from 'utils/matchUrl';
 
+import { PROFILE_PAGE, PROFILE_PAGE_TYPE } from './config/config';
 import './ProfilePage.module.scss';
 
 interface IProps {
   user: IUser;
-  gifts: {
-    [id: string]: IWish;
-  };
-  wishes: {
-    [id: string]: IWish;
-  };
-  wishesIds: Array<number>;
   friends: {
     [id: string]: IUser;
   };
   match: {
     params: { id: number };
   };
+  location: {
+    pathname: string;
+  };
+  userWishes: {
+    [id: string]: IWish;
+  };
+  userWishesIds: Array<string>;
+  userGifts: {
+    [id: string]: IWish;
+  };
+  userGiftsIds: Array<string>;
+  friendWishes: {
+    [id: string]: IWish;
+  };
+  friendWishesIds: Array<string>;
+  friendGifts: {
+    [id: string]: IWish;
+  };
+  friendGiftsIds: Array<string>;
+  getUserWishes: () => any;
+  getUserGifts: () => any;
+  getFriendWishes: (id: number) => any;
+  getFriendGifts: (id: number) => any;
 }
 
 interface IState {
   links: {
     [id: string]: ILink;
   };
+  profile: IUser | null;
+  type: any;
 }
 
 class ProfilePage extends React.Component<IProps, IState> {
@@ -57,6 +84,10 @@ class ProfilePage extends React.Component<IProps, IState> {
           : route.FRIENDS_GIFTS.create(this.props.match.params.id),
       },
     },
+    profile: !this.props.match.params.id
+      ? this.props.user
+      : this.props.friends[this.props.match.params.id],
+    type: PROFILE_PAGE.USER_WISHES(),
   };
 
   handleClick = title => {
@@ -91,29 +122,95 @@ class ProfilePage extends React.Component<IProps, IState> {
     });
   };
 
-  getInfo = () => {
+  getType = () => {
     const {
-      user,
       match: {
         params: { id = null },
       },
-      wishes,
-      gifts,
-      wishesIds,
-      friends,
+      location: { pathname },
     } = this.props;
 
-    return {
-      wishes,
-      gifts,
-      wishesIds,
-      profile: !id ? user : friends[id],
-    };
+    return pathname.includes('wishes')
+      ? !id
+        ? PROFILE_PAGE.USER_WISHES()
+        : PROFILE_PAGE.FRIEND_WISHES(id)
+      : !id
+      ? PROFILE_PAGE.USER_GIFTS()
+      : PROFILE_PAGE.FRIEND_GIFTS(id);
   };
 
+  loadWishes = () => {
+    const type = this.getType();
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    switch (type.title) {
+      case PROFILE_PAGE_TYPE.USER_WISHES:
+        this.props.getUserWishes();
+        return;
+      case PROFILE_PAGE_TYPE.USER_GIFTS:
+        this.props.getUserGifts();
+        return;
+      case PROFILE_PAGE_TYPE.FRIEND_WISHES:
+        this.props.getFriendWishes(id);
+        return;
+      case PROFILE_PAGE_TYPE.FRIEND_GIFTS:
+        this.props.getFriendGifts(id);
+        return;
+      default:
+        return;
+    }
+  };
+
+  getWishes = () => {
+    const type = this.getType();
+    switch (type.title) {
+      case PROFILE_PAGE_TYPE.USER_WISHES:
+        return {
+          normalizer: id => this.props.userWishes[id],
+          wishesIds: this.props.userWishesIds,
+        };
+      case PROFILE_PAGE_TYPE.USER_GIFTS:
+        return {
+          normalizer: () => {},
+          wishesIds: [],
+        };
+      case PROFILE_PAGE_TYPE.FRIEND_WISHES:
+        return {
+          normalizer: () => {},
+          wishesIds: [],
+        };
+      case PROFILE_PAGE_TYPE.FRIEND_GIFTS:
+        return {
+          normalizer: () => {},
+          wishesIds: [],
+        };
+      default:
+        return {
+          normalizer: () => {},
+          wishesIds: [],
+        };
+    }
+  };
+
+  componentDidMount() {
+    this.loadWishes();
+  }
+
+  componentDidUpdate(_, prevState) {
+    const { type: prevType } = prevState;
+    const type = this.getType();
+
+    if (type.title !== prevType.title) {
+      this.loadWishes();
+    }
+  }
+
   render() {
-    const { links } = this.state;
-    const { profile, wishes, gifts, wishesIds } = this.getInfo();
+    const { links, profile } = this.state;
+    const { normalizer, wishesIds } = this.getWishes();
 
     return (
       <>
@@ -131,7 +228,7 @@ class ProfilePage extends React.Component<IProps, IState> {
               {...props}
               styleName="profile-page__list"
               listIds={wishesIds}
-              list={wishes}
+              normalizer={normalizer}
             />
           )}
         />
@@ -142,7 +239,7 @@ class ProfilePage extends React.Component<IProps, IState> {
               {...props}
               styleName="profile-page__list"
               listIds={wishesIds}
-              list={gifts}
+              normalizer={normalizer}
             />
           )}
         />
@@ -153,7 +250,7 @@ class ProfilePage extends React.Component<IProps, IState> {
               {...props}
               styleName="profile-page__list"
               listIds={wishesIds}
-              list={wishes}
+              normalizer={normalizer}
             />
           )}
         />
@@ -164,7 +261,7 @@ class ProfilePage extends React.Component<IProps, IState> {
               {...props}
               styleName="profile-page__list"
               listIds={wishesIds}
-              list={gifts}
+              normalizer={normalizer}
             />
           )}
         />
@@ -175,10 +272,25 @@ class ProfilePage extends React.Component<IProps, IState> {
 
 const mapStateToProps = state => ({
   user: state.user,
-  gifts: state.wishes.catalog,
-  wishes: state.wishes.catalog,
-  wishesIds: state.wishes.catalogIds,
   friends: state.friends.objects,
+  userWishes: state.user.wishes,
+  userWishesIds: state.user.wishesIds,
+  userGifts: state.user.gifts,
+  userGiftsIds: state.user.giftsIds,
+  friendWishes: state.friends.wishes,
+  friendWishesIds: state.friends.wishesIds,
+  friendGifts: state.friends.gifts,
+  friendGiftsIds: state.friends.giftsIds,
 });
 
-export default connect(mapStateToProps)(ProfilePage);
+const mapDispatchToProps = {
+  getUserWishes: actionGetUserWishes,
+  getUserGifts: actionGetUserGifts,
+  getFriendWishes: actionGetFriendWishes,
+  getFriendGifts: actionGetFriendGifts,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfilePage);

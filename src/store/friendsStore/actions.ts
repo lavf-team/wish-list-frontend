@@ -9,6 +9,8 @@ import {
 import { normalizeData } from './normalizers';
 
 import connect from '@vkontakte/vkui-connect-promise';
+import Requester from 'libs/Requester/Requester';
+import API from 'config/API';
 
 export const INIT_FRIENDS = 'INIT_FRIENDS';
 export const INIT_FRIENDS_SUCCESS = 'INIT_FRIENDS_SUCCESS';
@@ -18,6 +20,14 @@ export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const SEARCH_FRIENDS_INIT = 'SEARCH_FRIENDS_INIT';
 export const SEARCH_FRIENDS_SUCCESS = 'SEARCH_FRIENDS_SUCCESS';
 export const SEARCH_FRIENDS_ERROR = 'SEARCH_FRIENDS_ERROR';
+
+export const GET_FRIEND_WISHES = 'GET_FRIEND_WISHES';
+export const GET_FRIEND_WISHES_SUCCESS = 'GET_FRIEND_WISHES_SUCCESS';
+export const GET_FRIEND_WISHES_ERROR = 'GET_FRIEND_WISHES_ERROR';
+
+export const GET_FRIEND_GIFTS = 'GET_FRIEND_GIFTS';
+export const GET_FRIEND_GIFTS_SUCCESS = 'GET_FRIEND_GIFTS_SUCCESS';
+export const GET_FRIEND_GIFTS_ERROR = 'GET_FRIEND_GIFTS_ERROR';
 
 export const actionInitFriendsSuccess = payload => ({
   payload,
@@ -42,6 +52,26 @@ export const actionSearchFriendsSuccess = payload => ({
 export const actionSearchFriendsError = payload => ({
   payload,
   type: SEARCH_FRIENDS_ERROR,
+});
+
+export const actionGetFriendWishesSuccess = payload => ({
+  payload,
+  type: GET_FRIEND_WISHES_SUCCESS,
+});
+
+export const actionGetFriendWishesError = payload => ({
+  payload,
+  type: GET_FRIEND_WISHES_ERROR,
+});
+
+export const actionGetFriendGiftsSuccess = payload => ({
+  payload,
+  type: GET_FRIEND_GIFTS_SUCCESS,
+});
+
+export const actionGetFriendGiftsError = payload => ({
+  payload,
+  type: GET_FRIEND_GIFTS_ERROR,
 });
 
 export const actionInitFriends = (
@@ -85,4 +115,18 @@ export const actionSearchFriends = value => dispatch => {
     .then(data => normalizeData(data))
     .then(data => dispatch(actionSearchFriendsSuccess(data)))
     .catch(error => dispatch(actionSearchFriendsError(error)));
+};
+
+export const actionGetFriendWishes = id => async dispatch => {
+  console.log(GET_FRIEND_WISHES);
+
+  const result = await Requester.get(API.friendWishes(id));
+  console.log(result);
+};
+
+export const actionGetFriendGifts = id => async dispatch => {
+  console.log(GET_FRIEND_WISHES);
+
+  const result = await Requester.get(API.friendGifts(id));
+  console.log(result);
 };

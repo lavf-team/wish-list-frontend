@@ -1,13 +1,17 @@
-import { IReducer, IUser } from 'config/interfaces';
+import { IReducer } from 'config/interfaces';
 
-import { INIT_USER_SUCCESS } from './actions';
+import { GET_USER_WISHES_SUCCESS, INIT_USER_SUCCESS } from './actions';
 
-const initialStore: IUser = {
+const initialStore = {
   id: null,
   name: '',
   surname: '',
   avatar: null,
   isLoading: true,
+  wishes: {},
+  wishesIds: [],
+  gifts: {},
+  giftsIds: [],
 };
 
 const userReducer: IReducer = (state = initialStore, { type, payload }) => {
@@ -17,6 +21,12 @@ const userReducer: IReducer = (state = initialStore, { type, payload }) => {
         ...state,
         ...payload,
         isLoading: false,
+      };
+    case GET_USER_WISHES_SUCCESS:
+      return {
+        ...state,
+        wishes: payload.wishes,
+        wishesIds: payload.wishesIds,
       };
     default:
       return state;

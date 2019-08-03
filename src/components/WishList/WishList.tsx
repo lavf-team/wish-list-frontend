@@ -11,23 +11,27 @@ import matchUrl, { route } from 'utils/matchUrl';
 import './WishList.module.scss';
 
 interface IProps {
-  list: {
-    [id: string]: IWish;
-  };
   listIds: Array<number>;
   className?: string;
   match: { url: string };
-  children: React.Component;
+  children?: React.Component;
+  handleWishClick?: (string) => () => void;
+  normalizer: (any) => any;
 }
 
 class WishList extends React.Component<IProps> {
+  static defaultProps: Partial<IProps> = {
+    handleWishClick: () => () => {},
+  };
+
   render() {
     const {
-      list,
       listIds,
       className,
       match: { url },
       children,
+      handleWishClick,
+      normalizer,
     } = this.props;
     const page = matchUrl(url);
     const isMobile = getIsMobile();
@@ -39,9 +43,11 @@ class WishList extends React.Component<IProps> {
             {listIds.map((curWish, i) => (
               <Wish
                 styleName="wish-list__wish"
-                info={list[curWish]}
+                info={normalizer(curWish)}
+                id={curWish}
                 size={wishSize.FULL}
                 key={i}
+                onClick={handleWishClick}
               />
             ))}
           </Masonry>
@@ -50,9 +56,11 @@ class WishList extends React.Component<IProps> {
             {listIds.map((curWish, i) => (
               <Wish
                 styleName="wish-list__wish"
-                info={list[curWish]}
+                info={normalizer(curWish)}
+                id={curWish}
                 size={wishSize.FIXED}
                 key={i}
+                onClick={handleWishClick}
               />
             ))}
             <div styleName="wish-list__btn">{children}</div>

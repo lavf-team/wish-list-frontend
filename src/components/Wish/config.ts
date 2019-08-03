@@ -13,7 +13,7 @@ export enum wishSize {
 }
 
 export const wishState = {
-  CAN_BE_ADDED: {
+  CAN_BE_ADDED: () => ({
     title: 'canBeAdded',
     text: 'Добавить в избранное',
     style: buttonStyles.BLUE,
@@ -26,8 +26,8 @@ export const wishState = {
       url: null,
       style: null,
     },
-  },
-  CAN_BE_DELETED: {
+  }),
+  CAN_BE_DELETED: () => ({
     title: 'canBeDeleted',
     text: 'Удалить',
     style: buttonStyles.LIGHT,
@@ -40,8 +40,8 @@ export const wishState = {
       url: null,
       style: null,
     },
-  },
-  CAN_BE_DELETED_GIVEN: {
+  }),
+  CAN_BE_DELETED_GIVEN: () => ({
     title: 'canBeDeletedGiven',
     text: 'Удалить',
     style: buttonStyles.LIGHT,
@@ -54,8 +54,8 @@ export const wishState = {
       url: giftUrl,
       style: RoundEmojiStyles.RED,
     },
-  },
-  CAN_NOT_GIVE_FAVORITE: {
+  }),
+  CAN_NOT_GIVE_FAVORITE: () => ({
     title: 'canNotGiveFavorite',
     text: 'Не подарю',
     style: buttonStyles.LIGHT,
@@ -68,8 +68,8 @@ export const wishState = {
       url: null,
       style: null,
     },
-  },
-  CAN_NOT_GIVE_NOT_FAVORITE: {
+  }),
+  CAN_NOT_GIVE_NOT_FAVORITE: () => ({
     title: 'canNotGiveNotFavorite',
     text: 'Не подарю',
     style: buttonStyles.LIGHT,
@@ -82,8 +82,8 @@ export const wishState = {
       url: favoriteEmojiUrl,
       style: RoundEmojiStyles.BLUE,
     },
-  },
-  CAN_NOT_GIVE_WITH_AVATAR: {
+  }),
+  CAN_NOT_GIVE_WITH_AVATAR: (userAvatar = defaultUser) => ({
     title: 'canNotGiveWithAvatar',
     text: 'Не подарю',
     style: buttonStyles.LIGHT,
@@ -93,11 +93,11 @@ export const wishState = {
     },
     emojiOutside: {
       has: true,
-      url: defaultUser,
+      url: userAvatar,
       style: null,
     },
-  },
-  CAN_GIVE_NOT_FAVORITE: {
+  }),
+  CAN_GIVE_NOT_FAVORITE: () => ({
     title: 'canGiveNotFavorite',
     text: 'Подарю',
     style: buttonStyles.BLUE,
@@ -110,8 +110,8 @@ export const wishState = {
       url: favoriteEmojiUrl,
       style: RoundEmojiStyles.BLUE,
     },
-  },
-  CAN_GIVE_FAVORITE: {
+  }),
+  CAN_GIVE_FAVORITE: () => ({
     title: 'canGiveFavorite',
     text: 'Подарю',
     style: buttonStyles.BLUE,
@@ -124,8 +124,8 @@ export const wishState = {
       url: null,
       style: null,
     },
-  },
-  ALREADY_GIVEN_NOT_FAVORITE: {
+  }),
+  ALREADY_GIVEN_NOT_FAVORITE: () => ({
     title: 'alreadyGivenNotFavorite',
     text: 'Уже подарят',
     style: buttonStyles.GRAY,
@@ -138,8 +138,8 @@ export const wishState = {
       url: favoriteEmojiUrl,
       style: RoundEmojiStyles.BLUE,
     },
-  },
-  ALREADY_GIVEN_FAVORITE: {
+  }),
+  ALREADY_GIVEN_FAVORITE: () => ({
     title: 'alreadyGivenFavorite',
     text: 'Уже подарят',
     style: buttonStyles.GRAY,
@@ -152,5 +152,5 @@ export const wishState = {
       url: null,
       style: null,
     },
-  },
+  }),
 };

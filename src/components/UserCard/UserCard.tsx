@@ -11,12 +11,12 @@ import { getIsMobile } from 'utils/checkIsMobile';
 import './UserCard.module.scss';
 
 interface IProps {
-  user: IUser;
+  user: IUser | null;
   links: {
     [id: string]: ILink;
   };
   className?: string;
-  onClick: (any) => null;
+  onClick: (any) => void;
 }
 
 export default class UserCard extends React.Component<IProps> {

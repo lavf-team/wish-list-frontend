@@ -21,7 +21,14 @@ export interface IWish {
   title: string;
   prize: string;
   description: string;
-  state: IWishState;
+}
+
+export interface IWishUser extends IWish {
+  reserved: boolean;
+}
+
+export interface IGiftUser extends IWish {
+  receiverId: string;
 }
 
 export interface IWishes {

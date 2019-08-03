@@ -1,5 +1,3 @@
-import { wishState } from 'components/Wish/config';
-
 export const normalizeCatalog = ({ total, products }) => {
   return products.reduce(
     (acc, el) => ({
@@ -12,7 +10,6 @@ export const normalizeCatalog = ({ total, products }) => {
           title: el.product_name,
           prize: `${el.price} ₽`,
           description: el.discription,
-          state: wishState.CAN_BE_ADDED,
         },
       },
     }),
@@ -32,7 +29,6 @@ export const normalizeSearchedCatalog = rawCatalog => {
           title: el.product_name,
           prize: `${el.price} ₽`,
           description: el.discription,
-          state: wishState.CAN_BE_ADDED,
         },
       },
     }),

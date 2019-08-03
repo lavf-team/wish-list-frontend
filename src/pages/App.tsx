@@ -4,7 +4,9 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Loader from 'components/Loader';
 import { loaderSizes } from 'components/Loader/config';
-import { actionInitToken, actionVkInitApp } from 'store/metaStore/actions';
+import {
+  actionInitApp,
+} from 'store/metaStore/actions';
 import { route } from 'utils/matchUrl';
 
 import './App.module.scss';
@@ -14,14 +16,12 @@ import WishListPage from './WishListPage';
 
 interface IProps {
   isLoading: boolean;
-  initVkApp: () => void;
-  initToken: () => void;
+  actionInitApp: () => void;
 }
 
 class App extends React.Component<IProps> {
   public componentDidMount() {
-    this.props.initVkApp();
-    this.props.initToken();
+    this.props.actionInitApp();
   }
 
   public render() {
@@ -50,8 +50,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  initToken: () => dispatch(actionInitToken()),
-  initVkApp: () => dispatch(actionVkInitApp()),
+  actionInitApp: () => dispatch(actionInitApp()),
 });
 
 export default connect(

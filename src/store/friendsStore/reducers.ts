@@ -1,4 +1,4 @@
-import { IReducer, IUser } from 'config/interfaces';
+import {IReducer, IUser, IWish} from 'config/interfaces';
 
 import {
   INIT_FRIENDS_ERROR,
@@ -22,6 +22,14 @@ interface IFriendsStore {
   searchObjects: {
     [id: string]: IUser;
   };
+  wishes: {
+    [id: string]: IWish;
+  };
+  wishesIds: Array<string>;
+  gifts: {
+    [id: string]: IWish;
+  };
+  giftsIds: Array<string>;
 }
 
 const initialState: IFriendsStore = {
@@ -34,6 +42,10 @@ const initialState: IFriendsStore = {
   hasMore: true,
   isLoading: true,
   isSearchLoading: false,
+  wishes: {},
+  wishesIds: [],
+  gifts: {},
+  giftsIds: [],
 };
 
 const friendsReducer: IReducer = (state = initialState, { payload, type }) => {

@@ -28,6 +28,10 @@
     @include media('<=phone') {
       margin: 0;
     }
+
+    &_fixed {
+      margin: 0;
+    }
   }
 
   &__prize {
@@ -35,6 +39,10 @@
     margin-bottom: $global-spacing-extra-tiny;
 
     @include media('<=phone') {
+      margin: 0;
+    }
+
+    &_fixed {
       margin: 0;
     }
   }
@@ -48,6 +56,10 @@
     overflow: hidden;
 
     @include media('<=phone') {
+      margin: 0;
+    }
+
+    &_fixed {
       margin: 0;
     }
   }

@@ -42,6 +42,11 @@ export const actionSearchCatalogError = payload => ({
   type: SEARCH_CATALOG_ERROR,
 });
 
+export const actionPrepareSearchCatalog = () => ({
+  payload: null,
+  type: PREPARE_SEARCH_CATALOG,
+});
+
 export const actionGetCatalog = ({ start, limit }) => async dispatch => {
   console.log(GET_CATALOG);
 
@@ -66,8 +71,3 @@ export const actionSearchCatalog = pattern => async dispatch => {
     dispatch(actionSearchCatalogError(result.error));
   }
 };
-
-export const actionPrepareSearchCatalog = () => ({
-  payload: null,
-  type: PREPARE_SEARCH_CATALOG,
-});

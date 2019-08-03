@@ -1,13 +1,22 @@
 import API from 'config/API';
 import Requester from 'libs/Requester/Requester';
 
-import { normalizeUser } from './normalizers';
+import {normalizeUser, normalizeUserGifts, normalizeUserWishes} from './normalizers';
 
 import connect from '@vkontakte/vkui-connect-promise';
 
 export const INIT_USER = 'INIT_USER';
 export const INIT_USER_SUCCESS = 'INIT_USER_SUCCESS';
 export const INIT_USER_ERROR = 'INIT_USER_ERROR';
+
+export const GET_USER_WISHES = 'GET_USER_WISHES';
+export const GET_USER_WISHES_SUCCESS = 'GET_USER_WISHES_SUCCESS';
+export const GET_USER_WISHES_ERROR = 'GET_USER_WISHES_ERROR';
+
+export const GET_USER_GIFTS = 'GET_USER_GIFTS';
+export const GET_USER_GIFTS_SUCCESS = 'GET_USER_GIFTS_SUCCESS';
+export const GET_USER_GIFTS_ERROR = 'GET_USER_GIFTS_ERROR';
+
 
 const VK_GET_USER = 'VKWebAppGetUserInfo';
 
@@ -29,6 +38,52 @@ export const actionInitUser = () => dispatch => {
     .then(data => normalizeUser(data))
     .then(user => {
       dispatch(actionInitUserSuccess(user));
+      dispatch(actionGetUserWishes());
     })
     .catch(error => dispatch(actionInitUserError(error)));
+};
+
+export const actionGetUserWishesSuccess = payload => ({
+  payload,
+  type: GET_USER_WISHES_SUCCESS,
+});
+
+export const actionGetUserWishesError = payload => ({
+  payload,
+  type: GET_USER_WISHES_ERROR,
+});
+
+export const actionGetUserGiftsSuccess = payload => ({
+  payload,
+  type: GET_USER_GIFTS_SUCCESS,
+});
+
+export const actionGetUserGiftsError = payload => ({
+  payload,
+  type: GET_USER_GIFTS_ERROR,
+});
+
+export const actionGetUserWishes = () => async dispatch => {
+  console.log(GET_USER_WISHES);
+
+  const result = await Requester.get(API.userWishes());
+  if (result.response) {
+    const normalizedResult = normalizeUserWishes(result.response);
+    dispatch(actionGetUserWishesSuccess(normalizedResult));
+  } else {
+    dispatch(actionGetUserWishesError(result.error));
+  }
+};
+
+export const actionGetUserGifts = () => async dispatch => {
+  console.log(GET_USER_GIFTS);
+
+  const result = await Requester.get(API.userGifts());
+  console.log(result);
+  /*if (result.response) {
+    const normalizedResult = normalizeUserGifts(result.response);
+    dispatch(actionGetUserGiftsSuccess(normalizedResult));
+  } else {
+    dispatch(actionGetUserGiftsError(result.error));
+  }*/
 };

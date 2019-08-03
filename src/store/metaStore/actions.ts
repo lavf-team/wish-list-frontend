@@ -1,3 +1,5 @@
+import API from 'config/API';
+import Requester from 'libs/Requester/Requester';
 import {
   APP_ID,
   Token,
@@ -10,8 +12,10 @@ import { actionInitUser } from 'store/userStore/actions';
 import { normalizeToken } from './normalizers';
 
 import connect from '@vkontakte/vkui-connect-promise';
-import Requester from 'libs/Requester/Requester';
-import API from 'config/API';
+
+export const INIT_APP = 'INIT_APP';
+export const INIT_APP_SUCCESS = 'INIT_APP_SUCCESS';
+export const INIT_APP_ERROR = 'INIT_APP_ERROR';
 
 export const VK_INIT_APP = 'VK_INIT_APP';
 export const VK_INIT_APP_SUCCESS = 'VK_INIT_APP_SUCCESS';
@@ -49,9 +53,22 @@ export const actionInitToken = () => dispatch => {
       dispatch(actionInitTokenSuccess());
       dispatch(actionInitUser());
       dispatch(actionInitFriends());
-      await Requester.post(API.auth(), {
-        id: '5d3f63938597261054315605',
-      });
     })
     .catch(error => console.log(INIT_TOKEN_ERROR, error));
+};
+
+export const actionInitApp = () => async dispatch => {
+  console.log(INIT_APP);
+
+  const result = await Requester.post(API.auth(), {
+    url: window.location.href,
+  });
+
+  if (result.response) {
+    console.log(INIT_APP_SUCCESS);
+    dispatch(actionVkInitApp());
+    dispatch(actionInitToken());
+  } else {
+    console.log(INIT_APP_ERROR);
+  }
 };

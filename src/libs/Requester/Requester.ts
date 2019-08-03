@@ -49,7 +49,6 @@ export default class Requester {
     }
     try {
       const r = await fetch(url, options);
-
       if (!r.ok) {
         return {
           error: r,
@@ -57,10 +56,8 @@ export default class Requester {
         };
       }
 
-      /*const contentLength = r.headers.get('Content-Length');
-      const response =
-        contentLength === '0' || !contentLength ? {} : await r.json();*/
-      const response = await r.json();
+      const contentLength = r.headers.get('Content-Length');
+      const response = contentLength === '0' ? {} : await r.json();
 
       return {
         response,
