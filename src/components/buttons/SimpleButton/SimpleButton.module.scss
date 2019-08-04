@@ -30,7 +30,10 @@
     color: #FFFFFF;
 
     &:hover {
-      background: linear-gradient(79deg, $global-linear-bot-blue-color, $global-linear-top-blue-color);
+      background: linear-gradient(259deg, #7dc4ff, #7dc4ff);
+    }
+    &:active {
+      background: #6700ff;
     }
   }
 
@@ -39,7 +42,11 @@
     color: #000000;
 
     &:hover {
-      background: linear-gradient(79deg, $global-linear-bot-white-color, $global-linear-top-white-color);
+      background: #e0fffd;
+    }
+
+    &:active {
+      background: #e7e1ff;
     }
   }
 

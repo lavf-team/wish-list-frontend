@@ -15,6 +15,7 @@
 
   &__wish {
     margin: 0 0 $local-spacing $local-spacing;
+    box-sizing: content-box;
 
     @include media('<=phone') {
       margin: 0 0 0 $global-spacing-medium;

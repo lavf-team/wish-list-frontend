@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
 import Header from 'components/Header';
+import Tip from 'components/Tip/Tip';
 import UserCard from 'components/UserCard';
 import WishList from 'components/WishList';
 import API from 'config/API';
@@ -17,7 +18,6 @@ import {
   actionGiveGiftToFriend,
   actionRefuseGiveGiftToFriend,
 } from 'store/friendsStore/actions';
-import { normalizeData } from 'store/friendsStore/normalizers';
 import {
   actionDeleteUserWish,
   actionGetUserGifts,
@@ -321,9 +321,48 @@ class ProfilePage extends React.Component<IProps, IState> {
     }
   }
 
+  getTip = () => {
+    const type = this.getType();
+    const {
+      match: {
+        params: { id },
+      },
+      friends,
+    } = this.props;
+    switch (type.title) {
+      case PROFILE_PAGE_TYPE.USER_WISHES:
+        return {
+          hasTip: !this.props.userWishesIds.length,
+          text: 'Кажется, ты не любишь подарки',
+        };
+      case PROFILE_PAGE_TYPE.USER_GIFTS:
+        return {
+          hasTip: !this.props.userGiftsIds.length,
+          text: 'Кажется, ты не любишь дарить подарки',
+        };
+      case PROFILE_PAGE_TYPE.FRIEND_WISHES:
+        return {
+          hasTip: !this.props.friendWishesIds.length,
+          text: `Кажется, ${friends[id].name} не любит подарки`,
+        };
+      case PROFILE_PAGE_TYPE.FRIEND_GIFTS:
+        return {
+          hasTip: !this.props.friendGiftsIds.length,
+          text: `Кажется, ${friends[id].name} не получит от тебя подарка`,
+        };
+      default:
+        return {
+          hasTip: false,
+          text: '',
+        };
+    }
+  };
+
   render() {
     const { links, profile } = this.state;
     const { normalizer, wishesIds } = this.getWishes();
+    const { hasTip, text } = this.getTip();
+
     return (
       <>
         <Header styleName="profile-page__header" />
@@ -333,6 +372,7 @@ class ProfilePage extends React.Component<IProps, IState> {
           links={links}
           onClick={this.handleClick}
         />
+        {hasTip && <Tip styleName="profile-page__tip" text={text} />}
         <Route
           path={route.MY_WISHES.url}
           render={props => (

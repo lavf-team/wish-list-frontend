@@ -2,7 +2,7 @@
 
 .friends-page {
   &__header {
-    padding: $global-spacing-medium $global-spacing-medium 0;
+    @include header;
   }
 
   &__loader-container {

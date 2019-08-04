@@ -1,8 +1,17 @@
-@import "constants";
+@import 'constants';
+@import './include-media';
 
 @mixin linkText() {
   color: $global-blue-color;
   font-size: $global-font-size-medium;
+
+  &:hover {
+    color: #2a85d7;
+  }
+
+  &:active {
+    color: #2168a8;
+  }
 }
 
 @mixin titleText() {
@@ -25,4 +34,12 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+@mixin header() {
+  padding: $global-spacing-medium $global-spacing-medium 0;
+
+  @include media('<=phone') {
+    padding: $global-spacing-large $global-spacing-medium 0;
+  }
 }

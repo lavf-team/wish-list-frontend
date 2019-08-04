@@ -17,8 +17,8 @@
     justify-content: space-between;
     font-size: $global-font-size-big;
     margin-bottom:  $global-spacing-tiny;
-
     @include media('<=phone') {
+      max-width: 230px;
       font-size: $global-font-size-medium-big;
     }
   }

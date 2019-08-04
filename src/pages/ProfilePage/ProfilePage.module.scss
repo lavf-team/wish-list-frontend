@@ -2,7 +2,7 @@
 
 .profile-page {
     &__header {
-        padding: $global-spacing-medium $global-spacing-medium 0;
+        @include header;
     }
 
     &__user-card {
@@ -15,5 +15,9 @@
         @include media('<=phone') {
             margin-top: 0;
         }
+    }
+
+    &__tip {
+        margin-top: $global-spacing-large;
     }
 }
