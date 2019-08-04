@@ -4,8 +4,8 @@ const webpackPlugins = require('./webpack.plugins');
 
 const isProd = false;
 const HOST = '0.0.0.0';
-const PORT = '8005';
-const devBack = '95.163.212.32';
+const PORT = '9001';
+const devBack = '0.0.0.0';
 
 module.exports = webpackMerge(commonConfig(isProd), {
   mode: 'development',
@@ -26,7 +26,7 @@ module.exports = webpackMerge(commonConfig(isProd), {
       errors: true
     },
     proxy: {
-      '/': `http://${devBack}:8006`,
+      '/': `http://${devBack}:8080`,
     }
   },
 });
