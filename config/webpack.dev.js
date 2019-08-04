@@ -4,7 +4,7 @@ const webpackPlugins = require('./webpack.plugins');
 
 const isProd = false;
 const HOST = '0.0.0.0';
-const PORT = '8005';
+const PORT = '8007';
 const devBack = '95.163.212.32';
 
 module.exports = webpackMerge(commonConfig(isProd), {
