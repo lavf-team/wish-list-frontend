@@ -10,9 +10,13 @@ import Loader from 'components/Loader';
 import { loaderSizes } from 'components/Loader/config';
 import WishList from 'components/WishList';
 import API from 'config/API';
-import {IInput, IWish, IWishUser} from 'config/interfaces';
+import { IInput, IWish, IWishUser } from 'config/interfaces';
 import favoriteEmojiUrl from 'img/favoriteEmoji.svg';
 import loveEmojiUrl from 'img/loveEmoji.svg';
+import {
+  actionAddUserWish,
+  actionDeleteUserWish,
+} from 'store/userStore/actions';
 import {
   actionDeleteSearchedCatalog,
   actionGetCatalog,
@@ -22,7 +26,6 @@ import { getIsMobile } from 'utils/checkIsMobile';
 
 import { normalizeSuggest } from './utils/normalizers';
 import './WishListPage.module.scss';
-import Requester from 'libs/Requester/Requester';
 
 const LIMIT_PRODUCTS = 9;
 
@@ -34,6 +37,8 @@ interface IProps {
   getCatalog: ({ start, limit: number }) => null;
   getSearchedCatalog: (q: string) => void;
   deleteSearchedCatalog: () => void;
+  addUserWishes: (number) => any;
+  deleteUserWish: (string) => any;
   total: number;
   hasMore: boolean;
   isLoading: boolean;
@@ -100,8 +105,12 @@ class WishListPage extends React.Component<IProps, IState> {
     this.handleCatalog(this.getCatalogParams());
   };
 
-  handleButtonWishClick = productId => async () => {
-    await Requester.post(API.addWish(), { product_id: productId });
+  handleAddingWish = productId => async () => {
+    this.props.addUserWishes(productId);
+  };
+
+  handleDeleteWish = productId => async () => {
+    this.props.deleteUserWish(productId);
   };
 
   componentDidMount() {
@@ -110,7 +119,13 @@ class WishListPage extends React.Component<IProps, IState> {
 
   normalizeWishList = id => {
     const { userWishes, wishList } = this.props;
-    return id in userWishes ? userWishes[id] : wishList[id];
+    const hasIdInUserWishes = id in userWishes;
+    return {
+      info: hasIdInUserWishes ? userWishes[id] : wishList[id],
+      onButtonClick: hasIdInUserWishes
+        ? this.handleDeleteWish
+        : this.handleAddingWish,
+    };
   };
 
   render() {
@@ -118,7 +133,7 @@ class WishListPage extends React.Component<IProps, IState> {
       input: { placeholder, value },
       isSearch,
     } = this.state;
-    const { wishList, wishListIds, hasMore, isLoading } = this.props;
+    const { wishListIds, hasMore, isLoading } = this.props;
     const isMobile = getIsMobile();
 
     return (
@@ -157,7 +172,6 @@ class WishListPage extends React.Component<IProps, IState> {
             <WishList
               styleName="wish-list-page__list"
               listIds={wishListIds}
-              handleWishClick={this.handleButtonWishClick}
               normalizer={this.normalizeWishList}
             >
               {isMobile && hasMore && (
@@ -205,6 +219,8 @@ const mapDispatchToProps = {
   getCatalog: actionGetCatalog,
   getSearchedCatalog: actionSearchCatalog,
   deleteSearchedCatalog: actionDeleteSearchedCatalog,
+  addUserWishes: actionAddUserWish,
+  deleteUserWish: actionDeleteUserWish,
 };
 
 export default connect(

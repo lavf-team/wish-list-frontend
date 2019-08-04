@@ -5,21 +5,31 @@ import { Route } from 'react-router-dom';
 import Header from 'components/Header';
 import UserCard from 'components/UserCard';
 import WishList from 'components/WishList';
+import API from 'config/API';
 import { ILink, IUser, IWish } from 'config/interfaces';
 import wantedEmojiUrl from 'img/wantedEmoji.svg';
 import coolEmojiUrl from 'img/wishEmoji.svg';
+import Requester from 'libs/Requester/Requester';
+import { API_VERSION, Token, VK_API_METHODS, VK_CALL_API } from 'store/config';
 import {
   actionGetFriendGifts,
   actionGetFriendWishes,
+  actionGiveGiftToFriend,
+  actionRefuseGiveGiftToFriend,
 } from 'store/friendsStore/actions';
+import { normalizeData } from 'store/friendsStore/normalizers';
 import {
+  actionDeleteUserWish,
   actionGetUserGifts,
   actionGetUserWishes,
 } from 'store/userStore/actions';
 import { route } from 'utils/matchUrl';
 
 import { PROFILE_PAGE, PROFILE_PAGE_TYPE } from './config/config';
+import { normalizeAvatars } from './config/normalizers';
 import './ProfilePage.module.scss';
+
+import vkConnect from '@vkontakte/vkui-connect-promise';
 
 interface IProps {
   user: IUser;
@@ -41,7 +51,7 @@ interface IProps {
   };
   userGiftsIds: Array<string>;
   friendWishes: {
-    [id: string]: IWish;
+    [id: string]: any;
   };
   friendWishesIds: Array<string>;
   friendGifts: {
@@ -52,6 +62,9 @@ interface IProps {
   getUserGifts: () => any;
   getFriendWishes: (id: number) => any;
   getFriendGifts: (id: number) => any;
+  deleteUserWish: (id: string) => any;
+  giveGiftToFriend: (any, any) => any;
+  refuseGiveGiftToFriend: (any, any) => any;
 }
 
 interface IState {
@@ -60,6 +73,9 @@ interface IState {
   };
   profile: IUser | null;
   type: any;
+  avatars: {
+    [id: string]: string;
+  };
 }
 
 class ProfilePage extends React.Component<IProps, IState> {
@@ -88,6 +104,7 @@ class ProfilePage extends React.Component<IProps, IState> {
       ? this.props.user
       : this.props.friends[this.props.match.params.id],
     type: PROFILE_PAGE.USER_WISHES(),
+    avatars: {},
   };
 
   handleClick = title => {
@@ -139,6 +156,33 @@ class ProfilePage extends React.Component<IProps, IState> {
       : PROFILE_PAGE.FRIEND_GIFTS(id);
   };
 
+  getAvatars = () => {
+    const receiverFriendIds = this.props.userGiftsIds.reduce(
+      (acc, el) => ({
+        ...acc,
+        [this.props.userGifts[el].receiverFriendId]: null,
+      }),
+      {}
+    );
+    console.log('usersids', Object.keys(receiverFriendIds).join(','));
+    vkConnect
+      .send(VK_CALL_API, {
+        method: VK_API_METHODS.USERS_GET,
+        params: {
+          user_ids: Object.keys(receiverFriendIds).join(','),
+          fields: 'photo_100',
+          v: API_VERSION,
+          access_token: window[Token],
+        },
+      })
+      .then(result => {
+        this.setState({
+          avatars: normalizeAvatars(result.data.response),
+        });
+      })
+      .catch(console.log);
+  };
+
   loadWishes = () => {
     const type = this.getType();
     const {
@@ -166,30 +210,96 @@ class ProfilePage extends React.Component<IProps, IState> {
 
   getWishes = () => {
     const type = this.getType();
+    const {
+      match: {
+        params: { id: friendId },
+      },
+    } = this.props;
     switch (type.title) {
       case PROFILE_PAGE_TYPE.USER_WISHES:
         return {
-          normalizer: id => this.props.userWishes[id],
+          normalizer: id => ({
+            info: this.props.userWishes[id],
+            onButtonClick: productId => async () => {
+              this.props.deleteUserWish(productId);
+            },
+          }),
           wishesIds: this.props.userWishesIds,
         };
       case PROFILE_PAGE_TYPE.USER_GIFTS:
+        this.getAvatars();
+        const { avatars } = this.state;
         return {
-          normalizer: () => {},
-          wishesIds: [],
+          normalizer: id => {
+            const { receiverFriendId } = this.props.userGifts[id];
+            return {
+              info: {
+                ...this.props.userGifts[id],
+                avatar: avatars[receiverFriendId],
+              },
+              onButtonClick: productId => async () => {
+                this.props.refuseGiveGiftToFriend(productId, receiverFriendId);
+              },
+            };
+          },
+          wishesIds: this.props.userGiftsIds,
         };
       case PROFILE_PAGE_TYPE.FRIEND_WISHES:
         return {
-          normalizer: () => {},
-          wishesIds: [],
+          normalizer: id => {
+            const {
+              friendWishReserved,
+              reservedByMe,
+            } = this.props.friendWishes[id];
+            const onButtonClick = friendWishReserved
+              ? reservedByMe
+                ? productId => async () =>
+                    this.props.refuseGiveGiftToFriend(productId, friendId)
+                : () => null
+              : productId => async () =>
+                  this.props.giveGiftToFriend(productId, friendId);
+            return {
+              onButtonClick,
+              onEmojiClick: productId => async () => {
+                const result = await Requester.post(API.addUserWish(), {
+                  product_id: productId,
+                });
+
+                if (result.response) {
+                  this.props.getFriendWishes(friendId);
+                  this.props.getUserWishes();
+                }
+              },
+              info: this.props.friendWishes[id],
+            };
+          },
+          wishesIds: this.props.friendWishesIds,
         };
       case PROFILE_PAGE_TYPE.FRIEND_GIFTS:
         return {
-          normalizer: () => {},
-          wishesIds: [],
+          normalizer: id => ({
+            info: this.props.friendGifts[id],
+            onButtonClick: productId => async () => {
+              this.props.refuseGiveGiftToFriend(productId, friendId);
+            },
+            onEmojiClick: productId => async () => {
+              const result = await Requester.post(API.addUserWish(), {
+                product_id: productId,
+              });
+
+              if (result.response) {
+                this.props.getUserWishes();
+              }
+            },
+          }),
+          wishesIds: this.props.friendGiftsIds,
         };
       default:
         return {
-          normalizer: () => {},
+          normalizer: () => ({
+            info: {},
+            onButtonClick: () => {},
+          }),
           wishesIds: [],
         };
     }
@@ -205,13 +315,15 @@ class ProfilePage extends React.Component<IProps, IState> {
 
     if (type.title !== prevType.title) {
       this.loadWishes();
+      this.setState({
+        type,
+      });
     }
   }
 
   render() {
     const { links, profile } = this.state;
     const { normalizer, wishesIds } = this.getWishes();
-
     return (
       <>
         <Header styleName="profile-page__header" />
@@ -286,8 +398,14 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   getUserWishes: actionGetUserWishes,
   getUserGifts: actionGetUserGifts,
+
   getFriendWishes: actionGetFriendWishes,
   getFriendGifts: actionGetFriendGifts,
+
+  giveGiftToFriend: actionGiveGiftToFriend,
+  refuseGiveGiftToFriend: actionRefuseGiveGiftToFriend,
+
+  deleteUserWish: actionDeleteUserWish,
 };
 
 export default connect(

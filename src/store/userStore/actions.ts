@@ -1,7 +1,11 @@
 import API from 'config/API';
 import Requester from 'libs/Requester/Requester';
 
-import {normalizeUser, normalizeUserGifts, normalizeUserWishes} from './normalizers';
+import {
+  normalizeUser,
+  normalizeUserGifts,
+  normalizeUserWishes,
+} from './normalizers';
 
 import connect from '@vkontakte/vkui-connect-promise';
 
@@ -17,6 +21,9 @@ export const GET_USER_GIFTS = 'GET_USER_GIFTS';
 export const GET_USER_GIFTS_SUCCESS = 'GET_USER_GIFTS_SUCCESS';
 export const GET_USER_GIFTS_ERROR = 'GET_USER_GIFTS_ERROR';
 
+export const ADD_USER_WISH = 'ADD_USER_WISH';
+
+export const DELETE_USER_WISH = 'DELETE_USER_WISH';
 
 const VK_GET_USER = 'VKWebAppGetUserInfo';
 
@@ -80,10 +87,33 @@ export const actionGetUserGifts = () => async dispatch => {
 
   const result = await Requester.get(API.userGifts());
   console.log(result);
-  /*if (result.response) {
+  if (result.response) {
     const normalizedResult = normalizeUserGifts(result.response);
     dispatch(actionGetUserGiftsSuccess(normalizedResult));
   } else {
     dispatch(actionGetUserGiftsError(result.error));
-  }*/
+  }
+};
+
+export const actionAddUserWish = productId => async dispatch => {
+  console.log(ADD_USER_WISH);
+
+  const result = await Requester.post(API.addUserWish(), {
+    product_id: productId,
+  });
+
+  if (result.response) {
+    dispatch(actionGetUserWishes());
+  }
+};
+
+export const actionDeleteUserWish = productId => async dispatch => {
+  console.log(DELETE_USER_WISH);
+
+  const result = await Requester.delete(API.deleteUserWish(), {
+    product_id: productId,
+  });
+  if (result.response) {
+    dispatch(actionGetUserWishes());
+  }
 };

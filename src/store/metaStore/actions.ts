@@ -48,7 +48,7 @@ export const actionInitToken = () => dispatch => {
   connect
     .send(VK_METHOD_GET_TOKEN, { app_id: APP_ID, scope: SCOPE.join(',') })
     .then(data => normalizeToken(data))
-    .then(async token => {
+    .then(token => {
       window[Token] = token;
       dispatch(actionInitTokenSuccess());
       dispatch(actionInitUser());

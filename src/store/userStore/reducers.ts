@@ -1,6 +1,6 @@
 import { IReducer } from 'config/interfaces';
 
-import { GET_USER_WISHES_SUCCESS, INIT_USER_SUCCESS } from './actions';
+import {GET_USER_GIFTS_SUCCESS, GET_USER_WISHES_SUCCESS, INIT_USER_SUCCESS} from './actions';
 
 const initialStore = {
   id: null,
@@ -27,6 +27,12 @@ const userReducer: IReducer = (state = initialStore, { type, payload }) => {
         ...state,
         wishes: payload.wishes,
         wishesIds: payload.wishesIds,
+      };
+    case GET_USER_GIFTS_SUCCESS:
+      return {
+        ...state,
+        gifts: payload.gifts,
+        giftsIds: payload.giftsIds,
       };
     default:
       return state;

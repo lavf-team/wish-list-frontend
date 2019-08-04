@@ -1,3 +1,5 @@
+import API from 'config/API';
+import Requester from 'libs/Requester/Requester';
 import {
   API_VERSION,
   LOADED_FRIENDS_NUMBER,
@@ -6,11 +8,14 @@ import {
   VK_CALL_API,
 } from 'store/config';
 
-import { normalizeData } from './normalizers';
+import {
+  normalizeData,
+  normalizeFriendGifts,
+  normalizeFriendWishes,
+} from './normalizers';
 
 import connect from '@vkontakte/vkui-connect-promise';
-import Requester from 'libs/Requester/Requester';
-import API from 'config/API';
+import {actionGetUserGifts} from 'store/userStore/actions';
 
 export const INIT_FRIENDS = 'INIT_FRIENDS';
 export const INIT_FRIENDS_SUCCESS = 'INIT_FRIENDS_SUCCESS';
@@ -28,6 +33,9 @@ export const GET_FRIEND_WISHES_ERROR = 'GET_FRIEND_WISHES_ERROR';
 export const GET_FRIEND_GIFTS = 'GET_FRIEND_GIFTS';
 export const GET_FRIEND_GIFTS_SUCCESS = 'GET_FRIEND_GIFTS_SUCCESS';
 export const GET_FRIEND_GIFTS_ERROR = 'GET_FRIEND_GIFTS_ERROR';
+
+export const GIVE_GIFT_TO_FRIEND = 'GIVE_GIFT_TO_FRIEND';
+export const REFUSE_GIVE_GIFT_TO_FRIEND = 'REFUSE_GIVE_GIFT_TO_FRIEND';
 
 export const actionInitFriendsSuccess = payload => ({
   payload,
@@ -121,12 +129,56 @@ export const actionGetFriendWishes = id => async dispatch => {
   console.log(GET_FRIEND_WISHES);
 
   const result = await Requester.get(API.friendWishes(id));
-  console.log(result);
+  if (result.response) {
+    const normalizedResult = normalizeFriendWishes(result.response);
+    console.log(normalizedResult);
+    dispatch(actionGetFriendWishesSuccess(normalizedResult));
+  } else {
+    dispatch(actionGetFriendWishesError(result.error));
+  }
 };
 
 export const actionGetFriendGifts = id => async dispatch => {
-  console.log(GET_FRIEND_WISHES);
+  console.log(GET_FRIEND_GIFTS);
 
   const result = await Requester.get(API.friendGifts(id));
-  console.log(result);
+
+  if (result.response) {
+    const normalizedResult = normalizeFriendGifts(result.response);
+    dispatch(actionGetFriendGiftsSuccess(normalizedResult));
+  } else {
+    dispatch(actionGetFriendGiftsError(result.error));
+  }
+};
+
+export const actionGiveGiftToFriend = (
+  productId,
+  receiverId
+) => async dispatch => {
+  console.log(GIVE_GIFT_TO_FRIEND);
+
+  const result = await Requester.post(API.giveGiftToFriend(), {
+    product_id: productId,
+    dest_id: +receiverId,
+  });
+
+  if (result.response) {
+    dispatch(actionGetFriendWishes(receiverId));
+  }
+};
+
+export const actionRefuseGiveGiftToFriend = (
+  productId,
+  receiverId
+) => async dispatch => {
+  console.log(REFUSE_GIVE_GIFT_TO_FRIEND);
+
+  await Requester.delete(API.refuseGiveGiftToFriend(), {
+    product_id: productId,
+    dest_id: +receiverId,
+  });
+
+  dispatch(actionGetFriendWishes(receiverId));
+  dispatch(actionGetFriendGifts(receiverId));
+  dispatch(actionGetUserGifts());
 };

@@ -33,7 +33,9 @@ export default class Requester {
 
     if (
       !multipartFormData &&
-      (method === HTTPMethods.POST || method === HTTPMethods.PUT)
+      (method === HTTPMethods.POST ||
+        method === HTTPMethods.PUT ||
+        method === HTTPMethods.DELETE)
     ) {
       headers['Content-Type'] = 'application/json';
     }
@@ -116,7 +118,12 @@ export default class Requester {
     );
   }
 
-  static delete(url: string) {
-    return Requester.doRequest(url, HTTPMethods.DELETE);
+  static delete(url: string, data: Object = {}, multipart: boolean = false) {
+    return Requester.doRequest(
+      url,
+      HTTPMethods.DELETE,
+      Requester.createBody(data, multipart),
+      multipart
+    );
   }
 }

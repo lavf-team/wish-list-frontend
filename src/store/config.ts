@@ -3,6 +3,7 @@ export const Token = Symbol('token');
 export const VK_API_METHODS = {
   FRIENDS_GET: 'friends.get',
   FRIENDS_SEARCH: 'friends.search',
+  USERS_GET: 'users.get',
 };
 
 export const VK_METHOD_INIT_APP = 'VKWebAppInit';

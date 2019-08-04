@@ -12,7 +12,11 @@ export default {
   friendWishes: id => prefixAPI(`/profile/${id}/wishes`),
   friendGifts: id => prefixAPI(`/profile/${id}/intentions`),
 
-  addWish: () => prefixAPI('/profile/mypage/wishes'),
+  addUserWish: () => prefixAPI('/profile/mypage/wishes'),
+  deleteUserWish: () => prefixAPI('/profile/mypage/wishes'),
+
+  giveGiftToFriend: () => prefixAPI('/profile/mypage/intentions'),
+  refuseGiveGiftToFriend: () => prefixAPI('/profile/mypage/intentions'),
 
   auth: () => prefixAPI('/auth'),
 };

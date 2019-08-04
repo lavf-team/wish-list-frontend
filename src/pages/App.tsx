@@ -4,9 +4,7 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Loader from 'components/Loader';
 import { loaderSizes } from 'components/Loader/config';
-import {
-  actionInitApp,
-} from 'store/metaStore/actions';
+import { actionInitApp } from 'store/metaStore/actions';
 import { route } from 'utils/matchUrl';
 
 import './App.module.scss';

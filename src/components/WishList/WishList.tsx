@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React from 'react';
 import Masonry from 'react-masonry-component';
 import { withRouter } from 'react-router-dom';
@@ -15,14 +16,11 @@ interface IProps {
   className?: string;
   match: { url: string };
   children?: React.Component;
-  handleWishClick?: (string) => () => void;
   normalizer: (any) => any;
 }
 
 class WishList extends React.Component<IProps> {
-  static defaultProps: Partial<IProps> = {
-    handleWishClick: () => () => {},
-  };
+  static defaultProps: Partial<IProps> = {};
 
   render() {
     const {
@@ -30,9 +28,9 @@ class WishList extends React.Component<IProps> {
       className,
       match: { url },
       children,
-      handleWishClick,
       normalizer,
     } = this.props;
+
     const page = matchUrl(url);
     const isMobile = getIsMobile();
 
@@ -40,29 +38,40 @@ class WishList extends React.Component<IProps> {
       <>
         {page === route.WISH_LIST.title && !isMobile ? (
           <Masonry className={className}>
-            {listIds.map((curWish, i) => (
-              <Wish
-                styleName="wish-list__wish"
-                info={normalizer(curWish)}
-                id={curWish}
-                size={wishSize.FULL}
-                key={i}
-                onClick={handleWishClick}
-              />
-            ))}
+            {listIds.map((curWish, i) => {
+              const { info, onButtonClick, onEmojiClick } = normalizer(curWish);
+              return (
+                <Wish
+                  styleName="wish-list__wish"
+                  info={info}
+                  id={curWish}
+                  size={wishSize.FULL}
+                  key={i}
+                  onButtonClick={onButtonClick}
+                  onEmojiClick={onEmojiClick}
+                />
+              );
+            })}
           </Masonry>
         ) : (
           <div className={className} styleName="wish-list">
-            {listIds.map((curWish, i) => (
-              <Wish
-                styleName="wish-list__wish"
-                info={normalizer(curWish)}
-                id={curWish}
-                size={wishSize.FIXED}
-                key={i}
-                onClick={handleWishClick}
-              />
-            ))}
+            {listIds.map((curWish, i) => {
+              const { info, onButtonClick, onEmojiClick } = normalizer(curWish);
+              return (
+                <Wish
+                  styleName={cn(
+                    'wish-list__wish',
+                    i === listIds.length - 1 && 'wish-list__wish_last'
+                  )}
+                  info={info}
+                  id={curWish}
+                  size={wishSize.FIXED}
+                  key={i}
+                  onButtonClick={onButtonClick}
+                  onEmojiClick={onEmojiClick}
+                />
+              );
+            })}
             <div styleName="wish-list__btn">{children}</div>
           </div>
         )}

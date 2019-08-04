@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { buttonSizes } from 'components/buttons/config';
 import SimpleButton from 'components/buttons/SimpleButton';
@@ -13,22 +14,54 @@ interface IProps {
   className?: string;
   info: IWish;
   size: wishSize;
-  onClick?: (string) => () => void;
+  onButtonClick?: (string) => any;
+  onEmojiClick?: (any) => any;
   id: string;
+  userWishes: any;
 }
 
-export default class Wish extends React.Component<IProps> {
+class Wish extends React.Component<IProps> {
   static defaultProps: Partial<IProps> = {
     size: wishSize.FIXED,
-    onClick: () => () => {},
+    onButtonClick: () => null,
+    onEmojiClick: () => null,
   };
 
   getStateByInfo(info) {
+    const { id, userWishes } = this.props;
+
     if ('reserved' in info) {
       return info.reserved
         ? wishState.CAN_BE_DELETED_GIVEN()
         : wishState.CAN_BE_DELETED();
     }
+
+    if ('friendWishReserved' in info) {
+      if (info.friendWishReserved) {
+        if (info.reservedByMe) {
+          return userWishes[id]
+            ? wishState.CAN_NOT_GIVE_FAVORITE()
+            : wishState.CAN_NOT_GIVE_NOT_FAVORITE();
+        }
+        return userWishes[id]
+          ? wishState.ALREADY_GIVEN_FAVORITE()
+          : wishState.ALREADY_GIVEN_NOT_FAVORITE();
+      }
+      return userWishes[id]
+        ? wishState.CAN_GIVE_FAVORITE()
+        : wishState.CAN_GIVE_NOT_FAVORITE();
+    }
+
+    if ('receiverId' in info) {
+      return userWishes[id]
+        ? wishState.CAN_NOT_GIVE_FAVORITE()
+        : wishState.CAN_NOT_GIVE_NOT_FAVORITE();
+    }
+
+    if ('receiverFriendId' in info) {
+      return wishState.CAN_NOT_GIVE_WITH_AVATAR(info.avatar);
+    }
+
     return wishState.CAN_BE_ADDED();
   }
 
@@ -38,7 +71,8 @@ export default class Wish extends React.Component<IProps> {
       id,
       info: { img, title, prize, description },
       size,
-      onClick,
+      onButtonClick,
+      onEmojiClick,
     } = this.props;
     const isFixed = size === wishSize.FIXED;
     const { text, style, emojiOutside, emojiInside } = this.getStateByInfo(
@@ -74,13 +108,23 @@ export default class Wish extends React.Component<IProps> {
             style={style}
             emoji={emojiInside}
             size={emojiOutside.has ? buttonSizes.MEDIUM : buttonSizes.LARGE}
-            onClick={onClick(id)}
+            onClick={onButtonClick(id)}
           />
           {emojiOutside.has && (
-            <RoundEmoji style={emojiOutside.style} img={emojiOutside.url} />
+            <RoundEmoji
+              style={emojiOutside.style}
+              img={emojiOutside.url}
+              onEmojiClick={onEmojiClick(id)}
+            />
           )}
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  userWishes: state.user.wishes,
+});
+
+export default connect(mapStateToProps)(Wish);

@@ -7,6 +7,7 @@ import './RoundEmoji.module.scss';
 interface IProps {
   style?: RoundEmojiStyles;
   img: any;
+  onEmojiClick: (any) => any;
 }
 
 export default class RoundEmoji extends React.Component<IProps> {
@@ -15,10 +16,12 @@ export default class RoundEmoji extends React.Component<IProps> {
   };
 
   render() {
-    const { style, img } = this.props;
+    const { style, img, onEmojiClick } = this.props;
 
     return (
-      <div styleName={cn('round-emoji', style ? `round-emoji_${style}` : '')}>
+      <div
+        onClick={onEmojiClick}
+        styleName={cn('round-emoji', style ? `round-emoji_${style}` : '')}>
         <img
           src={img}
           styleName={cn(

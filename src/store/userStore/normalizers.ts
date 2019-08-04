@@ -30,5 +30,21 @@ export const normalizeUserWishes = rawResult => {
 };
 
 export const normalizeUserGifts = rawResult => {
-
-}
+  return rawResult.reduce(
+    (acc, el) => ({
+      ...acc,
+      giftsIds: [...acc.giftsIds, el._id],
+      gifts: {
+        ...acc.gifts,
+        [el._id]: {
+          img: el.img_url,
+          title: el.product_name,
+          prize: `${el.price} ₽`,
+          description: el.discription,
+          receiverFriendId: el.dest_id,
+        },
+      },
+    }),
+    { gifts: {}, giftsIds: [] }
+  );
+};

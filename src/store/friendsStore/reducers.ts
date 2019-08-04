@@ -1,11 +1,13 @@
-import {IReducer, IUser, IWish} from 'config/interfaces';
+import { IReducer, IUser, IWish } from 'config/interfaces';
 
 import {
+  GET_FRIEND_GIFTS_SUCCESS,
+  GET_FRIEND_WISHES_SUCCESS,
   INIT_FRIENDS_ERROR,
   INIT_FRIENDS_SUCCESS,
   SEARCH_FRIENDS_ERROR,
   SEARCH_FRIENDS_INIT,
-  SEARCH_FRIENDS_SUCCESS
+  SEARCH_FRIENDS_SUCCESS,
 } from './actions';
 
 interface IFriendsStore {
@@ -87,6 +89,18 @@ const friendsReducer: IReducer = (state = initialState, { payload, type }) => {
     case SEARCH_FRIENDS_ERROR:
       console.log(type);
       return state;
+    case GET_FRIEND_WISHES_SUCCESS:
+      return {
+        ...state,
+        wishes: payload.wishes,
+        wishesIds: payload.wishesIds,
+      };
+    case GET_FRIEND_GIFTS_SUCCESS:
+      return {
+        ...state,
+        gifts: payload.gifts,
+        giftsIds: payload.giftsIds,
+      };
     default:
       return state;
   }
